@@ -1,0 +1,9 @@
+include: ../analysis_options.yaml
+
+linter:
+  rules:
+    # Tests state their inputs in full even when a value happens to match a
+    # default. `targetSets: 3` next to three assertions documents the scenario;
+    # eliding it because the default agrees today makes the test silently
+    # depend on that default staying put.
+    avoid_redundant_argument_values: false

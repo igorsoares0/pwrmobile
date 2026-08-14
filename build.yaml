@@ -1,0 +1,19 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          # Store DateTime as ISO-8601 UTC text rather than Unix seconds.
+          #
+          # Two reasons, both about sync: the values go into sync payloads
+          # verbatim with no conversion step, and text keeps sub-second
+          # precision — `updatedAt` is the tiebreaker in conflict resolution
+          # (spec §8), and second-granularity timestamps tie far too often when
+          # a user checks off several sets in quick succession.
+          store_date_time_values_as_text: true
+
+          # Make generated row classes `Insertable`, so a row can be handed
+          # straight to an insert or update without hand-building a companion.
+          # The Phase 3 pull path upserts whole rows, and that is exactly the
+          # shape it needs.
+          write_to_columns_mixins: true

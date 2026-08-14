@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(flutter --version)",
+      "Bash(cmd.exe /c \"flutter --version\")",
+      "Bash(curl -s \"https://pub.dev/api/packages/sqlite3_flutter_libs\")",
+      "Bash(python3 -c ' *)",
+      "Bash(curl -sI \"https://raw.githubusercontent.com/google/fonts/main/ofl/poppins/Poppins-Regular.ttf\")",
+      "Bash(curl -s \"https://api.github.com/repos/google/fonts/contents/ofl/azeretmono\")",
+      "Bash(python3 -c \"import sys,json;print\\([f['name'] for f in json.load\\(sys.stdin\\)]\\)\")",
+      "Bash(cmd.exe /c \"flutter pub get\")",
+      "Bash(python3 *)",
+      "Bash(cmd.exe /c \"flutter analyze\")",
+      "Bash(cmd.exe /c \"dart format lib test\")",
+      "Bash(cmd.exe /c \"flutter test\")",
+      "Bash(cmd.exe /c \"dart run build_runner build --delete-conflicting-outputs\")",
+      "Bash(grep -oE \"CREATE TABLE [a-z_]+ \\\\\\(.{0,200}\" lib/core/database/app_database.g.dart)",
+      "Bash(cmd.exe /c \"flutter test test/core/database/schema_test.dart\")",
+      "Bash(cmd.exe /c \"flutter test test/core/database/repositories/repository_test.dart\")",
+      "WebSearch",
+      "WebFetch(domain:exercise-database.zenithfits.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(curl -s \"https://api.github.com/repos/hasaneyldrm/exercises-dataset/contents/\")",
+      "Bash(curl -s \"https://api.github.com/repos/hasaneyldrm/exercises-dataset/contents/data\")",
+      "Bash(curl -sL https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.schema.json -o /tmp/claude-1000/-mnt-c-allsaas-powerapp-pwrmobile/6f164196-37e8-4fcc-a7a8-ec71dae136bb/scratchpad/schema.json)",
+      "Bash(cmd.exe /c \"flutter test test/features/home/home_screen_test.dart\")",
+      "Bash([ -s \"$f\" ])",
+      "Bash(cmd.exe /c \"flutter test test/features/home/home_screen_test.dart --plain-name \\\\\"a fresh install\\\\\"\")",
+      "Bash(cmd.exe *)",
+      "Bash([ -s \"$L\" ])",
+      "Bash(grep -viE \"^$|l10n.yaml|instead|delete\")",
+      "Read(//mnt/c/Users/igors/AppData/Local/Pub/Cache/hosted/pub.dev/share_plus-13.3.0/lib/**)"
+    ]
+  }
+}

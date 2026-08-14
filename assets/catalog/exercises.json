@@ -1,0 +1,1481 @@
+{
+  "version": 1,
+  "locales": [
+    "en",
+    "pt"
+  ],
+  "fallbackLocale": "en",
+  "attribution": "Exercise metadata curated from hasaneyldrm/exercises-dataset (MIT). Media is NOT bundled: the upstream GIFs are © Gym Visual and require a separate commercial licence. `source.mediaId` is retained so media can be attached later without touching the catalogue.",
+  "exercises": [
+    {
+      "slug": "barbell-bench-press",
+      "muscleGroup": "chest",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Bench Press",
+        "pt": "Supino reto com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0025",
+        "mediaId": "EIeI8Vf",
+        "name": "barbell bench press"
+      }
+    },
+    {
+      "slug": "dumbbell-bench-press",
+      "muscleGroup": "chest",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Bench Press",
+        "pt": "Supino reto com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0289",
+        "mediaId": "SpYC0Kp",
+        "name": "dumbbell bench press"
+      }
+    },
+    {
+      "slug": "incline-barbell-bench-press",
+      "muscleGroup": "chest",
+      "equipment": "barbell",
+      "names": {
+        "en": "Incline Barbell Bench Press",
+        "pt": "Supino inclinado com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0047",
+        "mediaId": "3TZduzM",
+        "name": "barbell incline bench press"
+      }
+    },
+    {
+      "slug": "incline-dumbbell-press",
+      "muscleGroup": "chest",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Incline Dumbbell Press",
+        "pt": "Supino inclinado com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0314",
+        "mediaId": "ns0SIbU",
+        "name": "dumbbell incline bench press"
+      }
+    },
+    {
+      "slug": "decline-barbell-bench-press",
+      "muscleGroup": "chest",
+      "equipment": "barbell",
+      "names": {
+        "en": "Decline Barbell Bench Press",
+        "pt": "Supino declinado com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0033",
+        "mediaId": "GrO65fd",
+        "name": "barbell decline bench press"
+      }
+    },
+    {
+      "slug": "dumbbell-fly",
+      "muscleGroup": "chest",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Fly",
+        "pt": "Crucifixo com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0308",
+        "mediaId": "yz9nUhF",
+        "name": "dumbbell fly"
+      }
+    },
+    {
+      "slug": "incline-dumbbell-fly",
+      "muscleGroup": "chest",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Incline Dumbbell Fly",
+        "pt": "Crucifixo inclinado"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0319",
+        "mediaId": "ESOd5Pl",
+        "name": "dumbbell incline fly"
+      }
+    },
+    {
+      "slug": "cable-crossover",
+      "muscleGroup": "chest",
+      "equipment": "cable",
+      "names": {
+        "en": "Cable Crossover",
+        "pt": "Crossover"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0155",
+        "mediaId": "0CXGHya",
+        "name": "cable cross-over variation"
+      }
+    },
+    {
+      "slug": "pec-deck-fly",
+      "muscleGroup": "chest",
+      "equipment": "machine",
+      "names": {
+        "en": "Pec Deck Fly",
+        "pt": "Voador (peck deck)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0596",
+        "mediaId": "v3xmPAR",
+        "name": "lever seated fly"
+      }
+    },
+    {
+      "slug": "push-up",
+      "muscleGroup": "chest",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Push-Up",
+        "pt": "Flexão de braço"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0662",
+        "mediaId": "I4hDWkc",
+        "name": "push-up"
+      }
+    },
+    {
+      "slug": "machine-chest-press",
+      "muscleGroup": "chest",
+      "equipment": "machine",
+      "names": {
+        "en": "Machine Chest Press",
+        "pt": "Supino máquina"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0577",
+        "mediaId": "T0yTjgW",
+        "name": "lever chest press"
+      }
+    },
+    {
+      "slug": "chest-dip",
+      "muscleGroup": "chest",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Chest Dip",
+        "pt": "Mergulho (paralelas)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0251",
+        "mediaId": "9WTm7dq",
+        "name": "chest dip"
+      }
+    },
+    {
+      "slug": "pull-up",
+      "muscleGroup": "back",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Pull-Up",
+        "pt": "Barra fixa (pronada)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0652",
+        "mediaId": "lBDjFxJ",
+        "name": "pull-up"
+      }
+    },
+    {
+      "slug": "chin-up",
+      "muscleGroup": "back",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Chin-Up",
+        "pt": "Barra fixa (supinada)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1326",
+        "mediaId": "T2mxWqc",
+        "name": "chin-up"
+      }
+    },
+    {
+      "slug": "lat-pulldown",
+      "muscleGroup": "back",
+      "equipment": "cable",
+      "names": {
+        "en": "Lat Pulldown",
+        "pt": "Puxada frontal"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0818",
+        "mediaId": "rkg41Fb",
+        "name": "twin handle parallel grip lat pulldown"
+      }
+    },
+    {
+      "slug": "barbell-bent-over-row",
+      "muscleGroup": "back",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Bent Over Row",
+        "pt": "Remada curvada com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0027",
+        "mediaId": "eZyBC3j",
+        "name": "barbell bent over row"
+      }
+    },
+    {
+      "slug": "one-arm-dumbbell-row",
+      "muscleGroup": "back",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "One-Arm Dumbbell Row",
+        "pt": "Remada unilateral com halter"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0327",
+        "mediaId": "7vG5o25",
+        "name": "dumbbell incline row"
+      }
+    },
+    {
+      "slug": "seated-cable-row",
+      "muscleGroup": "back",
+      "equipment": "cable",
+      "names": {
+        "en": "Seated Cable Row",
+        "pt": "Remada baixa"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0861",
+        "mediaId": "fUBheHs",
+        "name": "cable seated row"
+      }
+    },
+    {
+      "slug": "t-bar-row",
+      "muscleGroup": "back",
+      "equipment": "barbell",
+      "names": {
+        "en": "T-Bar Row",
+        "pt": "Remada cavalinho"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1349",
+        "mediaId": "BgljGjd",
+        "name": "lever reverse t-bar row"
+      }
+    },
+    {
+      "slug": "dumbbell-pullover",
+      "muscleGroup": "back",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Pullover",
+        "pt": "Pullover"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0375",
+        "mediaId": "9XjtHvS",
+        "name": "dumbbell pullover"
+      }
+    },
+    {
+      "slug": "barbell-deadlift",
+      "muscleGroup": "back",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Deadlift",
+        "pt": "Levantamento terra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0032",
+        "mediaId": "ila4NZS",
+        "name": "barbell deadlift"
+      }
+    },
+    {
+      "slug": "barbell-shrug",
+      "muscleGroup": "back",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Shrug",
+        "pt": "Encolhimento com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0095",
+        "mediaId": "dG7tG5y",
+        "name": "barbell shrug"
+      }
+    },
+    {
+      "slug": "back-extension",
+      "muscleGroup": "back",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Back Extension",
+        "pt": "Extensão lombar"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0489",
+        "mediaId": "zhMwOwE",
+        "name": "hyperextension"
+      }
+    },
+    {
+      "slug": "straight-arm-pulldown",
+      "muscleGroup": "back",
+      "equipment": "cable",
+      "names": {
+        "en": "Straight Arm Pulldown",
+        "pt": "Pulldown com braços estendidos"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0238",
+        "mediaId": "x69MAlq",
+        "name": "cable straight arm pulldown"
+      }
+    },
+    {
+      "slug": "inverted-row",
+      "muscleGroup": "back",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Inverted Row",
+        "pt": "Remada invertida"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0499",
+        "mediaId": "bZGHsAZ",
+        "name": "inverted row"
+      }
+    },
+    {
+      "slug": "barbell-overhead-press",
+      "muscleGroup": "shoulders",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Overhead Press",
+        "pt": "Desenvolvimento com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0091",
+        "mediaId": "kTbSH9h",
+        "name": "barbell seated overhead press"
+      }
+    },
+    {
+      "slug": "dumbbell-shoulder-press",
+      "muscleGroup": "shoulders",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Shoulder Press",
+        "pt": "Desenvolvimento com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0405",
+        "mediaId": "znQUdHY",
+        "name": "dumbbell seated shoulder press"
+      }
+    },
+    {
+      "slug": "arnold-press",
+      "muscleGroup": "shoulders",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Arnold Press",
+        "pt": "Desenvolvimento Arnold"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2137",
+        "mediaId": "Xy4jlWA",
+        "name": "dumbbell arnold press"
+      }
+    },
+    {
+      "slug": "dumbbell-lateral-raise",
+      "muscleGroup": "shoulders",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Lateral Raise",
+        "pt": "Elevação lateral"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0334",
+        "mediaId": "DsgkuIt",
+        "name": "dumbbell lateral raise"
+      }
+    },
+    {
+      "slug": "cable-lateral-raise",
+      "muscleGroup": "shoulders",
+      "equipment": "cable",
+      "names": {
+        "en": "Cable Lateral Raise",
+        "pt": "Elevação lateral na polia"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0178",
+        "mediaId": "goJ6ezq",
+        "name": "cable lateral raise"
+      }
+    },
+    {
+      "slug": "dumbbell-front-raise",
+      "muscleGroup": "shoulders",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Front Raise",
+        "pt": "Elevação frontal"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0310",
+        "mediaId": "3eGE2JC",
+        "name": "dumbbell front raise"
+      }
+    },
+    {
+      "slug": "dumbbell-reverse-fly",
+      "muscleGroup": "shoulders",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Reverse Fly",
+        "pt": "Crucifixo inverso"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0383",
+        "mediaId": "EAs3xL9",
+        "name": "dumbbell reverse fly"
+      }
+    },
+    {
+      "slug": "barbell-upright-row",
+      "muscleGroup": "shoulders",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Upright Row",
+        "pt": "Remada alta"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0120",
+        "mediaId": "UDlhcO8",
+        "name": "barbell upright row"
+      }
+    },
+    {
+      "slug": "face-pull",
+      "muscleGroup": "shoulders",
+      "equipment": "cable",
+      "names": {
+        "en": "Face Pull",
+        "pt": "Face pull"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0203",
+        "mediaId": "wqNPGCg",
+        "name": "cable rear delt row (with rope)"
+      }
+    },
+    {
+      "slug": "machine-shoulder-press",
+      "muscleGroup": "shoulders",
+      "equipment": "machine",
+      "names": {
+        "en": "Machine Shoulder Press",
+        "pt": "Desenvolvimento máquina"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0603",
+        "mediaId": "67n3r98",
+        "name": "lever shoulder press"
+      }
+    },
+    {
+      "slug": "barbell-curl",
+      "muscleGroup": "biceps",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Curl",
+        "pt": "Rosca direta com barra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0031",
+        "mediaId": "25GPyDY",
+        "name": "barbell curl"
+      }
+    },
+    {
+      "slug": "dumbbell-curl",
+      "muscleGroup": "biceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Curl",
+        "pt": "Rosca direta com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1664",
+        "mediaId": "qAmNMJY",
+        "name": "dumbbell high curl"
+      }
+    },
+    {
+      "slug": "hammer-curl",
+      "muscleGroup": "biceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Hammer Curl",
+        "pt": "Rosca martelo"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0313",
+        "mediaId": "slDvUAU",
+        "name": "dumbbell hammer curl"
+      }
+    },
+    {
+      "slug": "preacher-curl",
+      "muscleGroup": "biceps",
+      "equipment": "barbell",
+      "names": {
+        "en": "Preacher Curl",
+        "pt": "Rosca scott"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0070",
+        "mediaId": "qOgPVf6",
+        "name": "barbell preacher curl"
+      }
+    },
+    {
+      "slug": "incline-dumbbell-curl",
+      "muscleGroup": "biceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Incline Dumbbell Curl",
+        "pt": "Rosca inclinada"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0318",
+        "mediaId": "ae9UoXQ",
+        "name": "dumbbell incline curl"
+      }
+    },
+    {
+      "slug": "cable-curl",
+      "muscleGroup": "biceps",
+      "equipment": "cable",
+      "names": {
+        "en": "Cable Curl",
+        "pt": "Rosca na polia"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0868",
+        "mediaId": "G08RZcQ",
+        "name": "cable curl"
+      }
+    },
+    {
+      "slug": "concentration-curl",
+      "muscleGroup": "biceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Concentration Curl",
+        "pt": "Rosca concentrada"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0297",
+        "mediaId": "gvsWLQw",
+        "name": "dumbbell concentration curl"
+      }
+    },
+    {
+      "slug": "ez-bar-curl",
+      "muscleGroup": "biceps",
+      "equipment": "barbell",
+      "names": {
+        "en": "EZ-Bar Curl",
+        "pt": "Rosca com barra W"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0447",
+        "mediaId": "6TG6x2w",
+        "name": "ez barbell curl"
+      }
+    },
+    {
+      "slug": "rope-triceps-pushdown",
+      "muscleGroup": "triceps",
+      "equipment": "cable",
+      "names": {
+        "en": "Rope Triceps Pushdown",
+        "pt": "Tríceps corda"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0200",
+        "mediaId": "dU605di",
+        "name": "cable pushdown (with rope attachment)"
+      }
+    },
+    {
+      "slug": "triceps-pushdown",
+      "muscleGroup": "triceps",
+      "equipment": "cable",
+      "names": {
+        "en": "Triceps Pushdown",
+        "pt": "Tríceps polia (barra)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0201",
+        "mediaId": "3ZflifB",
+        "name": "cable pushdown"
+      }
+    },
+    {
+      "slug": "skull-crusher",
+      "muscleGroup": "triceps",
+      "equipment": "barbell",
+      "names": {
+        "en": "Skull Crusher",
+        "pt": "Tríceps testa"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0060",
+        "mediaId": "h8LFzo9",
+        "name": "barbell lying triceps extension skull crusher"
+      }
+    },
+    {
+      "slug": "overhead-triceps-extension",
+      "muscleGroup": "triceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Overhead Triceps Extension",
+        "pt": "Tríceps francês"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0092",
+        "mediaId": "5uFK1xr",
+        "name": "barbell seated overhead triceps extension"
+      }
+    },
+    {
+      "slug": "close-grip-bench-press",
+      "muscleGroup": "triceps",
+      "equipment": "barbell",
+      "names": {
+        "en": "Close-Grip Bench Press",
+        "pt": "Supino fechado"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0030",
+        "mediaId": "J6Dx1Mu",
+        "name": "barbell close-grip bench press"
+      }
+    },
+    {
+      "slug": "triceps-kickback",
+      "muscleGroup": "triceps",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Triceps Kickback",
+        "pt": "Tríceps coice"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0333",
+        "mediaId": "W6PxUkg",
+        "name": "dumbbell kickback"
+      }
+    },
+    {
+      "slug": "bench-dip",
+      "muscleGroup": "triceps",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Bench Dip",
+        "pt": "Mergulho no banco"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1753",
+        "mediaId": "DQ0cqkT",
+        "name": "three bench dip"
+      }
+    },
+    {
+      "slug": "triceps-dip",
+      "muscleGroup": "triceps",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Triceps Dip",
+        "pt": "Paralelas para tríceps"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0814",
+        "mediaId": "X6C6i5Y",
+        "name": "triceps dip"
+      }
+    },
+    {
+      "slug": "barbell-wrist-curl",
+      "muscleGroup": "forearms",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Wrist Curl",
+        "pt": "Rosca de punho"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0126",
+        "mediaId": "82LxxkW",
+        "name": "barbell wrist curl"
+      }
+    },
+    {
+      "slug": "reverse-curl",
+      "muscleGroup": "forearms",
+      "equipment": "barbell",
+      "names": {
+        "en": "Reverse Curl",
+        "pt": "Rosca inversa"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0080",
+        "mediaId": "xNrS20v",
+        "name": "barbell reverse curl"
+      }
+    },
+    {
+      "slug": "farmers-walk",
+      "muscleGroup": "forearms",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Farmer's Walk",
+        "pt": "Caminhada do fazendeiro"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2133",
+        "mediaId": "qPEzJjA",
+        "name": "farmers walk"
+      }
+    },
+    {
+      "slug": "barbell-back-squat",
+      "muscleGroup": "quads",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Back Squat",
+        "pt": "Agachamento livre"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0043",
+        "mediaId": "qXTaZnJ",
+        "name": "barbell full squat"
+      }
+    },
+    {
+      "slug": "front-squat",
+      "muscleGroup": "quads",
+      "equipment": "barbell",
+      "names": {
+        "en": "Front Squat",
+        "pt": "Agachamento frontal"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0042",
+        "mediaId": "zG0zs85",
+        "name": "barbell front squat"
+      }
+    },
+    {
+      "slug": "leg-press",
+      "muscleGroup": "quads",
+      "equipment": "machine",
+      "names": {
+        "en": "Leg Press",
+        "pt": "Leg press"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0739",
+        "mediaId": "10Z2DXU",
+        "name": "sled 45в° leg press"
+      }
+    },
+    {
+      "slug": "hack-squat",
+      "muscleGroup": "quads",
+      "equipment": "machine",
+      "names": {
+        "en": "Hack Squat",
+        "pt": "Hack squat"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0743",
+        "mediaId": "Qa55kX1",
+        "name": "sled hack squat"
+      }
+    },
+    {
+      "slug": "leg-extension",
+      "muscleGroup": "quads",
+      "equipment": "machine",
+      "names": {
+        "en": "Leg Extension",
+        "pt": "Cadeira extensora"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0585",
+        "mediaId": "my33uHU",
+        "name": "lever leg extension"
+      }
+    },
+    {
+      "slug": "goblet-squat",
+      "muscleGroup": "quads",
+      "equipment": "kettlebell",
+      "names": {
+        "en": "Goblet Squat",
+        "pt": "Agachamento goblet"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0534",
+        "mediaId": "ZA8b5hc",
+        "name": "kettlebell goblet squat"
+      }
+    },
+    {
+      "slug": "bulgarian-split-squat",
+      "muscleGroup": "quads",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Bulgarian Split Squat",
+        "pt": "Agachamento búlgaro"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0410",
+        "mediaId": "qx4fgX7",
+        "name": "dumbbell single leg split squat"
+      }
+    },
+    {
+      "slug": "dumbbell-lunge",
+      "muscleGroup": "quads",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Dumbbell Lunge",
+        "pt": "Afundo com halteres"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0336",
+        "mediaId": "RRWFUcw",
+        "name": "dumbbell lunge"
+      }
+    },
+    {
+      "slug": "walking-lunge",
+      "muscleGroup": "quads",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Walking Lunge",
+        "pt": "Afundo caminhando"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1460",
+        "mediaId": "IZVHb27",
+        "name": "walking lunge"
+      }
+    },
+    {
+      "slug": "step-up",
+      "muscleGroup": "quads",
+      "equipment": "dumbbell",
+      "names": {
+        "en": "Step-Up",
+        "pt": "Subida no banco"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0431",
+        "mediaId": "aXtJhlg",
+        "name": "dumbbell step-up"
+      }
+    },
+    {
+      "slug": "smith-machine-squat",
+      "muscleGroup": "quads",
+      "equipment": "machine",
+      "names": {
+        "en": "Smith Machine Squat",
+        "pt": "Agachamento no Smith"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0770",
+        "mediaId": "jFtipLl",
+        "name": "smith squat"
+      }
+    },
+    {
+      "slug": "romanian-deadlift",
+      "muscleGroup": "hamstrings",
+      "equipment": "barbell",
+      "names": {
+        "en": "Romanian Deadlift",
+        "pt": "Levantamento terra romeno"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0085",
+        "mediaId": "wQ2c4XD",
+        "name": "barbell romanian deadlift"
+      }
+    },
+    {
+      "slug": "stiff-leg-deadlift",
+      "muscleGroup": "hamstrings",
+      "equipment": "barbell",
+      "names": {
+        "en": "Stiff Leg Deadlift",
+        "pt": "Stiff"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1009",
+        "mediaId": "kuMiR2T",
+        "name": "band stiff leg deadlift"
+      }
+    },
+    {
+      "slug": "lying-leg-curl",
+      "muscleGroup": "hamstrings",
+      "equipment": "machine",
+      "names": {
+        "en": "Lying Leg Curl",
+        "pt": "Mesa flexora"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0586",
+        "mediaId": "17lJ1kr",
+        "name": "lever lying leg curl"
+      }
+    },
+    {
+      "slug": "seated-leg-curl",
+      "muscleGroup": "hamstrings",
+      "equipment": "machine",
+      "names": {
+        "en": "Seated Leg Curl",
+        "pt": "Cadeira flexora"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0599",
+        "mediaId": "Zg3XY7P",
+        "name": "lever seated leg curl"
+      }
+    },
+    {
+      "slug": "good-morning",
+      "muscleGroup": "hamstrings",
+      "equipment": "barbell",
+      "names": {
+        "en": "Good Morning",
+        "pt": "Bom dia"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0044",
+        "mediaId": "XlZ4lAC",
+        "name": "barbell good morning"
+      }
+    },
+    {
+      "slug": "glute-ham-raise",
+      "muscleGroup": "hamstrings",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Glute-Ham Raise",
+        "pt": "Flexora nórdica"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "3193",
+        "mediaId": "Vvwjz6N",
+        "name": "glute-ham raise"
+      }
+    },
+    {
+      "slug": "barbell-hip-thrust",
+      "muscleGroup": "glutes",
+      "equipment": "barbell",
+      "names": {
+        "en": "Barbell Hip Thrust",
+        "pt": "Elevação pélvica"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "3236",
+        "mediaId": "Pjbc0Kt",
+        "name": "resistance band hip thrusts on knees (female)"
+      }
+    },
+    {
+      "slug": "glute-bridge",
+      "muscleGroup": "glutes",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Glute Bridge",
+        "pt": "Ponte de glúteo"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "3561",
+        "mediaId": "GibBPPg",
+        "name": "glute bridge march"
+      }
+    },
+    {
+      "slug": "sumo-deadlift",
+      "muscleGroup": "glutes",
+      "equipment": "barbell",
+      "names": {
+        "en": "Sumo Deadlift",
+        "pt": "Levantamento terra sumô"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0117",
+        "mediaId": "KgI0tqW",
+        "name": "barbell sumo deadlift"
+      }
+    },
+    {
+      "slug": "hip-abduction-machine",
+      "muscleGroup": "glutes",
+      "equipment": "machine",
+      "names": {
+        "en": "Hip Abduction Machine",
+        "pt": "Cadeira abdutora"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0597",
+        "mediaId": "CHpahtl",
+        "name": "lever seated hip abduction"
+      }
+    },
+    {
+      "slug": "cable-glute-kickback",
+      "muscleGroup": "glutes",
+      "equipment": "cable",
+      "names": {
+        "en": "Cable Glute Kickback",
+        "pt": "Coice na polia"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0860",
+        "mediaId": "HEJ6DIX",
+        "name": "cable kickback"
+      }
+    },
+    {
+      "slug": "standing-calf-raise",
+      "muscleGroup": "calves",
+      "equipment": "machine",
+      "names": {
+        "en": "Standing Calf Raise",
+        "pt": "Panturrilha em pé"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1375",
+        "mediaId": "yl2IYyy",
+        "name": "cable standing calf raise"
+      }
+    },
+    {
+      "slug": "seated-calf-raise",
+      "muscleGroup": "calves",
+      "equipment": "machine",
+      "names": {
+        "en": "Seated Calf Raise",
+        "pt": "Panturrilha sentado"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0594",
+        "mediaId": "bOOdeyc",
+        "name": "lever seated calf raise"
+      }
+    },
+    {
+      "slug": "donkey-calf-raise",
+      "muscleGroup": "calves",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Donkey Calf Raise",
+        "pt": "Panturrilha burrinho"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0284",
+        "mediaId": "u5ESqzH",
+        "name": "donkey calf raise"
+      }
+    },
+    {
+      "slug": "leg-press-calf-raise",
+      "muscleGroup": "calves",
+      "equipment": "machine",
+      "names": {
+        "en": "Leg Press Calf Raise",
+        "pt": "Panturrilha no leg press"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1391",
+        "mediaId": "ykHcWme",
+        "name": "sled calf press on leg press"
+      }
+    },
+    {
+      "slug": "plank",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Plank",
+        "pt": "Prancha"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "3665",
+        "mediaId": "hCjGsRQ",
+        "name": "power point plank"
+      }
+    },
+    {
+      "slug": "side-plank",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Side Plank",
+        "pt": "Prancha lateral"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0664",
+        "mediaId": "KhHJ338",
+        "name": "push-up to side plank"
+      }
+    },
+    {
+      "slug": "crunch",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Crunch",
+        "pt": "Abdominal supra"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2429",
+        "mediaId": "FFRP97T",
+        "name": "frog crunch"
+      }
+    },
+    {
+      "slug": "sit-up",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Sit-Up",
+        "pt": "Abdominal completo"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0001",
+        "mediaId": "2gPfomN",
+        "name": "3/4 sit-up"
+      }
+    },
+    {
+      "slug": "hanging-leg-raise",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Hanging Leg Raise",
+        "pt": "Elevação de pernas suspenso"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0472",
+        "mediaId": "I3tsCnC",
+        "name": "hanging leg raise"
+      }
+    },
+    {
+      "slug": "russian-twist",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Russian Twist",
+        "pt": "Rotação russa"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0687",
+        "mediaId": "XVDdcoj",
+        "name": "russian twist"
+      }
+    },
+    {
+      "slug": "cable-crunch",
+      "muscleGroup": "core",
+      "equipment": "cable",
+      "names": {
+        "en": "Cable Crunch",
+        "pt": "Abdominal na polia"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0175",
+        "mediaId": "WW95auq",
+        "name": "cable kneeling crunch"
+      }
+    },
+    {
+      "slug": "ab-wheel-rollout",
+      "muscleGroup": "core",
+      "equipment": "other",
+      "names": {
+        "en": "Ab Wheel Rollout",
+        "pt": "Roda abdominal"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0857",
+        "mediaId": "NAgVB3t",
+        "name": "wheel rollerout"
+      }
+    },
+    {
+      "slug": "mountain-climber",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Mountain Climber",
+        "pt": "Escalador"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0630",
+        "mediaId": "RJgzwny",
+        "name": "mountain climber"
+      }
+    },
+    {
+      "slug": "bicycle-crunch",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Bicycle Crunch",
+        "pt": "Abdominal bicicleta"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0972",
+        "mediaId": "tZkGYZ9",
+        "name": "band bicycle crunch"
+      }
+    },
+    {
+      "slug": "dead-bug",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Dead Bug",
+        "pt": "Dead bug"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0276",
+        "mediaId": "iny3m5y",
+        "name": "dead bug"
+      }
+    },
+    {
+      "slug": "lying-leg-raise",
+      "muscleGroup": "core",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Lying Leg Raise",
+        "pt": "Elevação de pernas no solo"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0620",
+        "mediaId": "WhuFnR7",
+        "name": "lying leg raise flat bench"
+      }
+    },
+    {
+      "slug": "treadmill-run",
+      "muscleGroup": "cardio",
+      "equipment": "machine",
+      "names": {
+        "en": "Treadmill",
+        "pt": "Esteira"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "3666",
+        "mediaId": "rjiM4L3",
+        "name": "walking on incline treadmill"
+      }
+    },
+    {
+      "slug": "stationary-bike",
+      "muscleGroup": "cardio",
+      "equipment": "machine",
+      "names": {
+        "en": "Stationary Bike",
+        "pt": "Bicicleta ergométrica"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "0798",
+        "mediaId": "a8VDgLw",
+        "name": "stationary bike walk"
+      }
+    },
+    {
+      "slug": "rowing-machine",
+      "muscleGroup": "cardio",
+      "equipment": "machine",
+      "names": {
+        "en": "Cross Trainer",
+        "pt": "Ergômetro (cross trainer)"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2331",
+        "mediaId": "XSCHmiI",
+        "name": "cycle cross trainer"
+      }
+    },
+    {
+      "slug": "elliptical",
+      "muscleGroup": "cardio",
+      "equipment": "machine",
+      "names": {
+        "en": "Elliptical",
+        "pt": "Elíptico"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2141",
+        "mediaId": "rjtuP6X",
+        "name": "walk elliptical cross trainer"
+      }
+    },
+    {
+      "slug": "jump-rope",
+      "muscleGroup": "cardio",
+      "equipment": "other",
+      "names": {
+        "en": "Jump Rope",
+        "pt": "Pular corda"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "2612",
+        "mediaId": "e1e76I2",
+        "name": "jump rope"
+      }
+    },
+    {
+      "slug": "burpee",
+      "muscleGroup": "cardio",
+      "equipment": "bodyweight",
+      "names": {
+        "en": "Burpee",
+        "pt": "Burpee"
+      },
+      "source": {
+        "dataset": "hasaneyldrm/exercises-dataset",
+        "id": "1160",
+        "mediaId": "dK9394r",
+        "name": "burpee"
+      }
+    }
+  ]
+}

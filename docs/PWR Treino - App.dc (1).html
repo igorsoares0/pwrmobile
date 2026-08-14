@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#eceae5;font-family:'Poppins',sans-serif;display:flex;align-items:flex-start;justify-content:center;min-height:100vh}
+a{color:#8b2fc9}a:hover{color:#b06ae8}
+::-webkit-scrollbar{width:0;height:0}
+</style></helmet>
+
+<div style="padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:14px">
+<div style="font:500 11px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:rgba(0,0,0,.45)">PWR TREINO · PROTÓTIPO CLICÁVEL · 7a</div>
+
+<div style="width:390px;height:844px;border-radius:44px;overflow:hidden;background:#121212;color:#e6e4e4;display:flex;flex-direction:column;box-shadow:0 2px 4px rgba(0,0,0,.08),0 18px 40px -12px rgba(0,0,0,.35)">
+
+<div style="display:flex;justify-content:space-between;padding:16px 22px 0;font:500 11px/1 'Azeret Mono',monospace;color:#9a9a9a;flex:none"><span>9:41</span><span>100%</span></div>
+
+<div style="flex:1;overflow-y:auto">
+
+<sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ true }}">
+<div style="padding:60px 26px 30px;display:flex;flex-direction:column;height:100%;box-sizing:border-box">
+  <div style="font:700 22px/1 'Poppins',sans-serif;letter-spacing:.14em">PWR</div>
+  <h1 style="margin:44px 0 0;font:700 32px/1.2 'Poppins',sans-serif;letter-spacing:-.01em">Registre o treino<br>em <span style="color:#b06ae8">três toques</span>.</h1>
+  <p style="margin:18px 0 0;font:400 14px/1.6 'Poppins',sans-serif;color:#9a9a9a;text-wrap:pretty">Carga, repetições e descanso. Sem rede social, sem distração — só o que você levantou.</p>
+  <div style="display:flex;flex-direction:column;gap:14px;margin-top:40px">
+    <div style="display:flex;gap:14px;align-items:flex-start"><span style="font:500 10px/1 'Azeret Mono',monospace;color:#b06ae8;padding-top:4px">01</span><div><div style="font:500 14px/1 'Poppins',sans-serif">Escolha a rotina</div><div style="font:400 12px/1.5 'Poppins',sans-serif;color:#9a9a9a;margin-top:5px">Até 3 fichas no plano Free.</div></div></div>
+    <div style="display:flex;gap:14px;align-items:flex-start"><span style="font:500 10px/1 'Azeret Mono',monospace;color:#b06ae8;padding-top:4px">02</span><div><div style="font:500 14px/1 'Poppins',sans-serif">Marque cada série</div><div style="font:400 12px/1.5 'Poppins',sans-serif;color:#9a9a9a;margin-top:5px">O app sugere a carga anterior.</div></div></div>
+    <div style="display:flex;gap:14px;align-items:flex-start"><span style="font:500 10px/1 'Azeret Mono',monospace;color:#b06ae8;padding-top:4px">03</span><div><div style="font:500 14px/1 'Poppins',sans-serif">Acompanhe a evolução</div><div style="font:400 12px/1.5 'Poppins',sans-serif;color:#9a9a9a;margin-top:5px">Volume, recordes e 1RM estimado.</div></div></div>
+  </div>
+  <div style="margin-top:auto;display:flex;flex-direction:column;gap:10px">
+    <button onClick="{{ goHome }}" style="width:100%;padding:17px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:600 14px 'Poppins',sans-serif;cursor:pointer">Começar</button>
+    <button onClick="{{ goHome }}" style="width:100%;padding:17px;border:1px solid #3a3a3a;border-radius:999px;background:transparent;color:#e6e4e4;font:500 13px 'Poppins',sans-serif;cursor:pointer">Já tenho conta</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <span style="font:700 18px/1 'Poppins',sans-serif;letter-spacing:.14em">PWR</span>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.1em;color:#9a9a9a;border:1px solid #2a2a2a;padding:7px 12px;border-radius:999px">SÃO LEOPOLDO</span>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.18em;color:#9a9a9a;margin-top:26px">TERÇA · SEMANA 12</div>
+  <h1 style="margin:12px 0 0;font:700 28px/1.2 'Poppins',sans-serif;letter-spacing:-.01em">Bom treino, Rafa.</h1>
+  <div style="margin-top:22px;background:#1c1c1c;border-radius:20px;padding:20px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+    <div><div style="font:600 22px/1 'Azeret Mono',monospace;color:#b06ae8">4</div><div style="font:400 9px/1.4 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">TREINOS<br>NA SEMANA</div></div>
+    <div><div style="font:600 22px/1 'Azeret Mono',monospace">18.4<span style="font-size:12px;color:#9a9a9a">t</span></div><div style="font:400 9px/1.4 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">VOLUME<br>TOTAL</div></div>
+    <div><div style="font:600 22px/1 'Azeret Mono',monospace">3</div><div style="font:400 9px/1.4 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">RECORDES<br>NOVOS</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
+    <span style="font:600 15px/1 'Poppins',sans-serif">Suas rotinas</span>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;color:#9a9a9a;letter-spacing:.1em">3/3 NO FREE</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-top:14px">
+    <div onClick="{{ goLive }}" style="padding:22px;background:#8b2fc9;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+      <div><div style="font:600 18px/1.3 'Poppins',sans-serif;color:#fff">Push A<br>Peito &amp; Tríceps</div><div style="font:500 10px/1 'Azeret Mono',monospace;margin-top:12px;color:rgba(255,255,255,.75)">6 EXERCÍCIOS · ~58 MIN</div></div>
+      <div style="width:48px;height:48px;border-radius:50%;background:#e6e4e4;color:#8b2fc9;display:flex;align-items:center;justify-content:center;font-size:15px">▶</div>
+    </div>
+    <div onClick="{{ goLive }}" style="padding:18px 20px;background:#1c1c1c;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+      <div><div style="font:600 16px/1 'Poppins',sans-serif">Pull B</div><div style="font:500 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">COSTAS &amp; BÍCEPS · 5 EX.</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div onClick="{{ goLive }}" style="padding:18px 20px;background:#1c1c1c;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+      <div><div style="font:600 16px/1 'Poppins',sans-serif">Legs</div><div style="font:500 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">POSTERIOR · 7 EX.</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div onClick="{{ goPaywall }}" style="padding:18px 20px;border:1px dashed #2a2a2a;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;color:#9a9a9a">
+      <div style="display:flex;gap:12px;align-items:center"><span style="font-size:13px">🔒</span><div><div style="font:500 14px/1 'Poppins',sans-serif">Nova rotina</div><div style="font:400 11px/1 'Poppins',sans-serif;margin-top:6px">Limite do plano Free atingido</div></div></div><span>→</span>
+    </div>
+  </div>
+  <div onClick="{{ goLibrary }}" style="margin-top:14px;padding:16px 20px;background:#1c1c1c;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+    <span style="font:500 13px/1 'Poppins',sans-serif">Biblioteca de exercícios</span><span style="color:#9a9a9a">→</span>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLibrary }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="display:flex;align-items:center;gap:14px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#9a9a9a">←</span><span style="font:600 17px/1 'Poppins',sans-serif">Biblioteca</span></div>
+  <div style="margin-top:18px;background:#1c1c1c;border-radius:999px;padding:13px 18px;font:400 13px/1 'Poppins',sans-serif;color:#6e6e6e">Buscar exercício…</div>
+  <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap">
+    <span style="font:500 11px 'Poppins',sans-serif;background:#8b2fc9;color:#fff;padding:8px 14px;border-radius:999px">Peito</span>
+    <span style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#9a9a9a;padding:8px 14px;border-radius:999px">Costas</span>
+    <span style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#9a9a9a;padding:8px 14px;border-radius:999px">Pernas</span>
+    <span style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#9a9a9a;padding:8px 14px;border-radius:999px">Ombro</span>
+    <span style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#9a9a9a;padding:8px 14px;border-radius:999px">Braço</span>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:24px">PEITO · 12 EXERCÍCIOS</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+    <div onClick="{{ goProgress }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px;cursor:pointer">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Supino reto</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">BARRA · 1RM 104KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Supino inclinado</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">HALTER · 1RM 72KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Crucifixo máquina</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">MÁQUINA · 1RM 58KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Crossover</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">POLIA · SEM REGISTRO</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div onClick="{{ goPaywall }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;border:1px dashed #2a2a2a;border-radius:16px;cursor:pointer;color:#9a9a9a">
+      <div style="display:flex;gap:12px;align-items:center"><span style="font-size:13px">🔒</span><div><div style="font:500 14px/1 'Poppins',sans-serif">Criar exercício próprio</div><div style="font:400 11px/1 'Poppins',sans-serif;margin-top:6px">Disponível no PRO</div></div></div><span>→</span>
+    </div>
+  </div>
+  <button onClick="{{ goBuilder }}" style="margin-top:20px;width:100%;padding:16px;border:1px solid #3a3a3a;border-radius:999px;background:transparent;color:#e6e4e4;font:500 13px 'Poppins',sans-serif;cursor:pointer">Adicionar à rotina</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBuilder }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="display:flex;align-items:center;gap:14px"><span onClick="{{ goHome }}" style="cursor:pointer;color:#9a9a9a">←</span><span style="font:600 17px/1 'Poppins',sans-serif">Editar rotina</span></div>
+  <div style="margin-top:20px;font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">NOME DA FICHA</div>
+  <div style="margin-top:10px;padding:14px 0;border-bottom:1px solid #2a2a2a;font:600 20px/1 'Poppins',sans-serif">Push A</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
+    <span style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">EXERCÍCIOS · 6</span>
+    <span style="font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a">arraste para reordenar</span>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+    <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;background:#1c1c1c;border-radius:16px">
+      <span style="color:#6e6e6e">⋮⋮</span><div style="flex:1"><div style="font:500 14px/1 'Poppins',sans-serif">Supino reto</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">4 SÉRIES · DESC. 90S</div></div><span style="color:#9a9a9a">✎</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;background:#1c1c1c;border-radius:16px;border-left:3px solid #8b2fc9">
+      <span style="color:#6e6e6e">⋮⋮</span><div style="flex:1"><div style="font:500 14px/1 'Poppins',sans-serif">Crucifixo inclinado</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#b06ae8;margin-top:7px">SUPERSÉRIE COM O PRÓXIMO</div></div><span style="color:#9a9a9a">✎</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;background:#1c1c1c;border-radius:16px;border-left:3px solid #8b2fc9">
+      <span style="color:#6e6e6e">⋮⋮</span><div style="flex:1"><div style="font:500 14px/1 'Poppins',sans-serif">Tríceps corda</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">3 SÉRIES · DESC. 60S</div></div><span style="color:#9a9a9a">✎</span>
+    </div>
+    <div onClick="{{ goLibrary }}" style="display:flex;align-items:center;gap:12px;padding:15px 18px;border:1px dashed #2a2a2a;border-radius:16px;color:#9a9a9a;cursor:pointer;font:500 13px 'Poppins',sans-serif">+ Adicionar exercício</div>
+  </div>
+  <div style="margin-top:22px;padding:18px 20px;background:#1c1c1c;border-radius:20px;display:flex;justify-content:space-between;align-items:center">
+    <div style="display:flex;gap:12px;align-items:center"><span style="font-size:13px">🔒</span><div><div style="font:500 13px/1 'Poppins',sans-serif">Supersérie e drop set</div><div style="font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a;margin-top:5px">Recursos PRO</div></div></div>
+    <button onClick="{{ goPaywall }}" style="padding:10px 16px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:500 11px 'Poppins',sans-serif;cursor:pointer">Liberar</button>
+  </div>
+  <button onClick="{{ goHome }}" style="margin-top:18px;width:100%;padding:17px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:600 14px 'Poppins',sans-serif;cursor:pointer">Salvar rotina</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isLive }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start">
+    <div><div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">EM ANDAMENTO · EX. 3 DE 6</div><div style="font:700 24px/1.1 'Poppins',sans-serif;margin-top:10px">Supino reto</div></div>
+    <div style="text-align:right"><div style="font:600 22px/1 'Azeret Mono',monospace;color:#b06ae8">42:07</div><div style="font:400 9px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:6px">TOTAL</div></div>
+  </div>
+  <div style="height:6px;background:#2a2a2a;margin-top:16px;border-radius:999px"><div style="width:62%;height:6px;background:#8b2fc9;border-radius:999px"></div></div>
+  <div style="display:flex;gap:8px;margin-top:16px">
+    <span style="font:500 10px 'Azeret Mono',monospace;background:#8b2fc9;color:#fff;padding:8px 12px;border-radius:999px">SUPERSÉRIE</span>
+    <span style="font:500 10px 'Azeret Mono',monospace;background:#1c1c1c;color:#9a9a9a;padding:8px 12px;border-radius:999px">ANTERIOR 4×8 · 80KG</span>
+    <span style="font:500 10px 'Azeret Mono',monospace;background:#1c1c1c;color:#9a9a9a;padding:8px 12px;border-radius:999px">1RM 101</span>
+  </div>
+  <div style="display:grid;grid-template-columns:34px 1fr 1fr 52px;gap:0 10px;padding:20px 0 8px;font:500 9px/1 'Azeret Mono',monospace;color:#9a9a9a;letter-spacing:.14em"><span>SÉRIE</span><span>KG</span><span>REPS</span><span style="text-align:right">OK</span></div>
+  <div style="display:flex;flex-direction:column;gap:8px">
+    <div style="display:grid;grid-template-columns:34px 1fr 1fr 52px;gap:0 10px;align-items:center;background:{{ rowBg0 }};border:1px solid {{ rowBd0 }};border-radius:16px;padding:13px 16px">
+      <span style="font:500 11px/1 'Azeret Mono',monospace;color:#b06ae8">W</span><span style="font:600 18px/1 'Azeret Mono',monospace">40</span><span style="font:600 18px/1 'Azeret Mono',monospace">12</span>
+      <button onClick="{{ toggle0 }}" style="justify-self:end;width:32px;height:32px;border-radius:50%;border:1px solid {{ dotBd0 }};background:{{ dotBg0 }};color:{{ dotFg0 }};font-size:13px;cursor:pointer">✓</button>
+    </div>
+    <div style="display:grid;grid-template-columns:34px 1fr 1fr 52px;gap:0 10px;align-items:center;background:{{ rowBg1 }};border:1px solid {{ rowBd1 }};border-radius:16px;padding:13px 16px">
+      <span style="font:500 11px/1 'Azeret Mono',monospace;color:#9a9a9a">1</span><span style="font:600 18px/1 'Azeret Mono',monospace">80</span><span style="font:600 18px/1 'Azeret Mono',monospace">8</span>
+      <button onClick="{{ toggle1 }}" style="justify-self:end;width:32px;height:32px;border-radius:50%;border:1px solid {{ dotBd1 }};background:{{ dotBg1 }};color:{{ dotFg1 }};font-size:13px;cursor:pointer">✓</button>
+    </div>
+    <div style="display:grid;grid-template-columns:34px 1fr 1fr 52px;gap:0 10px;align-items:center;background:{{ rowBg2 }};border:1px solid {{ rowBd2 }};border-radius:16px;padding:13px 16px">
+      <span style="font:500 11px/1 'Azeret Mono',monospace;color:#9a9a9a">2</span><span style="font:600 18px/1 'Azeret Mono',monospace">85</span><span style="font:600 18px/1 'Azeret Mono',monospace">6</span>
+      <button onClick="{{ toggle2 }}" style="justify-self:end;width:32px;height:32px;border-radius:50%;border:1px solid {{ dotBd2 }};background:{{ dotBg2 }};color:{{ dotFg2 }};font-size:13px;cursor:pointer">✓</button>
+    </div>
+    <div style="display:grid;grid-template-columns:34px 1fr 1fr 52px;gap:0 10px;align-items:center;background:{{ rowBg3 }};border:1px solid {{ rowBd3 }};border-radius:16px;padding:13px 16px">
+      <span style="font:500 11px/1 'Azeret Mono',monospace;color:#ff6b6b">F</span><span style="font:600 18px/1 'Azeret Mono',monospace">85</span><span style="font:600 18px/1 'Azeret Mono',monospace">4</span>
+      <button onClick="{{ toggle3 }}" style="justify-self:end;width:32px;height:32px;border-radius:50%;border:1px solid {{ dotBd3 }};background:{{ dotBg3 }};color:{{ dotFg3 }};font-size:13px;cursor:pointer">✓</button>
+    </div>
+  </div>
+  <div style="margin-top:16px;font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a">A seguir · Crucifixo inclinado · 3 séries</div>
+  <div style="margin-top:18px;background:#1c1c1c;border-radius:22px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between">
+    <div><div style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">DESCANSO</div><div style="font:600 34px/1 'Azeret Mono',monospace;color:#b06ae8;margin-top:8px">{{ restLabel }}</div></div>
+    <button onClick="{{ toggleRest }}" style="padding:15px 26px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:600 13px 'Poppins',sans-serif;cursor:pointer">{{ restBtn }}</button>
+  </div>
+  <button onClick="{{ goSummary }}" style="margin-top:10px;width:100%;padding:17px;border:1px solid #3a3a3a;border-radius:999px;background:transparent;color:#e6e4e4;font:600 13px 'Poppins',sans-serif;cursor:pointer">Finalizar treino</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isSummary }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">TREINO CONCLUÍDO · 58 MIN</div>
+  <h1 style="margin:12px 0 0;font:700 26px/1.2 'Poppins',sans-serif">Push A registrado.</h1>
+  <div style="margin-top:22px;border-radius:24px;padding:26px 24px;background:#8b2fc9;color:#fff">
+    <div style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.2em;color:rgba(255,255,255,.7)">11 AGO · PWR SÃO LEOPOLDO</div>
+    <div style="font:600 46px/1 'Azeret Mono',monospace;margin-top:18px">8.240<span style="font-size:18px"> KG</span></div>
+    <div style="font:500 12px/1 'Poppins',sans-serif;margin-top:12px;color:rgba(255,255,255,.85)">Volume total · +12% vs. último</div>
+    <div style="display:flex;gap:22px;margin-top:24px;padding-top:18px;border-top:1px solid rgba(255,255,255,.25)">
+      <div><div style="font:600 19px/1 'Azeret Mono',monospace">24</div><div style="font:400 9px/1 'Azeret Mono',monospace;color:rgba(255,255,255,.7);margin-top:6px">SÉRIES</div></div>
+      <div><div style="font:600 19px/1 'Azeret Mono',monospace">2</div><div style="font:400 9px/1 'Azeret Mono',monospace;color:rgba(255,255,255,.7);margin-top:6px">RECORDES</div></div>
+      <div><div style="font:600 19px/1 'Azeret Mono',monospace">104</div><div style="font:400 9px/1 'Azeret Mono',monospace;color:rgba(255,255,255,.7);margin-top:6px">1RM SUPINO</div></div>
+    </div>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">RECORDES DE HOJE</div>
+  <div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #2a2a2a"><span style="font:500 14px/1 'Poppins',sans-serif">Supino reto</span><span style="font:600 12px 'Azeret Mono',monospace;color:#b06ae8">85KG × 6</span></div>
+  <div style="display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid #2a2a2a"><span style="font:500 14px/1 'Poppins',sans-serif">Tríceps corda</span><span style="font:600 12px 'Azeret Mono',monospace;color:#b06ae8">32KG × 12</span></div>
+  <div style="display:flex;gap:10px;margin-top:22px">
+    <button style="flex:1;padding:16px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:600 13px 'Poppins',sans-serif;cursor:pointer">Compartilhar</button>
+    <button onClick="{{ goHistory }}" style="flex:1;padding:16px;border:1px solid #3a3a3a;border-radius:999px;background:transparent;color:#e6e4e4;font:500 13px 'Poppins',sans-serif;cursor:pointer">Histórico</button>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isHistory }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="font:700 22px/1 'Poppins',sans-serif">Histórico</div>
+  <div style="display:flex;gap:8px;margin-top:16px">
+    <span style="font:500 11px 'Poppins',sans-serif;background:#8b2fc9;color:#fff;padding:8px 14px;border-radius:999px">30 dias</span>
+    <span onClick="{{ goPaywall }}" style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#6e6e6e;padding:8px 14px;border-radius:999px;cursor:pointer">🔒 6 meses</span>
+    <span onClick="{{ goPaywall }}" style="font:500 11px 'Poppins',sans-serif;background:#1c1c1c;color:#6e6e6e;padding:8px 14px;border-radius:999px;cursor:pointer">🔒 Tudo</span>
+  </div>
+  <div style="display:flex;align-items:flex-end;gap:6px;height:110px;margin-top:24px">
+    <div style="flex:1;height:42%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:56%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:48%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:70%;background:#4a2668;border-radius:4px"></div><div style="flex:1;height:64%;background:#4a2668;border-radius:4px"></div><div style="flex:1;height:82%;background:#8b2fc9;border-radius:4px"></div><div style="flex:1;height:100%;background:#8b2fc9;border-radius:4px"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;margin-top:10px;font:400 9px/1 'Azeret Mono',monospace;color:#6e6e6e"><span>SEM 6</span><span>VOLUME SEMANAL</span><span>SEM 12</span></div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">ÚLTIMOS TREINOS</div>
+  <div style="display:flex;flex-direction:column;gap:8px;margin-top:12px">
+    <div onClick="{{ goSummary }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px;cursor:pointer">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Push A</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">HOJE · 58 MIN · 8.240KG</div></div><span style="font:600 11px 'Azeret Mono',monospace;color:#b06ae8">2 PR</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Legs</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">ONTEM · 64 MIN · 11.900KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Pull B</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">09 AGO · 52 MIN · 7.410KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 18px;background:#1c1c1c;border-radius:16px">
+      <div><div style="font:500 14px/1 'Poppins',sans-serif">Push A</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:7px">07 AGO · 55 MIN · 7.980KG</div></div><span style="color:#9a9a9a">→</span>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProgress }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="display:flex;align-items:center;gap:14px"><span onClick="{{ goLibrary }}" style="cursor:pointer;color:#9a9a9a">←</span><span style="font:600 17px/1 'Poppins',sans-serif">Supino reto</span></div>
+  <div style="display:flex;align-items:baseline;gap:10px;margin-top:24px">
+    <span style="font:600 46px/1 'Azeret Mono',monospace;color:#b06ae8">104</span>
+    <span style="font:500 14px/1 'Azeret Mono',monospace;color:#9a9a9a">KG · 1RM EST.</span>
+  </div>
+  <div style="font:500 11px/1 'Azeret Mono',monospace;color:#b06ae8;margin-top:10px">▲ +6KG EM 8 SEMANAS</div>
+  <div style="display:flex;align-items:flex-end;gap:7px;height:140px;margin-top:24px">
+    <div style="flex:1;height:38%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:46%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:42%;background:#2a2a2a;border-radius:4px"></div><div style="flex:1;height:58%;background:#4a2668;border-radius:4px"></div><div style="flex:1;height:64%;background:#4a2668;border-radius:4px"></div><div style="flex:1;height:60%;background:#6d24a0;border-radius:4px"></div><div style="flex:1;height:78%;background:#8b2fc9;border-radius:4px"></div><div style="flex:1;height:100%;background:#8b2fc9;border-radius:4px"></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;margin-top:10px;font:400 9px/1 'Azeret Mono',monospace;color:#6e6e6e"><span>SEM 5</span><span>SEM 12</span></div>
+  <div onClick="{{ goPaywall }}" style="margin-top:24px;padding:18px 20px;border:1px dashed #2a2a2a;border-radius:20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+    <div style="display:flex;gap:12px;align-items:center"><span style="font-size:13px">🔒</span><div><div style="font:500 13px/1 'Poppins',sans-serif">Análise de volume por músculo</div><div style="font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a;margin-top:5px">Gráficos avançados no PRO</div></div></div><span style="color:#9a9a9a">→</span>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">HISTÓRICO DO EXERCÍCIO</div>
+  <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 13px/1 'Poppins',sans-serif;color:#9a9a9a">11 ago</span><span style="font:600 12px 'Azeret Mono',monospace">85KG × 6 · 4 SÉRIES</span></div>
+  <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 13px/1 'Poppins',sans-serif;color:#9a9a9a">07 ago</span><span style="font:600 12px 'Azeret Mono',monospace">80KG × 8 · 4 SÉRIES</span></div>
+  <div style="display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 13px/1 'Poppins',sans-serif;color:#9a9a9a">04 ago</span><span style="font:600 12px 'Azeret Mono',monospace">80KG × 7 · 4 SÉRIES</span></div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isBody }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="font:700 22px/1 'Poppins',sans-serif">Corpo</div>
+  <div style="margin-top:20px;background:#1c1c1c;border-radius:20px;padding:20px;display:flex;justify-content:space-between;align-items:center">
+    <div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a">PESO ATUAL</div><div style="font:600 32px/1 'Azeret Mono',monospace;margin-top:10px">82,4<span style="font-size:14px;color:#9a9a9a">KG</span></div></div>
+    <div style="text-align:right"><div style="font:500 11px/1 'Azeret Mono',monospace;color:#b06ae8">▲ +1,8KG</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">EM 12 SEMANAS</div></div>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">MEDIDAS</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px">
+    <div style="background:#1c1c1c;border-radius:16px;padding:16px 18px"><div style="font:600 20px/1 'Azeret Mono',monospace">104<span style="font-size:11px;color:#9a9a9a">CM</span></div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">PEITO</div></div>
+    <div style="background:#1c1c1c;border-radius:16px;padding:16px 18px"><div style="font:600 20px/1 'Azeret Mono',monospace">38<span style="font-size:11px;color:#9a9a9a">CM</span></div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">BRAÇO D.</div></div>
+    <div style="background:#1c1c1c;border-radius:16px;padding:16px 18px"><div style="font:600 20px/1 'Azeret Mono',monospace">82<span style="font-size:11px;color:#9a9a9a">CM</span></div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">CINTURA</div></div>
+    <div style="background:#1c1c1c;border-radius:16px;padding:16px 18px"><div style="font:600 20px/1 'Azeret Mono',monospace">61<span style="font-size:11px;color:#9a9a9a">CM</span></div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">COXA D.</div></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:26px">
+    <span style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a">FOTOS DE EVOLUÇÃO</span>
+    <span style="font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a">🔒 PRO</span>
+  </div>
+  <div onClick="{{ goPaywall }}" style="display:flex;gap:8px;margin-top:12px;cursor:pointer">
+    <div style="flex:1;height:120px;border-radius:16px;background:#1c1c1c;display:flex;align-items:center;justify-content:center;font:400 10px 'Azeret Mono',monospace;color:#6e6e6e">SEM 1</div>
+    <div style="flex:1;height:120px;border-radius:16px;background:#1c1c1c;display:flex;align-items:center;justify-content:center;font:400 10px 'Azeret Mono',monospace;color:#6e6e6e">SEM 6</div>
+    <div style="flex:1;height:120px;border-radius:16px;border:1px dashed #2a2a2a;display:flex;align-items:center;justify-content:center;font-size:14px;color:#6e6e6e">🔒</div>
+  </div>
+  <button style="margin-top:20px;width:100%;padding:16px;border:1px solid #3a3a3a;border-radius:999px;background:transparent;color:#e6e4e4;font:500 13px 'Poppins',sans-serif;cursor:pointer">Registrar medida</button>
+</div>
+</sc-if>
+
+<sc-if value="{{ isPaywall }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 30px">
+  <div style="display:flex;justify-content:flex-end"><span onClick="{{ goBack }}" style="cursor:pointer;color:#9a9a9a;font-size:16px">✕</span></div>
+  <h1 style="margin:18px 0 0;font:700 27px/1.25 'Poppins',sans-serif">Sem limites no<br><span style="color:#b06ae8">PWR PRO</span>.</h1>
+  <div style="display:flex;flex-direction:column;gap:12px;margin-top:24px">
+    <div style="display:flex;gap:12px;align-items:center;font:400 13px/1.4 'Poppins',sans-serif"><span style="color:#b06ae8">✓</span>Rotinas ilimitadas</div>
+    <div style="display:flex;gap:12px;align-items:center;font:400 13px/1.4 'Poppins',sans-serif"><span style="color:#b06ae8">✓</span>Histórico completo, sem corte de 30 dias</div>
+    <div style="display:flex;gap:12px;align-items:center;font:400 13px/1.4 'Poppins',sans-serif"><span style="color:#b06ae8">✓</span>Gráficos de volume e 1RM por músculo</div>
+    <div style="display:flex;gap:12px;align-items:center;font:400 13px/1.4 'Poppins',sans-serif"><span style="color:#b06ae8">✓</span>Supersérie, drop set e exercícios próprios</div>
+    <div style="display:flex;gap:12px;align-items:center;font:400 13px/1.4 'Poppins',sans-serif"><span style="color:#b06ae8">✓</span>Fotos de evolução e exportação CSV</div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:10px;margin-top:28px">
+    <div style="border-radius:22px;padding:20px;background:#8b2fc9;color:#fff;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font:600 13px/1 'Poppins',sans-serif">Anual</div><div style="font:400 11px/1 'Poppins',sans-serif;margin-top:7px;color:rgba(255,255,255,.75)">12x sem juros</div></div>
+      <div style="text-align:right"><div style="font:600 22px/1 'Azeret Mono',monospace">R$29,90</div><div style="font:400 10px/1 'Azeret Mono',monospace;margin-top:6px;color:rgba(255,255,255,.75)">/MÊS</div></div>
+    </div>
+    <div style="border:1px solid #2a2a2a;border-radius:22px;padding:20px;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font:600 13px/1 'Poppins',sans-serif">Mensal</div><div style="font:400 11px/1 'Poppins',sans-serif;margin-top:7px;color:#9a9a9a">Sem fidelidade</div></div>
+      <div style="text-align:right"><div style="font:600 22px/1 'Azeret Mono',monospace">R$49,90</div><div style="font:400 10px/1 'Azeret Mono',monospace;margin-top:6px;color:#9a9a9a">/MÊS</div></div>
+    </div>
+  </div>
+  <button onClick="{{ goBack }}" style="margin-top:22px;width:100%;padding:17px;border:none;border-radius:999px;background:#8b2fc9;color:#fff;font:600 14px 'Poppins',sans-serif;cursor:pointer">Assinar PRO</button>
+  <div style="margin-top:14px;text-align:center;font:400 11px/1.5 'Poppins',sans-serif;color:#6e6e6e">Aluno PWR tem o PRO incluso no plano da academia.</div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isProfile }}" hint-placeholder-val="{{ true }}">
+<div style="padding:18px 22px 24px">
+  <div style="font:700 22px/1 'Poppins',sans-serif">Perfil</div>
+  <div style="margin-top:20px;background:#1c1c1c;border-radius:20px;padding:20px;display:flex;gap:16px;align-items:center">
+    <div style="width:52px;height:52px;border-radius:50%;background:#8b2fc9;display:flex;align-items:center;justify-content:center;font:600 17px 'Poppins',sans-serif;color:#fff">R</div>
+    <div style="flex:1"><div style="font:600 16px/1 'Poppins',sans-serif">Rafael Souza</div><div style="font:400 10px/1 'Azeret Mono',monospace;color:#9a9a9a;margin-top:8px">PWR SÃO LEOPOLDO · FREE</div></div>
+  </div>
+  <div onClick="{{ goPaywall }}" style="margin-top:12px;background:#1c1c1c;border-radius:20px;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer">
+    <div><div style="font:500 14px/1 'Poppins',sans-serif">Assinar PWR PRO</div><div style="font:400 11px/1 'Poppins',sans-serif;color:#9a9a9a;margin-top:6px">A partir de R$29,90/mês</div></div>
+    <span style="color:#b06ae8">→</span>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">TREINO</div>
+  <div style="margin-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Unidade padrão</span><span style="font:400 12px/1 'Poppins',sans-serif;color:#9a9a9a">São Leopoldo →</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Descanso padrão</span><span style="font:400 12px/1 'Azeret Mono',monospace;color:#9a9a9a">90S →</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Unidade de peso</span><span style="font:400 12px/1 'Azeret Mono',monospace;color:#9a9a9a">KG →</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Alerta sonoro do timer</span><span style="font:400 12px/1 'Poppins',sans-serif;color:#b06ae8">Ativo</span></div>
+    <div onClick="{{ goPaywall }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a;cursor:pointer;color:#9a9a9a"><span style="font:400 14px/1 'Poppins',sans-serif">Exportar dados (CSV)</span><span>🔒</span></div>
+  </div>
+  <div style="font:500 10px/1 'Azeret Mono',monospace;letter-spacing:.16em;color:#9a9a9a;margin-top:26px">CONTA</div>
+  <div style="margin-top:12px">
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Notificações</span><span style="color:#9a9a9a">→</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid #2a2a2a"><span style="font:400 14px/1 'Poppins',sans-serif">Privacidade</span><span style="color:#9a9a9a">→</span></div>
+    <div onClick="{{ goOnboarding }}" style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;cursor:pointer"><span style="font:400 14px/1 'Poppins',sans-serif;color:#ff6b6b">Sair</span><span style="color:#9a9a9a">→</span></div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+
+<sc-if value="{{ showNav }}" hint-placeholder-val="{{ true }}">
+<div style="position:relative;flex:none;background:#121212;border-top:1px solid #2a2a2a;padding:10px 18px 26px;display:grid;grid-template-columns:1fr 1fr 74px 1fr 1fr;align-items:end">
+  <div onClick="{{ goHome }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ navHome }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 8v8"></path><path d="M17.5 8v8"></path><path d="M3.5 10v4"></path><path d="M20.5 10v4"></path><path d="M6.5 12h11"></path></svg>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.08em;color:{{ navHome }}">TREINO</span>
+  </div>
+  <div onClick="{{ goHistory }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ navHistory }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19V11"></path><path d="M10 19V6"></path><path d="M15 19v-6"></path><path d="M20 19V9"></path></svg>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.08em;color:{{ navHistory }}">HISTÓRICO</span>
+  </div>
+  <div style="display:flex;justify-content:center">
+    <div onClick="{{ goLive }}" style="cursor:pointer;width:58px;height:58px;border-radius:50%;background:#8b2fc9;color:#fff;display:flex;align-items:center;justify-content:center;margin-bottom:6px;box-shadow:0 6px 18px -4px rgba(139,47,201,.7)">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 6v12"></path><path d="M6 12h12"></path></svg>
+    </div>
+  </div>
+  <div onClick="{{ goBody }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ navBody }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="2.2"></circle><path d="M12 9v6"></path><path d="M7.5 10.5h9"></path><path d="M9.5 20l2.5-5 2.5 5"></path></svg>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.08em;color:{{ navBody }}">CORPO</span>
+  </div>
+  <div onClick="{{ goProfile }}" style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 0">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="{{ navProfile }}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8.5" r="3.3"></circle><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"></path></svg>
+    <span style="font:500 9px/1 'Azeret Mono',monospace;letter-spacing:.08em;color:{{ navProfile }}">PERFIL</span>
+  </div>
+</div>
+</sc-if>
+
+</div>
+
+<div style="font:400 11px/1.6 'Poppins',sans-serif;color:rgba(0,0,0,.45);max-width:390px;text-align:center">Toque nas rotinas, nos cadeados 🔒, nas séries e na navegação inferior — o fluxo principal está clicável.</div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:460,&quot;height&quot;:960}}">
+class Component extends DCLogic {
+  state = { screen: 'onboarding', prev: 'home', sets: [true, true, false, false], rest: 90, running: false };
+
+  componentWillUnmount(){ clearInterval(this._t); }
+
+  go = (screen) => () => this.setState(s => ({ prev: s.screen, screen }));
+
+  tick = () => this.setState(s => s.rest <= 1 ? (clearInterval(this._t), { rest: 0, running: false }) : { rest: s.rest - 1 });
+
+  toggleRest = () => {
+    clearInterval(this._t);
+    if (this.state.running) this.setState({ running: false });
+    else { this._t = setInterval(this.tick, 1000); this.setState(s => ({ running: true, rest: s.rest === 0 ? 90 : s.rest })); }
+  };
+
+  renderVals() {
+    const s = this.state.screen;
+    const m = Math.floor(this.state.rest / 60), sec = this.state.rest % 60;
+    const nav = (k) => s === k ? '#b06ae8' : '#6e6e6e';
+    const out = {
+      isOnboarding: s === 'onboarding', isHome: s === 'home', isLibrary: s === 'library', isBuilder: s === 'builder',
+      isLive: s === 'live', isSummary: s === 'summary', isHistory: s === 'history', isProgress: s === 'progress',
+      isBody: s === 'body', isPaywall: s === 'paywall', isProfile: s === 'profile',
+      showNav: ['home','history','body','profile','library','progress'].includes(s),
+      navHome: nav('home'), navHistory: nav('history'), navBody: nav('body'), navProfile: nav('profile'),
+      goOnboarding: this.go('onboarding'), goHome: this.go('home'), goLibrary: this.go('library'), goBuilder: this.go('builder'),
+      goLive: this.go('live'), goSummary: this.go('summary'), goHistory: this.go('history'), goProgress: this.go('progress'),
+      goBody: this.go('body'), goPaywall: this.go('paywall'), goProfile: this.go('profile'),
+      goBack: () => this.setState(st => ({ screen: st.prev === 'paywall' ? 'home' : st.prev })),
+      restLabel: m + ':' + String(sec).padStart(2, '0'),
+      restBtn: this.state.running ? 'Pausar' : 'Iniciar',
+      toggleRest: this.toggleRest
+    };
+    for (let i = 0; i < 4; i++) {
+      const on = this.state.sets[i];
+      out['toggle' + i] = () => this.setState(st => { const n = st.sets.slice(); n[i] = !n[i]; return { sets: n }; });
+      out['rowBg' + i] = on ? '#1e1526' : '#1c1c1c';
+      out['rowBd' + i] = on ? '#33244a' : '#2a2a2a';
+      out['dotBg' + i] = on ? '#8b2fc9' : 'transparent';
+      out['dotFg' + i] = on ? '#ffffff' : '#3a3a3a';
+      out['dotBd' + i] = on ? '#8b2fc9' : '#3a3a3a';
+    }
+    return out;
+  }
+}
+</script>
+</body>
+</html>

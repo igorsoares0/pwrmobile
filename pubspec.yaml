@@ -1,0 +1,90 @@
+name: pwrmobile
+description: "PWR — offline-first gym workout tracker."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.0
+  flutter: ">=3.44.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management.
+  #
+  # Used without riverpod_generator: the generator currently requires
+  # analyzer ^13 while drift_dev is on ^12, and the two cannot resolve
+  # together. Providers are declared by hand, which Riverpod 3 fully supports.
+  # Revisit once both settle on the same analyzer major.
+  flutter_riverpod: ^3.4.2
+
+  # Navigation
+  go_router: ^17.5.0
+
+  # Local persistence (offline-first source of truth)
+  drift: ^2.34.3
+  drift_flutter: ^0.3.1
+
+  # Serialization for sync payloads
+  json_annotation: ^4.12.0
+
+  # Native share sheet for the workout share card (spec §16)
+  share_plus: ^13.3.0
+
+  # Utilities
+  collection: ^1.19.1
+  meta: ^1.16.0
+  intl: ^0.20.2
+  uuid: ^4.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # build_runner stays below 2.15.2: newer releases need meta ^1.18.3, while
+  # flutter_test pins meta to 1.18.0 in the current Flutter SDK.
+  build_runner: ^2.15.1
+  drift_dev: ^2.34.0
+  json_serializable: ^6.14.1
+
+  # riverpod_lint is not listed here: since 3.1 it is a native analysis server
+  # plugin, declared under `plugins:` in analysis_options.yaml instead.
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  assets:
+    # Exercise catalogue: slugs, muscle group, equipment and a name per locale.
+    # Metadata only — no media is bundled.
+    - assets/catalog/exercises.json
+
+  fonts:
+    # Interface typeface.
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Poppins-Bold.ttf
+          weight: 700
+
+    # Numbers, metrics and technical labels.
+    - family: AzeretMono
+      fonts:
+        - asset: assets/fonts/AzeretMono-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/AzeretMono-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/AzeretMono-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/AzeretMono-Bold.ttf
+          weight: 700

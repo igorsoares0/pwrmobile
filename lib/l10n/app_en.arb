@@ -1,0 +1,408 @@
+{
+  "@@locale": "en",
+  "appName": "PWR",
+  "@appName": {
+    "description": "The product name. Never translated."
+  },
+  "homeGreeting": "Good session.",
+  "@homeGreeting": {
+    "description": "Home headline. Gains the user's name once accounts exist in phase 2."
+  },
+  "homeWeekLabel": "{weekday} · week {week}",
+  "@homeWeekLabel": {
+    "description": "Overline above the home greeting.",
+    "placeholders": {
+      "weekday": {
+        "type": "String",
+        "example": "Tuesday"
+      },
+      "week": {
+        "type": "int",
+        "example": "12"
+      }
+    }
+  },
+  "homeStatWorkouts": "workouts\nthis week",
+  "@homeStatWorkouts": {
+    "description": "Caption under the weekly workout count. The line break is intentional."
+  },
+  "homeStatVolume": "total\nvolume",
+  "homeStatSets": "sets\nthis week",
+  "homeRoutinesTitle": "Your routines",
+  "homeRoutinesCounter": "{used}/{limit} on free",
+  "@homeRoutinesCounter": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "homeRoutinesUnlimited": "{used} routines",
+  "@homeRoutinesUnlimited": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      }
+    }
+  },
+  "homeRoutineSubtitle": "{count, plural, =0{no exercises} =1{1 exercise} other{{count} exercises}} · ~{minutes} min",
+  "@homeRoutineSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNewRoutine": "New routine",
+  "homeNewRoutineLocked": "Free plan limit reached",
+  "homeNewRoutineHint": "Build your first one",
+  "homeEmptyTitle": "No routines yet.",
+  "homeEmptyBody": "A routine is a list of exercises you repeat. Build one and every session after this takes three taps.",
+  "homeEmptyAction": "Create a routine",
+  "homeLibrary": "Exercise library",
+  "homeLibraryCount": "{count} exercises",
+  "@homeLibraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeResumeWorkout": "Workout in progress",
+  "homeResumeAction": "Resume",
+  "unitTonnesShort": "t",
+  "unitKilogramsShort": "kg",
+  "libraryTitle": "Exercise library",
+  "librarySearchHint": "Search exercise…",
+  "libraryFilterAll": "All",
+  "librarySection": "{region} · {count, plural, =1{1 exercise} other{{count} exercises}}",
+  "libraryCreateCustom": "Create your own exercise",
+  "libraryCreateCustomHint": "Anything the library is missing",
+  "libraryEmptySearch": "Nothing matches “{query}”.",
+  "libraryEmptySearchBody": "Check the spelling, or add it as your own exercise.",
+  "libraryCustomBadge": "Yours",
+  "createExerciseTitle": "New exercise",
+  "createExerciseNameLabel": "Name",
+  "createExerciseNameHint": "e.g. Reverse hack squat",
+  "createExerciseMuscleLabel": "Primary muscle",
+  "createExerciseEquipmentLabel": "Equipment",
+  "createExerciseSave": "Save exercise",
+  "createExerciseNameRequired": "Give it a name first.",
+  "regionChest": "Chest",
+  "regionBack": "Back",
+  "regionShoulders": "Shoulders",
+  "regionArms": "Arms",
+  "regionLegs": "Legs",
+  "regionCore": "Core",
+  "regionOther": "Other",
+  "muscleChest": "Chest",
+  "muscleBack": "Back",
+  "muscleShoulders": "Shoulders",
+  "muscleBiceps": "Biceps",
+  "muscleTriceps": "Triceps",
+  "muscleForearms": "Forearms",
+  "muscleQuads": "Quads",
+  "muscleHamstrings": "Hamstrings",
+  "muscleGlutes": "Glutes",
+  "muscleCalves": "Calves",
+  "muscleCore": "Core",
+  "muscleCardio": "Cardio",
+  "muscleOther": "Other",
+  "equipmentBarbell": "Barbell",
+  "equipmentDumbbell": "Dumbbell",
+  "equipmentMachine": "Machine",
+  "equipmentCable": "Cable",
+  "equipmentBodyweight": "Bodyweight",
+  "equipmentKettlebell": "Kettlebell",
+  "equipmentBand": "Band",
+  "equipmentOther": "Other",
+  "@librarySection": {
+    "placeholders": {
+      "region": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@libraryEmptySearch": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "routineNew": "New routine",
+  "routineEdit": "Edit routine",
+  "routineDefaultName": "New routine",
+  "routineNameLabel": "Routine name",
+  "routineNameHint": "e.g. Push A",
+  "routineFocusLabel": "Focus",
+  "routineFocusHint": "e.g. Chest & triceps",
+  "routineExercisesHeader": "{count, plural, =0{exercises} =1{exercises · 1} other{exercises · {count}}}",
+  "routineReorderHint": "drag to reorder",
+  "routineAddExercise": "Add exercise",
+  "routineNoExercises": "No exercises yet.",
+  "routineNoExercisesBody": "Add the movements you do, in the order you do them.",
+  "routineSlotSummary": "{sets, plural, =1{1 set} other{{sets} sets}} · rest {rest}s",
+  "routineSlotSummaryWithReps": "{sets}×{reps} · rest {rest}s",
+  "routineSupersetMarker": "superset with the next",
+  "routineSupersetToggle": "Chain with the next exercise",
+  "routineDone": "Done",
+  "routineDelete": "Delete routine",
+  "routineDeleteConfirm": "Delete this routine? Workouts you already logged from it are kept.",
+  "routineLimitTitle": "Free plan allows {limit} routines.",
+  "routineLimitBody": "Delete one to make room, or go PRO for unlimited routines.",
+  "slotSets": "Sets",
+  "slotReps": "Target reps",
+  "slotRepsAny": "Any",
+  "slotRest": "Rest",
+  "slotRestSeconds": "{seconds}s",
+  "slotRemove": "Remove from routine",
+  "commonCancel": "Cancel",
+  "commonDelete": "Delete",
+  "@routineExercisesHeader": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@routineSlotSummary": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "@routineSlotSummaryWithReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "@routineLimitTitle": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "@slotRestSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutInProgress": "in progress · ex. {current} of {total}",
+  "workoutTotal": "total",
+  "workoutColSet": "set",
+  "workoutColWeight": "kg",
+  "workoutColReps": "reps",
+  "workoutColDone": "ok",
+  "workoutSetWarmup": "W",
+  "workoutSetFailure": "F",
+  "workoutSetDrop": "D",
+  "workoutSuperset": "superset",
+  "workoutPrevious": "prev {sets}×{reps} · {weight}kg",
+  "workoutNoPrevious": "first time",
+  "workoutNext": "next · {name}",
+  "workoutLastExercise": "last exercise",
+  "workoutAddSet": "Add set",
+  "workoutRest": "rest",
+  "workoutRestStart": "Start",
+  "workoutRestPause": "Pause",
+  "workoutRestResume": "Resume",
+  "workoutRestSkip": "Skip",
+  "workoutRestAdd": "+30s",
+  "workoutFinish": "Finish workout",
+  "workoutFinishConfirm": "Finish this workout? {done} of {planned} sets are checked off.",
+  "workoutFinishAction": "Finish",
+  "workoutDiscard": "Discard workout",
+  "workoutEmpty": "This workout has no exercises.",
+  "workoutEmptyBody": "Add one from the library to get going.",
+  "workoutNoSession": "No workout in progress.",
+  "@workoutInProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "@workoutPrevious": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      },
+      "weight": {
+        "type": "String"
+      }
+    }
+  },
+  "@workoutNext": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@workoutFinishConfirm": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryComplete": "workout complete · {minutes} min",
+  "summaryTitle": "{name} logged.",
+  "summaryTitleNoRoutine": "Workout logged.",
+  "summaryVolumeCaption": "total volume",
+  "summaryVsPrevious": "{delta} vs. last time",
+  "summaryFirstOnRoutine": "first time on this routine",
+  "summaryStatSets": "sets",
+  "summaryStatExercises": "exercises",
+  "summaryStatDuration": "minutes",
+  "summaryBestToday": "your best today",
+  "summaryBestSet": "{weight}kg × {reps}",
+  "summaryBodyweightSet": "{reps} reps",
+  "summaryNothingLogged": "Nothing was checked off.",
+  "summaryNothingLoggedBody": "The session is saved, but no sets were recorded against it.",
+  "summaryClose": "Done",
+  "summaryMissing": "That workout is gone.",
+  "@summaryComplete": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "@summaryTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@summaryVsPrevious": {
+    "placeholders": {
+      "delta": {
+        "type": "String"
+      }
+    }
+  },
+  "@summaryBestSet": {
+    "placeholders": {
+      "weight": {
+        "type": "String"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "@summaryBodyweightSet": {
+    "placeholders": {
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "historyTitle": "History",
+  "historyMonth": "{month} · {count, plural, =1{1 workout} other{{count} workouts}}",
+  "historyRowSubtitle": "{day} · {sets, plural, =1{1 set} other{{sets} sets}} · {minutes} min",
+  "historyFreestyle": "Freestyle workout",
+  "historyEmpty": "No workouts yet.",
+  "historyEmptyBody": "Finish a session and it lands here, with everything you lifted.",
+  "@historyMonth": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@historyRowSubtitle": {
+    "placeholders": {
+      "day": {
+        "type": "String"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "navWorkout": "training",
+  "navHistory": "history",
+  "navBody": "body",
+  "navProfile": "profile",
+  "navStartWorkout": "Start a workout",
+  "workoutAddExercise": "Add exercise",
+  "bodyTitle": "Body",
+  "bodyNotBuilt": "Measurements are not built yet.",
+  "bodyNotBuiltBody": "Weight and body measurements land here in a later release.",
+  "profileTitle": "Profile",
+  "profileNotBuilt": "There is no account yet.",
+  "profileNotBuiltBody": "Everything you log lives on this device. Accounts and cloud sync come later.",
+  "onboardingHeadline": "Log your session in",
+  "onboardingHeadlineAccent": "three taps.",
+  "onboardingBody": "Load, reps and rest. No feed, no distractions — just what you lifted.",
+  "onboardingStep1": "Pick a routine",
+  "onboardingStep1Body": "Up to 3 on the free plan.",
+  "onboardingStep2": "Check off each set",
+  "onboardingStep2Body": "It fills in what you lifted last time.",
+  "onboardingStep3": "Watch it add up",
+  "onboardingStep3Body": "Volume and history for every session.",
+  "onboardingStart": "Start",
+  "onboardingOffline": "Works with no signal. Everything stays on this device.",
+  "shareAction": "Share",
+  "sharePreviewTitle": "Share this workout",
+  "shareConfirm": "Share image",
+  "shareCardSets": "sets",
+  "shareCardMinutes": "min",
+  "shareCardBest": "best set",
+  "shareCardFreestyle": "Workout",
+  "shareSubject": "{routine} · {volume} kg",
+  "shareFailed": "Could not build the image.",
+  "@shareSubject": {
+    "placeholders": {
+      "routine": {
+        "type": "String"
+      },
+      "volume": {
+        "type": "String"
+      }
+    }
+  }
+}
