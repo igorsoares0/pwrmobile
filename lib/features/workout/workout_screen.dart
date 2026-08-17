@@ -33,11 +33,18 @@ class WorkoutScreen extends ConsumerStatefulWidget {
     super.key,
     required this.sessionId,
     this.onFinished,
+    this.onDiscarded,
     this.onPickExercise,
   });
 
   final String sessionId;
   final VoidCallback? onFinished;
+
+  /// Called after the session is thrown away.
+  ///
+  /// Separate from [onFinished] because the destinations differ: a finished
+  /// workout has a summary worth reading, a discarded one has nothing to show.
+  final VoidCallback? onDiscarded;
 
   /// Opens the library as a picker and resolves to the chosen exercise.
   ///
@@ -103,6 +110,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
               startedAt: session.startedAt,
               done: done,
               total: allSets.length,
+              onDiscard: () => _confirmDiscard(done),
             ),
             if (blocks.isNotEmpty)
               _ExerciseRail(
@@ -200,6 +208,44 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     await ref.read(workoutRepositoryProvider).finish(widget.sessionId);
     widget.onFinished?.call();
   }
+
+  /// Throws the session away.
+  ///
+  /// A dialog rather than the undo snackbar the rest of the app is moving
+  /// towards: undo needs somewhere to live, and this action ends by leaving
+  /// the screen the user would have to be on to press it. The dialog says how
+  /// many sets are about to go, because "descartar treino" on its own does not
+  /// distinguish a mis-tap thirty seconds in from an hour of work.
+  Future<void> _confirmDiscard(int done) async {
+    final l10n = AppLocalizations.of(context);
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(l10n.workoutDiscard),
+        content: Text(l10n.workoutDiscardConfirm(done)),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text(l10n.commonCancel),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: Text(
+              l10n.workoutDiscardAction,
+              style: const TextStyle(color: PwrColors.danger),
+            ),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) return;
+
+    ref.read(restTimerProvider.notifier).skip();
+    await ref.read(workoutRepositoryProvider).discard(widget.sessionId);
+    widget.onDiscarded?.call();
+  }
 }
 
 class _SessionHeader extends ConsumerWidget {
@@ -207,11 +253,13 @@ class _SessionHeader extends ConsumerWidget {
     required this.startedAt,
     required this.done,
     required this.total,
+    required this.onDiscard,
   });
 
   final DateTime startedAt;
   final int done;
   final int total;
+  final VoidCallback onDiscard;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -251,6 +299,22 @@ class _SessionHeader extends ConsumerWidget {
                     style: PwrTypography.metricCaption,
                   ),
                 ],
+              ),
+              // Up here, not next to "Finalizar treino". Discarding is rare and
+              // destructive, finishing is what every session ends with, and
+              // putting them a thumb's width apart at the bottom of the screen
+              // is how a mis-tap throws away an hour of work. Same icon and
+              // same corner as deleting a routine in the builder.
+              const SizedBox(width: PwrSpacing.xs),
+              IconButton(
+                onPressed: onDiscard,
+                icon: const Icon(Icons.delete_outline),
+                tooltip: l10n.workoutDiscard,
+                padding: EdgeInsets.zero,
+                constraints: const BoxConstraints(
+                  minWidth: 44,
+                  minHeight: 44,
+                ),
               ),
             ],
           ),

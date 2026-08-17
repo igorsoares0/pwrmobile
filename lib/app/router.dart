@@ -169,6 +169,9 @@ GoRouter createPwrRouter({bool showOnboarding = false}) {
             // reachable again by going back.
             onFinished: () =>
                 context.pushReplacement(PwrRoutes.summaryFor(sessionId)),
+            // A discarded session has no summary to read, and nothing behind
+            // this route to go back to that still exists.
+            onDiscarded: () => context.go(PwrRoutes.home),
           );
         },
       ),

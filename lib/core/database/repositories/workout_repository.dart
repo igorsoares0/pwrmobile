@@ -135,8 +135,27 @@ class WorkoutRepository extends Repository {
   }
 
   /// Discards a session, for the user who started a workout by mistake.
-  Future<void> discard(String sessionId) =>
-      softDelete(db.workoutSessions, sessionId);
+  ///
+  /// Cascades, like [removeExercise] and `RoutineRepository.delete`. Tombstoning
+  /// the session alone would leave its exercises and sets behind as live rows
+  /// pointing at a deleted parent — invisible here, because every read starts
+  /// from the session, but real to the sync queue, which would push them as
+  /// current and let another device resurrect a workout the user threw away.
+  Future<void> discard(String sessionId) {
+    return db.transaction(() async {
+      final entries =
+          await (db.select(db.workoutExercises)..where(
+                (tbl) =>
+                    tbl.sessionId.equals(sessionId) & tbl.deletedAt.isNull(),
+              ))
+              .get();
+
+      for (final entry in entries) {
+        await removeExercise(entry.id);
+      }
+      await softDelete(db.workoutSessions, sessionId);
+    });
+  }
 
   /// Watches finished sessions, newest first, with their totals.
   Stream<List<WorkoutSessionStats>> watchHistory({int limit = 50}) {

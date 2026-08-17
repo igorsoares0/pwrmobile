@@ -130,6 +130,11 @@
   "workoutFinishConfirm": "Finalizar este treino? {done} de {planned} séries marcadas.",
   "workoutFinishAction": "Finalizar",
   "workoutDiscard": "Descartar treino",
+  "workoutDiscardAction": "Descartar",
+  "workoutDiscardConfirm": "{done, plural, =0{Este treino ainda não tem séries marcadas. Descartar?} =1{Descartar este treino? 1 série marcada será perdida.} other{Descartar este treino? {done} séries marcadas serão perdidas.}}",
+  "@workoutDiscardConfirm": {
+    "placeholders": { "done": { "type": "int" } }
+  },
   "workoutEmpty": "Este treino não tem exercícios.",
   "workoutEmptyBody": "Adicione um da biblioteca para começar.",
   "workoutNoSession": "Nenhum treino em andamento.",

@@ -842,6 +842,18 @@ abstract class AppLocalizations {
   /// **'Discard workout'**
   String get workoutDiscard;
 
+  /// No description provided for @workoutDiscardAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard'**
+  String get workoutDiscardAction;
+
+  /// No description provided for @workoutDiscardConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'{done, plural, =0{This workout has no sets checked off yet. Discard it?} =1{Discard this workout? 1 checked-off set will be lost.} other{Discard this workout? {done} checked-off sets will be lost.}}'**
+  String workoutDiscardConfirm(int done);
+
   /// No description provided for @workoutEmpty.
   ///
   /// In en, this message translates to:

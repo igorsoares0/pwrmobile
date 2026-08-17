@@ -448,6 +448,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workoutDiscard => 'Discard workout';
 
   @override
+  String get workoutDiscardAction => 'Discard';
+
+  @override
+  String workoutDiscardConfirm(int done) {
+    String _temp0 = intl.Intl.pluralLogic(
+      done,
+      locale: localeName,
+      other: 'Discard this workout? $done checked-off sets will be lost.',
+      one: 'Discard this workout? 1 checked-off set will be lost.',
+      zero: 'This workout has no sets checked off yet. Discard it?',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get workoutEmpty => 'This workout has no exercises.';
 
   @override

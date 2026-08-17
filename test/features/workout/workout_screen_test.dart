@@ -208,6 +208,7 @@ void main() {
     Future<void> pumpWorkout(
       WidgetTester tester, {
       VoidCallback? onFinished,
+      VoidCallback? onDiscarded,
     }) async {
       await tester.pumpWidget(
         ProviderScope(
@@ -220,7 +221,11 @@ void main() {
             locale: const Locale('pt'),
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
-            home: WorkoutScreen(sessionId: session.id, onFinished: onFinished),
+            home: WorkoutScreen(
+              sessionId: session.id,
+              onFinished: onFinished,
+              onDiscarded: onDiscarded,
+            ),
           ),
         ),
       );
@@ -417,6 +422,67 @@ void main() {
       // the fold, and adding a row is exactly what pushes one past it. The
       // header counts the session, not the viewport.
       expect(find.textContaining('0 DE 5 SÉRIES'), findsOneWidget);
+    });
+
+    testWorkout('discarding asks first and says what is at stake', (
+      tester,
+    ) async {
+      var discarded = false;
+      await pumpWorkout(tester, onDiscarded: () => discarded = true);
+
+      await tester.tap(checkButtons().first);
+      await settle(tester);
+      await tester.tap(find.text('Pular'));
+      await settle(tester);
+
+      await tester.tap(find.byIcon(Icons.delete_outline));
+      await settle(tester);
+
+      // Naming the cost: "descartar treino" alone does not tell a mis-tap
+      // thirty seconds in apart from an hour of work.
+      expect(
+        find.text('Descartar este treino? 1 série marcada será perdida.'),
+        findsOneWidget,
+      );
+
+      await tester.tap(find.text('Cancelar'));
+      await settle(tester);
+      expect(discarded, isFalse);
+      expect(await workouts.activeSession(), isNotNull);
+
+      await tester.tap(find.byIcon(Icons.delete_outline));
+      await settle(tester);
+      await tester.tap(find.text('Descartar'));
+      await settle(tester);
+
+      expect(discarded, isTrue);
+      expect(await workouts.activeSession(), isNull);
+    });
+
+    testWorkout('discarding cascades, leaving no live rows behind', (
+      tester,
+    ) async {
+      await pumpWorkout(tester);
+
+      await tester.tap(find.byIcon(Icons.delete_outline));
+      await settle(tester);
+      await tester.tap(find.text('Descartar'));
+      await settle(tester);
+
+      // Tombstoning the session alone would leave its exercises and sets as
+      // live rows pointing at a deleted parent — invisible on screen, because
+      // every read starts from the session, but real to the sync queue.
+      final liveExercises = await db
+          .select(db.workoutExercises)
+          .get()
+          .then((rows) => rows.where((r) => r.deletedAt == null));
+      final liveSets = await db
+          .select(db.workoutSets)
+          .get()
+          .then((rows) => rows.where((r) => r.deletedAt == null));
+
+      expect(liveExercises, isEmpty);
+      expect(liveSets, isEmpty);
     });
 
     testWorkout('finishing asks first and reports how much was done', (

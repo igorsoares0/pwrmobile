@@ -283,6 +283,14 @@ The rail follows the active exercise — the first one still holding an unchecke
 set — rather than the scroll position. Scrolling ahead to see what is coming
 should not move the marker for where you actually are.
 
+**Discarding** lives in the header, behind the same `delete_outline` the routine
+builder uses, and not next to "Finalizar treino": finishing is what every
+session ends with, discarding is rare and irreversible, and a thumb's width
+between them is how an hour of work gets thrown away by accident. The dialog
+names how many sets are about to go. `WorkoutRepository.discard` cascades to the
+session's exercises and sets — tombstoning the session alone would leave live
+rows pointing at a deleted parent, invisible here but real to the sync queue.
+
 ### The session bar
 
 `features/workout/active_session_bar.dart`, mounted by `PwrShell` directly

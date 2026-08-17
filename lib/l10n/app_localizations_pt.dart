@@ -448,6 +448,21 @@ class AppLocalizationsPt extends AppLocalizations {
   String get workoutDiscard => 'Descartar treino';
 
   @override
+  String get workoutDiscardAction => 'Descartar';
+
+  @override
+  String workoutDiscardConfirm(int done) {
+    String _temp0 = intl.Intl.pluralLogic(
+      done,
+      locale: localeName,
+      other: 'Descartar este treino? $done séries marcadas serão perdidas.',
+      one: 'Descartar este treino? 1 série marcada será perdida.',
+      zero: 'Este treino ainda não tem séries marcadas. Descartar?',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get workoutEmpty => 'Este treino não tem exercícios.';
 
   @override
