@@ -1,6 +1,9 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../core/settings/preferences.dart';
 
 /// The rest countdown between sets.
 class RestTimerState {
@@ -96,6 +99,7 @@ class RestTimerNotifier extends Notifier<RestTimerState> {
       if (remaining <= Duration.zero) {
         _stopTicker();
         state = RestTimerState(total: state.total);
+        _alert();
         return;
       }
       state = RestTimerState(
@@ -109,6 +113,21 @@ class RestTimerNotifier extends Notifier<RestTimerState> {
   void _stopTicker() {
     _ticker?.cancel();
     _ticker = null;
+  }
+
+  /// Announces the end of a rest.
+  ///
+  /// The platform's own notification sound and a haptic, rather than a bundled
+  /// audio asset: it needs no package, no permission, and it already obeys the
+  /// silent switch — which matters for an app whose screen is face-up on a
+  /// bench in a room full of strangers.
+  ///
+  /// Fire and forget on purpose. A rest that ended must not wait on an audio
+  /// channel before the UI says so.
+  void _alert() {
+    if (!ref.read(preferencesProvider).timerSound) return;
+    unawaited(SystemSound.play(SystemSoundType.alert));
+    unawaited(HapticFeedback.mediumImpact());
   }
 }
 

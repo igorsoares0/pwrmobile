@@ -7,6 +7,7 @@ import '../../core/catalog/catalog_provider.dart';
 import '../../core/catalog/exercise_display.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
@@ -117,18 +118,23 @@ class _Body extends ConsumerWidget {
   }
 }
 
-class _HeroCard extends StatelessWidget {
+class _HeroCard extends ConsumerWidget {
   const _HeroCard({required this.summary});
 
   final WorkoutSummary summary;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final stats = summary.stats;
     // The headline figure stays exact; `1.150 kg` beats `1,1 t`.
-    final load = formatLoad(stats.volume, locale, compact: false);
+    final load = formatLoad(
+      stats.volume,
+      locale,
+      compact: false,
+      unit: ref.watch(weightUnitProvider),
+    );
     final delta = summary.volumeDelta;
 
     const onAccentMuted = Color(0xB3FFFFFF);
@@ -263,7 +269,12 @@ class _BestRow extends ConsumerWidget {
             ),
           ),
           Text(
-            _label(l10n, best, locale.toLanguageTag()),
+            _label(
+              l10n,
+              best,
+              locale.toLanguageTag(),
+              ref.watch(weightUnitProvider),
+            ),
             style: PwrTypography.metricXs.copyWith(color: PwrColors.accent),
           ),
         ],
@@ -273,12 +284,21 @@ class _BestRow extends ConsumerWidget {
 
   /// Bodyweight movements have no load, so they report reps alone rather than
   /// a misleading `0kg`.
-  String _label(AppLocalizations l10n, WorkoutSet? best, String locale) {
+  String _label(
+    AppLocalizations l10n,
+    WorkoutSet? best,
+    String locale,
+    WeightUnit unit,
+  ) {
     if (best == null) return '—';
     final reps = best.reps ?? 0;
     final weight = best.weight;
     if (weight == null || weight == 0) return l10n.summaryBodyweightSet(reps);
-    return l10n.summaryBestSet(formatLoad(weight, locale).value, reps);
+    return l10n.summaryBestSet(
+      formatSetLoad(weight, locale, unit: unit),
+      unit.symbol,
+      reps,
+    );
   }
 }
 

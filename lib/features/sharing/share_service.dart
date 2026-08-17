@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
@@ -19,6 +20,18 @@ abstract interface class ShareService {
     required String fileName,
     String? subject,
   });
+
+  /// Hands a generated text file — the CSV export — to the share sheet.
+  ///
+  /// Sharing rather than saving to a path: on both platforms the share sheet
+  /// is where "put this in Drive", "mail it to myself" and "save to Files"
+  /// already live, and none of them need a storage permission this way.
+  Future<void> shareText(
+    String contents, {
+    required String fileName,
+    required String mimeType,
+    String? subject,
+  });
 }
 
 /// The real thing: the platform share sheet (spec §16).
@@ -35,6 +48,32 @@ class SystemShareService implements ShareService {
     // A share card is a one-shot artefact; a temp file would outlive the share
     // and need cleaning up.
     final file = XFile.fromData(bytes, name: fileName, mimeType: 'image/png');
+
+    await SharePlus.instance.share(
+      ShareParams(
+        files: [file],
+        fileNameOverrides: [fileName],
+        subject: subject,
+      ),
+    );
+  }
+
+  @override
+  Future<void> shareText(
+    String contents, {
+    required String fileName,
+    required String mimeType,
+    String? subject,
+  }) async {
+    // UTF-8 with a BOM. Excel on Windows reads a BOM-less UTF-8 CSV as the
+    // system codepage, which turns every "Rosca direta com halteres" into
+    // mojibake — and a Brazilian user's exercise names are full of accents.
+    final bytes = Uint8List.fromList([
+      ...utf8.encode('\uFEFF'),
+      ...utf8.encode(contents),
+    ]);
+
+    final file = XFile.fromData(bytes, name: fileName, mimeType: mimeType);
 
     await SharePlus.instance.share(
       ShareParams(

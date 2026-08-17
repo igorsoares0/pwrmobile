@@ -34,9 +34,9 @@ void main() {
     return rows.map((row) => row.read<String>('name')).toSet();
   }
 
-  test('the current schema version is 2', () {
+  test('the current schema version is 3', () {
     final db = AppDatabase.forTesting(NativeDatabase.memory());
-    expect(db.schemaVersion, 2);
+    expect(db.schemaVersion, 3);
     db.close();
   });
 
@@ -77,6 +77,46 @@ void main() {
     expect(kept?.name, 'Push A');
 
     await v2.close();
+  });
+
+  test('a version 2 database gains body_measurements on open', () async {
+    final v2 = AppDatabase.forTesting(NativeDatabase(file));
+    await v2.customStatement('SELECT 1');
+    await v2.customStatement('DROP TABLE body_measurements');
+    await v2.customStatement('PRAGMA user_version = 2');
+    expect(await tablesOf(v2), isNot(contains('body_measurements')));
+    await v2.close();
+
+    final v3 = AppDatabase.forTesting(NativeDatabase(file));
+    expect(await tablesOf(v3), contains('body_measurements'));
+
+    // Present is not the same as usable — the index the table declares has to
+    // have come across with it, or the first ordered read fails.
+    final entry = await BodyRepository(v3).log(weightKg: 82.4);
+    expect((await BodyRepository(v3).watchMeasurements().first).single.id,
+        entry.id);
+
+    await v3.close();
+  });
+
+  test('upgrading from version 1 runs every step in order', () async {
+    // The install that never saw version 2 either. Both migration steps have
+    // to run on the same open, which is what `from < n` guards are for.
+    final v1 = AppDatabase.forTesting(NativeDatabase(file));
+    final routine = await RoutineRepository(v1).create(name: 'Push A');
+    await v1.customStatement('DROP TABLE app_settings');
+    await v1.customStatement('DROP TABLE body_measurements');
+    await v1.customStatement('PRAGMA user_version = 1');
+    await v1.close();
+
+    final v3 = AppDatabase.forTesting(NativeDatabase(file));
+    final tables = await tablesOf(v3);
+
+    expect(tables, contains('app_settings'));
+    expect(tables, contains('body_measurements'));
+    expect((await RoutineRepository(v3).findById(routine.id))?.name, 'Push A');
+
+    await v3.close();
   });
 
   test('opening an already current database changes nothing', () async {

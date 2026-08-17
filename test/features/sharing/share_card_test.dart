@@ -31,6 +31,8 @@ class _RecordingShareService implements ShareService {
   String? subject;
   int calls = 0;
 
+  String? contents;
+
   @override
   Future<void> shareImage(
     Uint8List bytes, {
@@ -39,6 +41,19 @@ class _RecordingShareService implements ShareService {
   }) async {
     calls++;
     this.bytes = bytes;
+    this.fileName = fileName;
+    this.subject = subject;
+  }
+
+  @override
+  Future<void> shareText(
+    String contents, {
+    required String fileName,
+    required String mimeType,
+    String? subject,
+  }) async {
+    calls++;
+    this.contents = contents;
     this.fileName = fileName;
     this.subject = subject;
   }

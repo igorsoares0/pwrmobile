@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../app/theme/theme.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
@@ -139,18 +140,23 @@ class _MonthList extends StatelessWidget {
   }
 }
 
-class _SessionRow extends StatelessWidget {
+class _SessionRow extends ConsumerWidget {
   const _SessionRow({required this.stats, this.onTap});
 
   final WorkoutSessionStats stats;
   final void Function(String sessionId)? onTap;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final startedAt = stats.session.startedAt.toLocal();
-    final load = formatLoad(stats.volume, locale, compact: false);
+    final load = formatLoad(
+      stats.volume,
+      locale,
+      compact: false,
+      unit: ref.watch(weightUnitProvider),
+    );
 
     return PwrCard(
       onTap: onTap == null ? null : () => onTap!(stats.session.id),

@@ -2,6 +2,7 @@
 library;
 
 export 'app_settings.dart';
+export 'body_measurements.dart';
 export 'exercises.dart';
 export 'routine_exercises.dart';
 export 'routines.dart';

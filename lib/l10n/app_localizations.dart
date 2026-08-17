@@ -731,8 +731,8 @@ abstract class AppLocalizations {
   /// No description provided for @workoutPrevious.
   ///
   /// In en, this message translates to:
-  /// **'prev {sets}×{reps} · {weight}kg'**
-  String workoutPrevious(int sets, int reps, String weight);
+  /// **'prev {sets}×{reps} · {weight}{unit}'**
+  String workoutPrevious(int sets, int reps, String weight, String unit);
 
   /// No description provided for @workoutNoPrevious.
   ///
@@ -899,8 +899,8 @@ abstract class AppLocalizations {
   /// No description provided for @summaryBestSet.
   ///
   /// In en, this message translates to:
-  /// **'{weight}kg × {reps}'**
-  String summaryBestSet(String weight, int reps);
+  /// **'{weight}{unit} × {reps}'**
+  String summaryBestSet(String weight, String unit, int reps);
 
   /// No description provided for @summaryBodyweightSet.
   ///
@@ -1010,35 +1010,221 @@ abstract class AppLocalizations {
   /// **'Body'**
   String get bodyTitle;
 
-  /// No description provided for @bodyNotBuilt.
-  ///
-  /// In en, this message translates to:
-  /// **'Measurements are not built yet.'**
-  String get bodyNotBuilt;
-
-  /// No description provided for @bodyNotBuiltBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Weight and body measurements land here in a later release.'**
-  String get bodyNotBuiltBody;
-
   /// No description provided for @profileTitle.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
   String get profileTitle;
 
-  /// No description provided for @profileNotBuilt.
+  /// No description provided for @bodyCurrentWeight.
   ///
   /// In en, this message translates to:
-  /// **'There is no account yet.'**
-  String get profileNotBuilt;
+  /// **'current weight'**
+  String get bodyCurrentWeight;
 
-  /// No description provided for @profileNotBuiltBody.
+  /// No description provided for @bodyNoBaseline.
   ///
   /// In en, this message translates to:
-  /// **'Everything you log lives on this device. Accounts and cloud sync come later.'**
-  String get profileNotBuiltBody;
+  /// **'first entry'**
+  String get bodyNoBaseline;
+
+  /// No description provided for @bodyDeltaWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'in {weeks, plural, =0{under a week} =1{1 week} other{{weeks} weeks}}'**
+  String bodyDeltaWeeks(int weeks);
+
+  /// No description provided for @bodyLogWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Log weight'**
+  String get bodyLogWeight;
+
+  /// No description provided for @bodyLogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weigh-in'**
+  String get bodyLogTitle;
+
+  /// No description provided for @bodyLogDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get bodyLogDate;
+
+  /// No description provided for @bodyLogToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get bodyLogToday;
+
+  /// No description provided for @bodyLogSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get bodyLogSave;
+
+  /// No description provided for @bodyLogDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this entry'**
+  String get bodyLogDelete;
+
+  /// No description provided for @bodyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get bodyHistory;
+
+  /// No description provided for @bodyEmptyHeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'No weigh-ins yet.'**
+  String get bodyEmptyHeadline;
+
+  /// No description provided for @bodyEmptyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One number a week is enough. It is the line under every other number in the app — volume means something different at 74 kg than at 82.'**
+  String get bodyEmptyBody;
+
+  /// No description provided for @bodyMeasurements.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get bodyMeasurements;
+
+  /// No description provided for @bodyMeasurementsLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest, waist, arm and thigh — plus progress photos — are part of PRO.'**
+  String get bodyMeasurementsLocked;
+
+  /// No description provided for @bodyChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get bodyChest;
+
+  /// No description provided for @bodyWaist.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist'**
+  String get bodyWaist;
+
+  /// No description provided for @bodyArm.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm'**
+  String get bodyArm;
+
+  /// No description provided for @bodyThigh.
+  ///
+  /// In en, this message translates to:
+  /// **'Thigh'**
+  String get bodyThigh;
+
+  /// No description provided for @bodyLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'PRO'**
+  String get bodyLocked;
+
+  /// No description provided for @profileAccountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This device'**
+  String get profileAccountTitle;
+
+  /// No description provided for @profileAccountSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'free plan'**
+  String get profileAccountSubtitle;
+
+  /// No description provided for @profileAccountNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything you log is stored here. Accounts and cloud sync arrive in a later release.'**
+  String get profileAccountNote;
+
+  /// No description provided for @profileSectionTraining.
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get profileSectionTraining;
+
+  /// No description provided for @profileWeightUnit.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight unit'**
+  String get profileWeightUnit;
+
+  /// No description provided for @profileWeightUnitSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Show loads in'**
+  String get profileWeightUnitSheet;
+
+  /// No description provided for @profileDefaultRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Default rest'**
+  String get profileDefaultRest;
+
+  /// No description provided for @profileDefaultRestSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest for a new exercise'**
+  String get profileDefaultRestSheet;
+
+  /// No description provided for @profileDefaultRestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Applies to exercises you add from now on. Each one can still be changed individually.'**
+  String get profileDefaultRestNote;
+
+  /// No description provided for @profileTimerSound.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest timer alert'**
+  String get profileTimerSound;
+
+  /// No description provided for @profileSectionData.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get profileSectionData;
+
+  /// No description provided for @profileExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export training log (CSV)'**
+  String get profileExport;
+
+  /// No description provided for @profileExportSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'every completed set'**
+  String get profileExportSubtitle;
+
+  /// No description provided for @profileExportEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No finished workouts to export yet.'**
+  String get profileExportEmpty;
+
+  /// No description provided for @profileExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not build the export.'**
+  String get profileExportFailed;
+
+  /// No description provided for @profileExportSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'PWR · {count, plural, =1{1 set} other{{count} sets}}'**
+  String profileExportSubject(int count);
 
   /// No description provided for @onboardingHeadline.
   ///
@@ -1151,8 +1337,8 @@ abstract class AppLocalizations {
   /// No description provided for @shareSubject.
   ///
   /// In en, this message translates to:
-  /// **'{routine} · {volume} kg'**
-  String shareSubject(String routine, String volume);
+  /// **'{routine} · {volume} {unit}'**
+  String shareSubject(String routine, String volume, String unit);
 
   /// No description provided for @shareFailed.
   ///

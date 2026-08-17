@@ -6,6 +6,7 @@ import '../../core/catalog/catalog_provider.dart';
 import '../../core/catalog/exercise_display.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/widgets/widgets.dart';
 import 'routine_builder_providers.dart';
@@ -363,7 +364,11 @@ class _AddExerciseRow extends ConsumerWidget {
               if (exercise == null) return;
               await ref
                   .read(routineRepositoryProvider)
-                  .addExercise(routineId: routineId, exerciseId: exercise.id);
+                  .addExercise(
+                    routineId: routineId,
+                    exerciseId: exercise.id,
+                    restSeconds: ref.read(preferencesProvider).defaultRestSeconds,
+                  );
             },
     );
   }

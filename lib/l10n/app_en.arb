@@ -222,7 +222,7 @@
   "workoutSetFailure": "F",
   "workoutSetDrop": "D",
   "workoutSuperset": "superset",
-  "workoutPrevious": "prev {sets}×{reps} · {weight}kg",
+  "workoutPrevious": "prev {sets}×{reps} · {weight}{unit}",
   "workoutNoPrevious": "first time",
   "workoutNext": "next · {name}",
   "workoutLastExercise": "last exercise",
@@ -260,6 +260,9 @@
       },
       "weight": {
         "type": "String"
+      },
+      "unit": {
+        "type": "String"
       }
     }
   },
@@ -290,7 +293,7 @@
   "summaryStatExercises": "exercises",
   "summaryStatDuration": "minutes",
   "summaryBestToday": "your best today",
-  "summaryBestSet": "{weight}kg × {reps}",
+  "summaryBestSet": "{weight}{unit} × {reps}",
   "summaryBodyweightSet": "{reps} reps",
   "summaryNothingLogged": "Nothing was checked off.",
   "summaryNothingLoggedBody": "The session is saved, but no sets were recorded against it.",
@@ -320,6 +323,9 @@
   "@summaryBestSet": {
     "placeholders": {
       "weight": {
+        "type": "String"
+      },
+      "unit": {
         "type": "String"
       },
       "reps": {
@@ -370,11 +376,42 @@
   "navStartWorkout": "Start a workout",
   "workoutAddExercise": "Add exercise",
   "bodyTitle": "Body",
-  "bodyNotBuilt": "Measurements are not built yet.",
-  "bodyNotBuiltBody": "Weight and body measurements land here in a later release.",
   "profileTitle": "Profile",
-  "profileNotBuilt": "There is no account yet.",
-  "profileNotBuiltBody": "Everything you log lives on this device. Accounts and cloud sync come later.",
+  "bodyCurrentWeight": "current weight",
+  "bodyNoBaseline": "first entry",
+  "bodyDeltaWeeks": "in {weeks, plural, =0{under a week} =1{1 week} other{{weeks} weeks}}",
+  "bodyLogWeight": "Log weight",
+  "bodyLogTitle": "Weigh-in",
+  "bodyLogDate": "Date",
+  "bodyLogToday": "Today",
+  "bodyLogSave": "Save",
+  "bodyLogDelete": "Delete this entry",
+  "bodyHistory": "History",
+  "bodyEmptyHeadline": "No weigh-ins yet.",
+  "bodyEmptyBody": "One number a week is enough. It is the line under every other number in the app — volume means something different at 74 kg than at 82.",
+  "bodyMeasurements": "Measurements",
+  "bodyMeasurementsLocked": "Chest, waist, arm and thigh — plus progress photos — are part of PRO.",
+  "bodyChest": "Chest",
+  "bodyWaist": "Waist",
+  "bodyArm": "Arm",
+  "bodyThigh": "Thigh",
+  "bodyLocked": "PRO",
+  "profileAccountTitle": "This device",
+  "profileAccountSubtitle": "free plan",
+  "profileAccountNote": "Everything you log is stored here. Accounts and cloud sync arrive in a later release.",
+  "profileSectionTraining": "Training",
+  "profileWeightUnit": "Weight unit",
+  "profileWeightUnitSheet": "Show loads in",
+  "profileDefaultRest": "Default rest",
+  "profileDefaultRestSheet": "Rest for a new exercise",
+  "profileDefaultRestNote": "Applies to exercises you add from now on. Each one can still be changed individually.",
+  "profileTimerSound": "Rest timer alert",
+  "profileSectionData": "Data",
+  "profileExport": "Export training log (CSV)",
+  "profileExportSubtitle": "every completed set",
+  "profileExportEmpty": "No finished workouts to export yet.",
+  "profileExportFailed": "Could not build the export.",
+  "profileExportSubject": "PWR · {count, plural, =1{1 set} other{{count} sets}}",
   "onboardingHeadline": "Log your session in",
   "onboardingHeadlineAccent": "three taps.",
   "onboardingBody": "Load, reps and rest. No feed, no distractions — just what you lifted.",
@@ -393,14 +430,31 @@
   "shareCardMinutes": "min",
   "shareCardBest": "best set",
   "shareCardFreestyle": "Workout",
-  "shareSubject": "{routine} · {volume} kg",
+  "shareSubject": "{routine} · {volume} {unit}",
   "shareFailed": "Could not build the image.",
+  "@bodyDeltaWeeks": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "@profileExportSubject": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "@shareSubject": {
     "placeholders": {
       "routine": {
         "type": "String"
       },
       "volume": {
+        "type": "String"
+      },
+      "unit": {
         "type": "String"
       }
     }

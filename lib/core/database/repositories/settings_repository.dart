@@ -17,25 +17,54 @@ class SettingsRepository {
   /// Whether onboarding has already run on this device.
   static const String onboardingSeen = 'onboarding_seen';
 
-  Future<bool> getFlag(String key, {bool orElse = false}) async {
+  /// The [WeightUnit] loads are shown in, stored by enum name.
+  static const String weightUnit = 'weight_unit';
+
+  /// Rest pre-filled into a new routine slot, in seconds.
+  static const String defaultRestSeconds = 'default_rest_seconds';
+
+  /// Whether a finished rest makes a sound.
+  static const String timerSound = 'timer_sound';
+
+  Future<String?> getString(String key) async {
     final row = await (db.select(
       db.appSettings,
     )..where((tbl) => tbl.key.equals(key))).getSingleOrNull();
-    if (row == null) return orElse;
-    return row.value == 'true';
+    return row?.value;
   }
 
-  Future<void> setFlag(String key, {required bool value}) {
+  Future<void> setString(String key, String value) {
     return db
         .into(db.appSettings)
         .insertOnConflictUpdate(
           AppSettingsCompanion.insert(
             key: key,
-            value: '$value',
+            value: value,
             updatedAt: Value(DateTime.now().toUtc()),
           ),
         );
   }
+
+  Future<bool> getFlag(String key, {bool orElse = false}) async {
+    final value = await getString(key);
+    if (value == null) return orElse;
+    return value == 'true';
+  }
+
+  Future<void> setFlag(String key, {required bool value}) =>
+      setString(key, '$value');
+
+  /// Reads an integer setting.
+  ///
+  /// A row holding something that is not a number reads as absent rather than
+  /// throwing — the caller has a default, and a corrupt preference must not be
+  /// able to stop the app from starting.
+  Future<int?> getInt(String key) async {
+    final value = await getString(key);
+    return value == null ? null : int.tryParse(value);
+  }
+
+  Future<void> setInt(String key, int value) => setString(key, '$value');
 }
 
 final settingsRepositoryProvider = Provider<SettingsRepository>(

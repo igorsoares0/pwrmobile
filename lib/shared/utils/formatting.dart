@@ -1,13 +1,20 @@
 import 'package:intl/intl.dart';
 
+import '../../core/settings/weight_unit.dart';
+
 /// A load rendered for display, split so the unit can be styled separately.
 typedef FormattedLoad = ({String value, String unit});
 
-/// Formats a load in kilograms.
+/// Formats a total load, stored in kilograms, into [unit].
 ///
-/// [compact] trades precision for width, switching to tonnes past four digits:
+/// [compact] trades precision for width, switching magnitude past four digits:
 /// `18.4 t` fits a stat tile where `18437 kg` would not, and nobody reading a
 /// weekly total cares about the last kilogram.
+///
+/// Kilograms have a name for a thousand of themselves and pounds do not, so the
+/// two compact differently: `18.4 t` against `40.6k lb`. Both are how each
+/// system is actually written; forcing one shape onto the other would produce
+/// either `40.6 klb` or a six-digit number the tile cannot hold.
 ///
 /// Pass `compact: false` where the number is the headline. A single session's
 /// volume belongs there — rounding 1150 kg to `1.1 t` throws away 50 kg that
@@ -16,13 +23,35 @@ FormattedLoad formatLoad(
   double kilograms,
   String locale, {
   bool compact = true,
+  WeightUnit unit = WeightUnit.kg,
 }) {
-  if (compact && kilograms >= 1000) {
-    final tonnes = NumberFormat('0.#', locale).format(kilograms / 1000);
-    return (value: tonnes, unit: 't');
+  final value = unit.fromKilograms(kilograms);
+
+  if (compact && value >= 1000) {
+    final scaled = NumberFormat('0.#', locale).format(value / 1000);
+    return switch (unit) {
+      WeightUnit.kg => (value: scaled, unit: 't'),
+      WeightUnit.lb => (value: '${scaled}k', unit: unit.symbol),
+    };
   }
-  return (value: NumberFormat('#,##0', locale).format(kilograms), unit: 'kg');
+  return (
+    value: NumberFormat('#,##0', locale).format(value),
+    unit: unit.symbol,
+  );
 }
+
+/// Formats one set's load, stored in kilograms, into [unit].
+///
+/// Separate from [formatLoad] because a single set is not a total: `22.5 kg`
+/// has to survive as `22.5`, where a session volume rounds to the whole unit
+/// without losing anything a user would notice. Running a set weight through
+/// the volume formatter is what turned `22.5` into `23` on the share card.
+///
+/// One decimal at most. A conversion produces figures like `220.46226 lb`,
+/// which is precision no barbell in any gym has.
+String formatSetLoad(double kilograms, String locale, {
+  WeightUnit unit = WeightUnit.kg,
+}) => NumberFormat('0.#', locale).format(unit.fromKilograms(kilograms));
 
 /// Formats a duration as the `~58 min` hint on a routine card.
 int roundedMinutes(Duration duration) => (duration.inSeconds / 60).round();

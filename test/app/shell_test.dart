@@ -89,18 +89,26 @@ void main() {
     expect(find.text('Good session.'), findsOneWidget);
   });
 
-  testShell('the unbuilt tabs say so instead of showing an empty screen', (
+  testShell('the body tab explains itself before there is any data', (
     tester,
   ) async {
     await pumpApp(tester);
 
     await tester.tap(find.text('BODY'));
     await settle(tester);
-    expect(find.text('Measurements are not built yet.'), findsOneWidget);
+
+    expect(find.text('No weigh-ins yet.'), findsOneWidget);
+    // What is locked is on screen and says so, rather than being hidden.
+    expect(find.text('Chest'), findsOneWidget);
+  });
+
+  testShell('the profile tab reaches the settings that exist', (tester) async {
+    await pumpApp(tester);
 
     await tester.tap(find.text('PROFILE'));
     await settle(tester);
-    expect(find.text('There is no account yet.'), findsOneWidget);
+
+    expect(find.text('Weight unit'), findsOneWidget);
   });
 
   testShell('the weekly card jumps to the history tab', (tester) async {

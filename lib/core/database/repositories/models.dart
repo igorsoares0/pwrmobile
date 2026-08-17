@@ -152,6 +152,65 @@ class WorkoutSessionStats {
   }
 }
 
+/// Where body weight is now, and where it came from.
+///
+/// [baseline] is null when there is only one weigh-in, or when every entry in
+/// the window is the latest one. That is the honest answer for someone who has
+/// stepped on the scale once — a delta of `+0.0` would read as "no progress"
+/// rather than "no data yet".
+class BodyTrend {
+  const BodyTrend({
+    required this.latest,
+    required this.window,
+    this.baseline,
+  });
+
+  final BodyMeasurement latest;
+  final BodyMeasurement? baseline;
+
+  /// How far back the baseline was looked for.
+  final Duration window;
+
+  /// Change in kilograms since [baseline], or null when there is nothing to
+  /// compare against.
+  double? get deltaKg {
+    final from = baseline?.weightKg;
+    final to = latest.weightKg;
+    if (from == null || to == null) return null;
+    return to - from;
+  }
+
+  /// Whole weeks between the two entries, for the `IN 12 WEEKS` caption.
+  ///
+  /// The real span, not the nominal window: a user with two entries a fortnight
+  /// apart should read "in 2 weeks", not "in 12".
+  int get spanWeeks {
+    final from = baseline?.measuredAt;
+    if (from == null) return 0;
+    return latest.measuredAt.difference(from).inDays ~/ 7;
+  }
+}
+
+/// One completed set flattened with everything it belongs to.
+///
+/// The shape a spreadsheet wants: no nesting, every row self-describing. Built
+/// only for export, which is why it carries the routine name as a string —
+/// the file outlives the database it came from, and a session whose routine is
+/// later deleted still has to say what it was.
+class ExportedSet {
+  const ExportedSet({
+    required this.session,
+    required this.exercise,
+    required this.set,
+    this.routineName,
+  });
+
+  final WorkoutSession session;
+  final Exercise exercise;
+  final WorkoutSet set;
+  final String? routineName;
+}
+
 extension WorkoutSetVolume on WorkoutSet {
   /// Load moved by this set, in kilograms.
   ///

@@ -6,6 +6,7 @@ import '../../app/theme/theme.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/enums.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 
 /// The column widths every set row and its header share.
@@ -38,11 +39,21 @@ class SetRow extends ConsumerStatefulWidget {
 
 class _SetRowState extends ConsumerState<SetRow> {
   late final TextEditingController _weight = TextEditingController(
-    text: _formatWeight(widget.set.weight),
+    text: formatLoadInput(widget.set.weight, _unit),
   );
   late final TextEditingController _reps = TextEditingController(
     text: widget.set.reps?.toString() ?? '',
   );
+
+  /// The unit the field is currently showing.
+  ///
+  /// Tracked separately from the preference so a change made while this row is
+  /// alive can rewrite the field exactly once. Read with `ref.read` rather than
+  /// `ref.watch` in the initialiser: the controller is created before the first
+  /// build, where watching is not allowed yet.
+  late WeightUnit _shownIn = _unit;
+
+  WeightUnit get _unit => ref.read(weightUnitProvider);
 
   @override
   void didUpdateWidget(SetRow oldWidget) {
@@ -51,7 +62,8 @@ class _SetRowState extends ConsumerState<SetRow> {
     // set. Writing the streamed value back on every rebuild would fight the
     // user's keystrokes, because each keystroke is itself a write.
     if (oldWidget.set.id != widget.set.id) {
-      _weight.text = _formatWeight(widget.set.weight);
+      _shownIn = _unit;
+      _weight.text = formatLoadInput(widget.set.weight, _shownIn);
       _reps.text = widget.set.reps?.toString() ?? '';
     }
   }
@@ -65,7 +77,11 @@ class _SetRowState extends ConsumerState<SetRow> {
 
   WorkoutRepository get _workouts => ref.read(workoutRepositoryProvider);
 
-  double? get _parsedWeight => parseWeight(_weight.text);
+  /// The typed load, converted back to the kilograms the column stores.
+  double? get _parsedWeight {
+    final typed = parseWeight(_weight.text);
+    return typed == null ? null : _shownIn.toKilograms(typed);
+  }
   int? get _parsedReps => int.tryParse(_reps.text.trim());
 
   Future<void> _toggle() async {
@@ -94,6 +110,16 @@ class _SetRowState extends ConsumerState<SetRow> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final done = widget.set.completed;
+
+    // Switching units mid-workout rewrites the field from the stored value
+    // rather than converting what is on screen: a half-typed `12` must not
+    // become `26.5`, and the database is the only thing that knows what the
+    // set actually weighs.
+    final unit = ref.watch(weightUnitProvider);
+    if (unit != _shownIn) {
+      _shownIn = unit;
+      _weight.text = formatLoadInput(widget.set.weight, unit);
+    }
 
     return Container(
       margin: const EdgeInsets.only(bottom: PwrSpacing.listGap),
@@ -154,11 +180,11 @@ class _SetRowState extends ConsumerState<SetRow> {
 }
 
 /// Header above a run of [SetRow]s, on the same column grid.
-class SetRowHeader extends StatelessWidget {
+class SetRowHeader extends ConsumerWidget {
   const SetRowHeader({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final l10n = AppLocalizations.of(context);
     final style = PwrTypography.navLabel.copyWith(
       color: PwrColors.textMuted,
@@ -179,7 +205,12 @@ class SetRowHeader extends StatelessWidget {
             child: Text(l10n.workoutColSet.toUpperCase(), style: style),
           ),
           Expanded(
-            child: Text(l10n.workoutColWeight.toUpperCase(), style: style),
+            // The unit itself is the column label, so the row never has to
+            // repeat it 12 times down the screen.
+            child: Text(
+              ref.watch(weightUnitProvider).symbol.toUpperCase(),
+              style: style,
+            ),
           ),
           const SizedBox(width: PwrSpacing.xs),
           Expanded(
@@ -276,10 +307,21 @@ double? parseWeight(String raw) {
   return double.tryParse(normalised);
 }
 
-String _formatWeight(double? weight) {
-  if (weight == null) return '';
-  // Whole numbers lose the trailing `.0`: nobody writes 80.0 kg on a notepad.
-  return weight == weight.roundToDouble()
-      ? weight.toInt().toString()
-      : weight.toString();
+/// Renders a stored load for the editable field, in [unit].
+///
+/// Not [formatSetLoad]: this string goes back into a `TextField` the user may
+/// carry on typing into, so it stays locale-neutral — a `,` decimal separator
+/// here would be re-parsed but reads as a thousands separator to half the
+/// keyboards that produced it.
+String formatLoadInput(double? kilograms, WeightUnit unit) {
+  if (kilograms == null) return '';
+
+  // One decimal, because a conversion produces `220.46226` and no gym has that
+  // plate. Whole numbers lose the trailing `.0`: nobody writes 80.0 on a
+  // notepad.
+  final value = unit.fromKilograms(kilograms);
+  final rounded = (value * 10).roundToDouble() / 10;
+  return rounded == rounded.roundToDouble()
+      ? rounded.toInt().toString()
+      : rounded.toString();
 }

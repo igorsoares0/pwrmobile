@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/theme/theme.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
@@ -132,7 +133,11 @@ class _WeeklyStatsCard extends ConsumerWidget {
           orElse: () => const WeeklyStats.empty(),
         );
 
-    final load = formatLoad(stats.volume, locale);
+    final load = formatLoad(
+      stats.volume,
+      locale,
+      unit: ref.watch(weightUnitProvider),
+    );
 
     // The week's numbers open the sessions behind them. A dedicated history
     // tab arrives with the bottom navigation; until then this is the way in.

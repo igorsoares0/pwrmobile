@@ -11,8 +11,9 @@ The clickable prototype the visual design follows is `docs/PWR Treino - App.dc (
 success criterion (§23) runs end to end with no network: open → pick a routine
 → start → log weight and reps → rest timer → finish → summary → history.
 
-Remaining from the MVP checklist (§21): **CSV export**. After that, Phase 2
-(Firebase Auth) and Phase 3 (FastAPI backend + sync).
+**The MVP checklist (§21) is complete.** CSV export was the last item; it lives
+on the profile screen. Next is Phase 2 (Firebase Auth) and Phase 3 (FastAPI
+backend + sync).
 
 ## Running
 
@@ -49,7 +50,7 @@ lib/
 │   ├── catalog/      Bundled exercise catalogue + locale resolution
 │   ├── database/     Drift / SQLite
 │   ├── network/      HTTP client (phase 3)
-│   ├── storage/      Key-value preferences
+│   ├── settings/     Device-local preferences + WeightUnit
 │   └── sync/         Sync queue and cursor (phase 3)
 ├── features/       One folder per feature, each self-contained
 │   ├── onboarding/  home/  routines/  exercises/  workout/
@@ -129,6 +130,7 @@ core/database/
 ├── repositories/           the only way features touch the database
 │   ├── repository.dart       shared touch / softDelete
 │   ├── models.dart           joined read models
+│   ├── body_repository.dart
 │   ├── exercise_repository.dart
 │   ├── routine_repository.dart
 │   └── workout_repository.dart
@@ -137,6 +139,7 @@ core/database/
     ├── exercises.dart
     ├── routines.dart  routine_exercises.dart
     ├── workout_sessions.dart  workout_exercises.dart  workout_sets.dart
+    ├── body_measurements.dart
     └── sync_operations.dart
 ```
 
@@ -157,7 +160,8 @@ Exercise ──┬─< RoutineExercise >── Routine
 ```
 
 `SyncOperations` stands apart — it is the local outbound queue, not a
-synchronized entity.
+synchronized entity. `BodyMeasurements` stands apart the other way: it is a
+synchronized entity with no relationships at all, a bare series of weigh-ins.
 
 ### Invariants
 
@@ -242,7 +246,8 @@ the workout screen exists to render. There is a regression test for it.
 | `/welcome` | Onboarding | First launch only; the flag lives in `app_settings` |
 | `/` | Home | Weekly stats, routines, resume banner |
 | `/history` | History | Finished sessions grouped by month |
-| `/body`, `/profile` | Placeholders | Phase 5 and Phase 2; they say so |
+| `/body` | Body | Body weight; perimeters are shown locked |
+| `/profile` | Profile | Preferences and CSV export; the account header is a stub |
 | `/library`, `/library/pick` | Exercise library | Browse, or pick for a routine/workout |
 | `/routines/:id` | Routine builder | Writes through on every keystroke |
 | `/workout/:id` | Workout | The set row — the product's main screen |
@@ -322,6 +327,114 @@ have made the screen look finished while being false.
 
 `ExerciseLibraryScreen` takes an optional `onSelect`, so the routine builder can
 reuse it as a picker rather than growing a near-duplicate screen.
+
+## Profile and preferences
+
+`lib/features/profile/` and `lib/core/settings/`. The prototype's profile screen
+is an account page; this one is a settings page with an account header that
+admits it is a stub. A name, a gym and a subscription card all need data that
+does not exist until Phase 2 and Phase 4 — the same reason home omits the gym
+chip.
+
+There is no "Subscribe to PRO" row for the same reason: it would have to lead
+somewhere, and RevenueCat is Phase 4. Notifications, privacy and sign-out are
+absent rather than present-and-dead.
+
+### Preferences
+
+Three settings, all device-local, all in `app_settings` — which is deliberately
+*not* a synced table. Which unit someone reads on their phone says nothing about
+their tablet, and syncing it would make one device overwrite the other.
+
+| Setting | Reaches |
+| --- | --- |
+| Weight unit | Every load on screen, the set row's input, the share card, the CSV |
+| Default rest | New routine slots and exercises added mid-workout |
+| Rest timer alert | `SystemSound.alert` plus a haptic when a rest hits zero |
+
+`loadPreferences` runs in `bootstrapPwr` and hydrates `preferencesProvider`
+before `runApp`. That is what lets every widget read the unit synchronously — a
+set row cannot resolve a future before deciding whether to print `kg`.
+
+### Weight unit
+
+**The database still only stores kilograms.** `WeightUnit` is the single
+boundary where the stored value meets the screen: `fromKilograms` on the way
+out, `toKilograms` on the way back in. Nothing downstream of a conversion is
+ever written to a weight column.
+
+Switching units mid-workout re-seeds each set field from the stored value rather
+than converting what is on screen — a half-typed `12` must not become `26.5`.
+
+Two formatters, not one:
+
+- `formatLoad` — totals. Rounds to the whole unit, and compacts past four
+  digits. Kilograms have a name for a thousand of themselves and pounds do not,
+  so `18.4 t` against `40.6k lb`; each is how its own system is written.
+- `formatSetLoad` — one set. Keeps a decimal, because `22.5 kg` has to survive
+  as `22.5`. Running a set weight through the volume formatter is what used to
+  print `23` on the share card.
+
+`formatLoadInput` is a third, in `set_row.dart` beside its inverse
+`parseWeight`: it feeds a `TextField` the user may still be typing into, so it
+stays locale-neutral where the other two are not.
+
+### CSV export
+
+Spec §12 lists it as **Free**; the prototype locks it behind PRO. The spec wins,
+as it did for custom exercises — an app that holds your training hostage does
+not replace a notebook.
+
+`WorkoutRepository.exportCompletedSets` is the query, `CsvExport` writes the
+file, and it goes out through the share sheet rather than to a path: that is
+where "save to Files", "put it in Drive" and "mail it to myself" already live,
+and none of them need a storage permission.
+
+Decisions the file depends on:
+
+- **Finished sessions and completed sets only.** A planned set nobody checked
+  off did not happen, and a spreadsheet summing `weight × reps` would count it.
+  Warm-ups *are* included and labelled — they were performed, and filtering them
+  is the reader's call.
+- **Loads in the user's unit, named in the header** (`weight_lb`), because the
+  file is read by a person, years later, with no app to ask.
+- **`.` decimals always, never the locale's.** `22,5` in a comma-delimited file
+  is two columns. The delimiter beats the locale.
+- **UTF-8 with a BOM.** Excel on Windows reads BOM-less UTF-8 as the system
+  codepage, which turns every accented exercise name into mojibake.
+- **RFC 4180 quoting**, because "Supino reto, pegada fechada" is a name a user
+  will type.
+
+## Body
+
+`lib/features/body/`. Body weight over time — the Free half of the prototype's
+body screen.
+
+Spec §13 reserves "medições corporais avançadas" for PRO. Perimeters and
+progress photos are what *advanced* means here; body weight itself is not, and
+it is the line underneath every other number in the app — 12 000 kg of volume
+means one thing at 74 kg and another at 82. The perimeters are still on screen
+as inert locked rows: hiding them would make the screen look finished, and
+making them tappable would promise a paywall that does not exist until Phase 4.
+
+Choices worth knowing:
+
+- **`measuredAt` is when the user stepped on the scale**, not when they typed
+  it in. Someone catching up on Monday for a Saturday weigh-in has to be able
+  to say Saturday, or the trend line lies. Every read orders on it rather than
+  on the id, which would sort by insertion.
+- **No baseline means no delta.** A single weigh-in shows `FIRST ENTRY`, not
+  `+0.0 kg` — the second reads as a stalled month rather than a first entry.
+- **The delta window is 12 weeks**, but the caption reports the *real* span
+  between the two entries. Two weigh-ins a fortnight apart say "in 2 weeks".
+- **The arrow is accent-coloured either way**, never green-good / red-bad. A
+  kilogram down is progress on a cut and a setback on a bulk, and the app has
+  no idea which one the user is on.
+- **Entries are editable and deletable.** A weigh-in is one number typed on a
+  phone with wet hands; a screen that could only append would leave a misplaced
+  decimal point wrong forever, and the trend permanently untrue.
+- Weight is stored in kilograms and converted through `WeightUnit`, exactly
+  like a barbell load.
 
 ## Testing widget screens
 
@@ -433,8 +546,12 @@ new table appears.
 
 ### Not yet built
 
-- `PersonalRecord` and `BodyMeasurement` — Phase 5 features, no schema cost to
-  defer.
+- `PersonalRecord` — Phase 5, no schema cost to defer.
+- The body perimeter columns. `body_measurements` ships with weight only;
+  chest, waist, arm and thigh are PRO (spec §13) and are one nullable column
+  each when that arrives. `weight_kg` is nullable from the start so that day
+  needs no *data* migration — an entry recording a waist and no weight has to
+  be expressible.
 - The sync queue **logic**. The `sync_operations` table ships in schema version
   1 so that turning sync on in Phase 3 needs no migration of user data.
 - Locales beyond `en` and `pt`. Adding one is a column of strings in the

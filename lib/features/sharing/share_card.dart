@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../app/theme/theme.dart';
 import '../../core/database/app_database.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../workout/summary_providers.dart';
@@ -18,9 +19,14 @@ import '../workout/summary_providers.dart';
 /// that reflowed to the phone's width would produce a different image for
 /// every user.
 class ShareCard extends StatelessWidget {
-  const ShareCard({super.key, required this.summary});
+  const ShareCard({super.key, required this.summary, required this.unit});
 
   final WorkoutSummary summary;
+
+  /// Passed in rather than read from a provider: this widget is rasterised into
+  /// a file that leaves the device, so every input that changes the pixels is
+  /// an explicit argument — the same reason [logicalSize] is fixed.
+  final WeightUnit unit;
 
   /// Logical size of the exported image, at 1:1. Portrait 4:5, which is what
   /// social feeds crop least.
@@ -31,7 +37,7 @@ class ShareCard extends StatelessWidget {
     final l10n = AppLocalizations.of(context);
     final locale = Localizations.localeOf(context).toLanguageTag();
     final stats = summary.stats;
-    final load = formatLoad(stats.volume, locale, compact: false);
+    final load = formatLoad(stats.volume, locale, compact: false, unit: unit);
 
     const onAccentMuted = Color(0xB3FFFFFF);
 
@@ -90,7 +96,7 @@ class ShareCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: PwrSpacing.xs),
-                _BestSet(summary: summary, locale: locale),
+                _BestSet(summary: summary, locale: locale, unit: unit),
                 const SizedBox(height: PwrSpacing.lg),
               ],
 
@@ -127,10 +133,15 @@ class ShareCard extends StatelessWidget {
 }
 
 class _BestSet extends StatelessWidget {
-  const _BestSet({required this.summary, required this.locale});
+  const _BestSet({
+    required this.summary,
+    required this.locale,
+    required this.unit,
+  });
 
   final WorkoutSummary summary;
   final String locale;
+  final WeightUnit unit;
 
   @override
   Widget build(BuildContext context) {
@@ -166,7 +177,8 @@ class _BestSet extends StatelessWidget {
     final reps = best.reps ?? 0;
     final weight = best.weight;
     if (weight == null || weight == 0) return '$reps';
-    return '${formatLoad(weight, locale).value} KG × $reps';
+    final load = formatSetLoad(weight, locale, unit: unit);
+    return '$load ${unit.symbol.toUpperCase()} × $reps';
   }
 }
 

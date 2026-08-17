@@ -40,6 +40,7 @@ void main() {
         'sync_operations',
         // Device-local preferences; deliberately not a synchronised entity.
         'app_settings',
+        'body_measurements',
       });
     });
 

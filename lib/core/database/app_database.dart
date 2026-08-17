@@ -21,6 +21,7 @@ part 'app_database.g.dart';
     WorkoutSets,
     SyncOperations,
     AppSettings,
+    BodyMeasurements,
   ],
 )
 class AppDatabase extends _$AppDatabase {
@@ -37,7 +38,7 @@ class AppDatabase extends _$AppDatabase {
   /// Adding `app_settings` without a version bump is exactly how this app
   /// started failing to boot.
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -49,6 +50,12 @@ class AppDatabase extends _$AppDatabase {
       // that it has run.
       if (from < 2) {
         await m.createTable(appSettings);
+      }
+
+      // 2 → 3: body weight logging. A new table only, so nothing existing is
+      // rewritten — an upgrade cannot lose a workout.
+      if (from < 3) {
+        await m.createTable(bodyMeasurements);
       }
     },
     beforeOpen: (details) async {

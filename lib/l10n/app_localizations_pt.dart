@@ -381,8 +381,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get workoutSuperset => 'supersérie';
 
   @override
-  String workoutPrevious(int sets, int reps, String weight) {
-    return 'anterior $sets×$reps · ${weight}kg';
+  String workoutPrevious(int sets, int reps, String weight, String unit) {
+    return 'anterior $sets×$reps · $weight$unit';
   }
 
   @override
@@ -477,8 +477,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get summaryBestToday => 'seus melhores de hoje';
 
   @override
-  String summaryBestSet(String weight, int reps) {
-    return '${weight}kg × $reps';
+  String summaryBestSet(String weight, String unit, int reps) {
+    return '$weight$unit × $reps';
   }
 
   @override
@@ -556,21 +556,134 @@ class AppLocalizationsPt extends AppLocalizations {
   String get bodyTitle => 'Corpo';
 
   @override
-  String get bodyNotBuilt => 'Medições ainda não existem.';
-
-  @override
-  String get bodyNotBuiltBody =>
-      'Peso e medidas corporais chegam numa versão futura.';
-
-  @override
   String get profileTitle => 'Perfil';
 
   @override
-  String get profileNotBuilt => 'Ainda não há conta.';
+  String get bodyCurrentWeight => 'peso atual';
 
   @override
-  String get profileNotBuiltBody =>
-      'Tudo que você registra fica neste aparelho. Conta e sincronização vêm depois.';
+  String get bodyNoBaseline => 'primeiro registro';
+
+  @override
+  String bodyDeltaWeeks(int weeks) {
+    String _temp0 = intl.Intl.pluralLogic(
+      weeks,
+      locale: localeName,
+      other: '$weeks semanas',
+      one: '1 semana',
+      zero: 'menos de uma semana',
+    );
+    return 'em $_temp0';
+  }
+
+  @override
+  String get bodyLogWeight => 'Registrar peso';
+
+  @override
+  String get bodyLogTitle => 'Pesagem';
+
+  @override
+  String get bodyLogDate => 'Data';
+
+  @override
+  String get bodyLogToday => 'Hoje';
+
+  @override
+  String get bodyLogSave => 'Salvar';
+
+  @override
+  String get bodyLogDelete => 'Excluir este registro';
+
+  @override
+  String get bodyHistory => 'Histórico';
+
+  @override
+  String get bodyEmptyHeadline => 'Nenhuma pesagem ainda.';
+
+  @override
+  String get bodyEmptyBody =>
+      'Um número por semana já basta. É a linha embaixo de todos os outros números do app — volume significa uma coisa a 74 kg e outra a 82.';
+
+  @override
+  String get bodyMeasurements => 'Medidas';
+
+  @override
+  String get bodyMeasurementsLocked =>
+      'Peito, cintura, braço e coxa — e fotos de evolução — fazem parte do PRO.';
+
+  @override
+  String get bodyChest => 'Peito';
+
+  @override
+  String get bodyWaist => 'Cintura';
+
+  @override
+  String get bodyArm => 'Braço';
+
+  @override
+  String get bodyThigh => 'Coxa';
+
+  @override
+  String get bodyLocked => 'PRO';
+
+  @override
+  String get profileAccountTitle => 'Este aparelho';
+
+  @override
+  String get profileAccountSubtitle => 'plano free';
+
+  @override
+  String get profileAccountNote =>
+      'Tudo que você registra fica aqui. Conta e sincronização na nuvem chegam numa versão futura.';
+
+  @override
+  String get profileSectionTraining => 'Treino';
+
+  @override
+  String get profileWeightUnit => 'Unidade de peso';
+
+  @override
+  String get profileWeightUnitSheet => 'Mostrar cargas em';
+
+  @override
+  String get profileDefaultRest => 'Descanso padrão';
+
+  @override
+  String get profileDefaultRestSheet => 'Descanso de um exercício novo';
+
+  @override
+  String get profileDefaultRestNote =>
+      'Vale para os exercícios que você adicionar daqui em diante. Cada um ainda pode ser mudado individualmente.';
+
+  @override
+  String get profileTimerSound => 'Alerta sonoro do descanso';
+
+  @override
+  String get profileSectionData => 'Dados';
+
+  @override
+  String get profileExport => 'Exportar treinos (CSV)';
+
+  @override
+  String get profileExportSubtitle => 'todas as séries concluídas';
+
+  @override
+  String get profileExportEmpty =>
+      'Ainda não há treino finalizado para exportar.';
+
+  @override
+  String get profileExportFailed => 'Não foi possível gerar o arquivo.';
+
+  @override
+  String profileExportSubject(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count séries',
+      one: '1 série',
+    );
+    return 'PWR · $_temp0';
+  }
 
   @override
   String get onboardingHeadline => 'Registre o treino em';
@@ -629,8 +742,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get shareCardFreestyle => 'Treino';
 
   @override
-  String shareSubject(String routine, String volume) {
-    return '$routine · $volume kg';
+  String shareSubject(String routine, String volume, String unit) {
+    return '$routine · $volume $unit';
   }
 
   @override

@@ -4,6 +4,7 @@
 /// filtering, revision bumping and soft-delete rules live here.
 library;
 
+export 'body_repository.dart';
 export 'exercise_repository.dart';
 export 'models.dart';
 export 'routine_repository.dart';

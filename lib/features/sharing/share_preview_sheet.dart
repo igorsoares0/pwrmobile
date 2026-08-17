@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../app/theme/theme.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
@@ -49,6 +50,7 @@ class _SharePreviewSheetState extends ConsumerState<SharePreviewSheet> {
       }
 
       final stats = widget.summary.stats;
+      final unit = ref.read(weightUnitProvider);
       await ref
           .read(shareServiceProvider)
           .shareImage(
@@ -56,7 +58,13 @@ class _SharePreviewSheetState extends ConsumerState<SharePreviewSheet> {
             fileName: 'pwr-${stats.session.id}.png',
             subject: l10n.shareSubject(
               widget.summary.routineName ?? l10n.shareCardFreestyle,
-              formatLoad(stats.volume, locale, compact: false).value,
+              formatLoad(
+                stats.volume,
+                locale,
+                compact: false,
+                unit: unit,
+              ).value,
+              unit.symbol,
             ),
           );
 
@@ -92,7 +100,10 @@ class _SharePreviewSheetState extends ConsumerState<SharePreviewSheet> {
                 child: FittedBox(
                   child: RepaintBoundary(
                     key: _cardKey,
-                    child: ShareCard(summary: widget.summary),
+                    child: ShareCard(
+                      summary: widget.summary,
+                      unit: ref.watch(weightUnitProvider),
+                    ),
                   ),
                 ),
               ),

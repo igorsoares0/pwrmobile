@@ -569,6 +569,74 @@ class WorkoutRepository extends Repository {
 
   Future<void> removeSet(String setId) => softDelete(db.workoutSets, setId);
 
+  // --- Export ---------------------------------------------------------------
+
+  /// Every completed set in every finished session, oldest first (spec §12).
+  ///
+  /// Two filters worth stating, because an export that quietly disagrees with
+  /// the app's own totals is worse than no export:
+  ///
+  /// - **Finished sessions only.** The workout happening right now is not yet
+  ///   a record of anything, and exporting it mid-set would write a row the
+  ///   user is still editing.
+  /// - **Completed sets only.** A planned set nobody checked off did not
+  ///   happen. Leaving it in would make any `weight × reps` column a
+  ///   spreadsheet sums disagree with the volume this app shows.
+  ///
+  /// Warm-ups *are* included, unlike in volume: they were performed, and the
+  /// row says so in its type column, which leaves the filtering to whoever
+  /// opens the file.
+  Future<List<ExportedSet>> exportCompletedSets() async {
+    final rows =
+        await (db.select(db.workoutSessions).join([
+                innerJoin(
+                  db.workoutExercises,
+                  db.workoutExercises.sessionId.equalsExp(
+                        db.workoutSessions.id,
+                      ) &
+                      db.workoutExercises.deletedAt.isNull(),
+                ),
+                innerJoin(
+                  db.workoutSets,
+                  db.workoutSets.workoutExerciseId.equalsExp(
+                        db.workoutExercises.id,
+                      ) &
+                      db.workoutSets.deletedAt.isNull() &
+                      db.workoutSets.completed.equals(true),
+                ),
+                innerJoin(
+                  db.exercises,
+                  db.exercises.id.equalsExp(db.workoutExercises.exerciseId),
+                ),
+                // Outer, and without a tombstone filter: a session started from
+                // a routine the user has since deleted still has to name it.
+                leftOuterJoin(
+                  db.routines,
+                  db.routines.id.equalsExp(db.workoutSessions.routineId),
+                ),
+              ])
+              ..where(
+                db.workoutSessions.deletedAt.isNull() &
+                    db.workoutSessions.finishedAt.isNotNull(),
+              )
+              ..orderBy([
+                OrderingTerm.asc(db.workoutSessions.startedAt),
+                OrderingTerm.asc(db.workoutExercises.position),
+                OrderingTerm.asc(db.workoutSets.setNumber),
+              ]))
+            .get();
+
+    return [
+      for (final row in rows)
+        ExportedSet(
+          session: row.readTable(db.workoutSessions),
+          exercise: row.readTable(db.exercises),
+          set: row.readTable(db.workoutSets),
+          routineName: row.readTableOrNull(db.routines)?.name,
+        ),
+    ];
+  }
+
   // --- Previous performance -------------------------------------------------
 
   /// What the user did the last time they trained [exerciseId].

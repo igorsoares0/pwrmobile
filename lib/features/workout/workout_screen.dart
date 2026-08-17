@@ -6,6 +6,7 @@ import '../../core/catalog/catalog_provider.dart';
 import '../../core/catalog/exercise_display.dart';
 import '../../core/database/app_database.dart';
 import '../../core/database/repositories/repositories.dart';
+import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
@@ -287,6 +288,7 @@ class _Chips extends ConsumerWidget {
 
     final best = previous?.bestSet;
     final locale = Localizations.localeOf(context).toLanguageTag();
+    final unit = ref.watch(weightUnitProvider);
 
     return Wrap(
       spacing: PwrSpacing.xs,
@@ -301,7 +303,8 @@ class _Chips extends ConsumerWidget {
                     .workoutPrevious(
                       previous!.workingSetCount,
                       best.reps ?? 0,
-                      formatLoad(best.weight ?? 0, locale).value,
+                      formatSetLoad(best.weight ?? 0, locale, unit: unit),
+                      unit.symbol,
                     )
                     .toUpperCase(),
         ),
@@ -407,7 +410,11 @@ class _AddExerciseButton extends ConsumerWidget {
         if (exercise == null) return;
         await ref
             .read(workoutRepositoryProvider)
-            .addExercise(sessionId: sessionId, exerciseId: exercise.id);
+            .addExercise(
+              sessionId: sessionId,
+              exerciseId: exercise.id,
+              restSeconds: ref.read(preferencesProvider).defaultRestSeconds,
+            );
       },
     );
   }
