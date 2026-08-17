@@ -75,8 +75,8 @@ class HistoryScreen extends ConsumerWidget {
                       icon: const Icon(Icons.arrow_back),
                       padding: EdgeInsets.zero,
                       constraints: const BoxConstraints(
-                        minWidth: 32,
-                        minHeight: 32,
+                        minWidth: 44,
+                        minHeight: 44,
                       ),
                     ),
                     const SizedBox(width: PwrSpacing.sm),

@@ -304,7 +304,7 @@ class _RoutineRow extends StatelessWidget {
         onPressed: onEdit,
         icon: const Icon(Icons.edit_outlined, size: 16),
         padding: EdgeInsets.zero,
-        constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+        constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
       ),
       onTap: onTap,
     );

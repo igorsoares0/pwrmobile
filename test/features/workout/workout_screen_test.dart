@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:drift/native.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -12,6 +13,7 @@ import 'package:pwrmobile/core/database/app_database.dart';
 import 'package:pwrmobile/core/database/database_provider.dart';
 import 'package:pwrmobile/core/database/enums.dart';
 import 'package:pwrmobile/core/database/repositories/repositories.dart';
+import 'package:pwrmobile/features/workout/rest_pill.dart';
 import 'package:pwrmobile/features/workout/rest_timer.dart';
 import 'package:pwrmobile/features/workout/set_row.dart';
 import 'package:pwrmobile/features/workout/workout_launcher.dart';
@@ -244,6 +246,43 @@ void main() {
       expect(find.text('01:30'), findsOneWidget);
     });
 
+    testWorkout('checking a set off confirms in the hand', (tester) async {
+      // The set row is the one gesture the product is built around, and a
+      // haptic is the only confirmation that does not ask the user to look.
+      // Easy to drop in a refactor and impossible to notice in a widget test
+      // unless something asserts it, so: assert it.
+      final haptics = <String>[];
+      tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+        SystemChannels.platform,
+        (call) async {
+          if (call.method == 'HapticFeedback.vibrate') {
+            haptics.add(call.arguments as String);
+          }
+          return null;
+        },
+      );
+      addTearDown(
+        () => tester.binding.defaultBinaryMessenger.setMockMethodCallHandler(
+          SystemChannels.platform,
+          null,
+        ),
+      );
+
+      await pumpWorkout(tester);
+
+      await tester.tap(checkButtons().first);
+      await settle(tester);
+
+      expect(haptics, ['HapticFeedbackType.selectionClick']);
+
+      // Un-checking is a correction, not an achievement: it stays silent.
+      haptics.clear();
+      await tester.tap(checkButtons().first);
+      await settle(tester);
+
+      expect(haptics, isEmpty);
+    });
+
     testWorkout('the rest countdown ticks down', (tester) async {
       await pumpWorkout(tester);
 
@@ -266,9 +305,15 @@ void main() {
 
       await tester.tap(checkButtons().first);
       await settle(tester);
+      expect(find.text('DESCANSO'), findsOneWidget);
 
-      await tester.tap(find.text('Pausar'));
+      // Pausing is the ring itself, not a third button: the countdown is a
+      // 56dp target that was already there, and dropping the button is what
+      // keeps +30s and Pular in reach without a Wrap.
+      await tester.tap(find.byType(CircularProgressIndicator));
       await settle(tester);
+      expect(find.text('PAUSADO'), findsOneWidget);
+
       await tester.pump(const Duration(seconds: 3));
       // Paused means paused: the clock does not move.
       expect(find.text('01:30'), findsOneWidget);
@@ -277,10 +322,42 @@ void main() {
       await settle(tester);
       expect(find.text('02:00'), findsOneWidget);
 
-      await tester.tap(find.text('Retomar'));
+      await tester.tap(find.byType(CircularProgressIndicator));
       await settle(tester);
-      await tester.tap(find.text('Pausar'));
+      expect(find.text('DESCANSO'), findsOneWidget);
+
+      await tester.tap(find.text('Pular'));
       await settle(tester);
+    });
+
+    testWorkout('the rest pill floats instead of resizing the exercise', (
+      tester,
+    ) async {
+      await pumpWorkout(tester);
+
+      // The regression this guards: the countdown used to be a child of the
+      // screen's Column, so starting a rest took its height out of the page
+      // above it. The page got shorter at the exact moment the thumb came off
+      // the checkmark — and once the list is scrolled near the end, which is
+      // where you are when checking off the last set, a shorter viewport drags
+      // the content back down with it.
+      final before = tester.getRect(find.byType(PageView));
+
+      await tester.tap(checkButtons().first);
+      await settle(tester);
+      expect(find.text('DESCANSO'), findsOneWidget);
+
+      // States the premise, so the assertion below cannot pass by the pill
+      // being empty: it is a real block of height, it just is not taken out of
+      // the page's.
+      expect(tester.getSize(find.byType(RestPill)).height, greaterThan(40));
+      expect(tester.getRect(find.byType(PageView)), before);
+
+      await tester.tap(find.text('Pular'));
+      await settle(tester);
+
+      expect(find.text('DESCANSO'), findsNothing);
+      expect(tester.getRect(find.byType(PageView)), before);
     });
 
     testWorkout('un-checking a set is possible after a mis-tap', (

@@ -78,7 +78,7 @@ class _Header extends StatelessWidget {
               onPressed: onBack,
               icon: const Icon(Icons.arrow_back),
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+              constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
             ),
           ),
         Text(title, style: PwrTypography.titleMedium),

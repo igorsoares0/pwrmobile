@@ -403,6 +403,12 @@ class AppLocalizationsPt extends AppLocalizations {
   String get workoutRest => 'descanso';
 
   @override
+  String get workoutRestPaused => 'pausado';
+
+  @override
+  String get workoutRestDone => 'pronto';
+
+  @override
   String get workoutRestStart => 'Iniciar';
 
   @override

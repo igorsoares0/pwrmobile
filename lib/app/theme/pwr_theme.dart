@@ -151,9 +151,19 @@ abstract final class PwrTheme {
         trackOutlineColor: const WidgetStatePropertyAll(Colors.transparent),
       ),
 
-      // The workout screen is a long scroll the user thumbs through between
-      // sets; an overscroll glow on a near-black background reads as a smudge.
-      splashColor: Colors.transparent,
+      // Ink that reads on a near-black ground without washing it out.
+      //
+      // These used to be transparent, to suppress the overscroll glow. They
+      // never did that — the glow belongs to the ScrollBehavior, not to the
+      // ink — so zeroing them only cost the app its touch feedback, and only
+      // on the widgets that did not carry their own colour: the set row's
+      // checkmark, every item in the bottom navigation, the tappable tags and
+      // the stepper buttons. Every one of those is a primary control.
+      //
+      // The highlight stays off. A splash that fires and fades matches how
+      // quick the taps in this app are; a highlight that lingers under the
+      // finger would still be lit when the next set is being typed.
+      splashColor: PwrColors.surfaceRaised,
       highlightColor: Colors.transparent,
     );
   }

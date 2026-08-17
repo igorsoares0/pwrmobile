@@ -228,6 +228,8 @@
   "workoutLastExercise": "last exercise",
   "workoutAddSet": "Add set",
   "workoutRest": "rest",
+  "workoutRestPaused": "paused",
+  "workoutRestDone": "done",
   "workoutRestStart": "Start",
   "workoutRestPause": "Pause",
   "workoutRestResume": "Resume",

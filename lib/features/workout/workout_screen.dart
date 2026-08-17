@@ -10,6 +10,7 @@ import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 import '../../shared/utils/formatting.dart';
 import '../../shared/widgets/widgets.dart';
+import 'rest_pill.dart';
 import 'rest_timer.dart';
 import 'set_row.dart';
 import 'workout_providers.dart';
@@ -80,27 +81,42 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
               progress: allSets.isEmpty ? 0 : done / allSets.length,
             ),
             Expanded(
-              child: exercises.isEmpty
-                  ? _NoExercises(
-                      sessionId: widget.sessionId,
-                      onPickExercise: widget.onPickExercise,
-                    )
-                  : PageView.builder(
-                      controller: _pages,
-                      itemCount: exercises.length,
-                      onPageChanged: (index) =>
-                          setState(() => _current = index),
-                      itemBuilder: (context, index) => _ExercisePage(
-                        sessionId: widget.sessionId,
-                        detail: exercises[index],
-                        next: index + 1 < exercises.length
-                            ? exercises[index + 1]
-                            : null,
-                        onPickExercise: widget.onPickExercise,
-                      ),
-                    ),
+              // The rest pill floats over the exercise rather than sitting in
+              // this column. In the column it grew the layout the instant a set
+              // was checked off, which shoved everything up under the thumb
+              // that had just tapped.
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: exercises.isEmpty
+                        ? _NoExercises(
+                            sessionId: widget.sessionId,
+                            onPickExercise: widget.onPickExercise,
+                          )
+                        : PageView.builder(
+                            controller: _pages,
+                            itemCount: exercises.length,
+                            onPageChanged: (index) =>
+                                setState(() => _current = index),
+                            itemBuilder: (context, index) => _ExercisePage(
+                              sessionId: widget.sessionId,
+                              detail: exercises[index],
+                              next: index + 1 < exercises.length
+                                  ? exercises[index + 1]
+                                  : null,
+                              onPickExercise: widget.onPickExercise,
+                            ),
+                          ),
+                  ),
+                  const Positioned(
+                    left: PwrSpacing.screenH,
+                    right: PwrSpacing.screenH,
+                    bottom: PwrSpacing.sm,
+                    child: RestPill(),
+                  ),
+                ],
+              ),
             ),
-            const _RestCard(),
             Padding(
               padding: const EdgeInsets.fromLTRB(
                 PwrSpacing.screenH,
@@ -231,11 +247,14 @@ class _ExercisePage extends ConsumerWidget {
     final name = detail.exercise.displayName(catalog, language);
 
     return ListView(
+      // The bottom inset is reserved whether or not a rest is running. Growing
+      // it only while the pill is up would reintroduce exactly the jump the
+      // pill was moved out of the column to avoid.
       padding: const EdgeInsets.fromLTRB(
         PwrSpacing.screenH,
         PwrSpacing.md,
         PwrSpacing.screenH,
-        PwrSpacing.md,
+        RestPill.reservedHeight,
       ),
       children: [
         Text(name, style: PwrTypography.headline),
@@ -309,83 +328,6 @@ class _Chips extends ConsumerWidget {
                     .toUpperCase(),
         ),
       ],
-    );
-  }
-}
-
-class _RestCard extends ConsumerWidget {
-  const _RestCard();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final l10n = AppLocalizations.of(context);
-    final rest = ref.watch(restTimerProvider);
-    final notifier = ref.read(restTimerProvider.notifier);
-
-    if (!rest.isActive) return const SizedBox.shrink();
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: PwrSpacing.screenH),
-      child: PwrCard(
-        borderRadius: PwrRadius.cardLargeAll,
-        padding: const EdgeInsets.symmetric(
-          horizontal: PwrSpacing.lg,
-          vertical: 18,
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  PwrOverline(l10n.workoutRest),
-                  const SizedBox(height: PwrSpacing.xs),
-                  Text(
-                    formatClock(rest.remaining),
-                    style: PwrTypography.metricLg.copyWith(
-                      color: rest.isFinished
-                          ? PwrColors.textPrimary
-                          : PwrColors.accent,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Skip is always available, not just once the countdown expires.
-            // Resting is a suggestion; the user who wants to go straight into
-            // the next set must not have to wait the timer out or hunt for a
-            // way to dismiss it.
-            Wrap(
-              spacing: PwrSpacing.xs,
-              runSpacing: PwrSpacing.xs,
-              alignment: WrapAlignment.end,
-              children: [
-                PwrButton.ghost(
-                  label: l10n.workoutRestAdd,
-                  size: PwrButtonSize.compact,
-                  expand: false,
-                  onPressed: () => notifier.extend(30),
-                ),
-                PwrButton.ghost(
-                  label: l10n.workoutRestSkip,
-                  size: PwrButtonSize.compact,
-                  expand: false,
-                  onPressed: notifier.skip,
-                ),
-                if (!rest.isFinished)
-                  PwrButton(
-                    label: rest.running
-                        ? l10n.workoutRestPause
-                        : l10n.workoutRestResume,
-                    size: PwrButtonSize.compact,
-                    expand: false,
-                    onPressed: rest.running ? notifier.pause : notifier.resume,
-                  ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

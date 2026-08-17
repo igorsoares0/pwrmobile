@@ -118,9 +118,15 @@ class _Destination extends StatelessWidget {
             children: [
               Icon(item.icon, size: 22, color: color),
               const SizedBox(height: 6),
+              // The longest label ("histórico") is within a hair of its quarter
+              // of the bar on a narrow phone. Fading beats the debug stripes
+              // and beats a second line that would grow the whole bar.
               Text(
                 item.label.toUpperCase(),
                 style: PwrTypography.navLabel.copyWith(color: color),
+                maxLines: 1,
+                softWrap: false,
+                overflow: TextOverflow.fade,
               ),
             ],
           ),

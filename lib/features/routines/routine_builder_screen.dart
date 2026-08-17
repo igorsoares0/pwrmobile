@@ -113,7 +113,7 @@ class _Header extends ConsumerWidget {
           onPressed: onDone,
           icon: const Icon(Icons.arrow_back),
           padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
         ),
         const SizedBox(width: PwrSpacing.sm),
         Expanded(
@@ -123,7 +123,7 @@ class _Header extends ConsumerWidget {
           onPressed: () => _confirmDelete(context, ref),
           icon: const Icon(Icons.delete_outline),
           padding: EdgeInsets.zero,
-          constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+          constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
         ),
       ],
     );

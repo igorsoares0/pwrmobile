@@ -111,6 +111,8 @@
   "workoutLastExercise": "último exercício",
   "workoutAddSet": "Adicionar série",
   "workoutRest": "descanso",
+  "workoutRestPaused": "pausado",
+  "workoutRestDone": "pronto",
   "workoutRestStart": "Iniciar",
   "workoutRestPause": "Pausar",
   "workoutRestResume": "Retomar",

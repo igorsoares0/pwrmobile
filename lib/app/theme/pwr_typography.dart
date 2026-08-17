@@ -268,13 +268,19 @@ abstract final class PwrTypography {
   );
 
   /// Bottom navigation item label.
+  ///
+  /// 10px rather than the prototype's 9: at 9 the label is below any readable
+  /// floor, and it is drawn in [PwrColors.textFaint], the palette's quietest
+  /// colour. It does not go higher because the four labels share the row with
+  /// the centre button — at 11px `HISTÓRICO` no longer fits its quarter on a
+  /// 360dp screen. The tracking gives back the width the extra point costs.
   static const TextStyle navLabel = TextStyle(
     fontFamily: monoFamily,
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: FontWeight.w500,
     height: 1.0,
     leadingDistribution: TextLeadingDistribution.even,
-    letterSpacing: 0.72,
+    letterSpacing: 0.4,
     color: PwrColors.textFaint,
   );
 }

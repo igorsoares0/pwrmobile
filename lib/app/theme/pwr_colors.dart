@@ -42,7 +42,13 @@ abstract final class PwrColors {
   static const Color textMuted = Color(0xFF9A9A9A);
 
   /// Lowest-emphasis text: placeholders, drag handles, inactive nav icons.
-  static const Color textFaint = Color(0xFF6E6E6E);
+  ///
+  /// Lifted from the prototype's `#6E6E6E`, which measured 4.06:1 on
+  /// [background] and 3.60:1 on [surface] — under WCAG AA on both, while
+  /// carrying the smallest type in the app. This value reads 5.36:1 and 4.75:1.
+  /// The slight violet bias keeps it in the same family as [accent] rather than
+  /// looking like a grey that drifted.
+  static const Color textFaint = Color(0xFF8A8890);
 
   /// Text and icons drawn on top of [accentStrong].
   static const Color onAccent = Color(0xFFFFFFFF);

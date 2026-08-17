@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +12,10 @@ import '../../core/settings/preferences.dart';
 import '../../l10n/app_localizations.dart';
 
 /// The column widths every set row and its header share.
+///
+/// The last one holds the checkmark, which is 44dp — the smallest target a
+/// finger can be asked to hit, and this one is hit with sweaty hands between
+/// sets.
 const _columns = [34.0, null, null, 52.0];
 
 /// One set: its number, the load, the reps, and the checkmark.
@@ -90,6 +96,12 @@ class _SetRowState extends ConsumerState<SetRow> {
       return;
     }
 
+    // Confirm the tap in the hand, before the write and before the rest timer.
+    // This is the gesture the whole product is built around, and until now the
+    // only thing it produced was a repaint the user had to verify with their
+    // eyes. Fire and forget: a set must never wait on a platform channel.
+    unawaited(HapticFeedback.selectionClick());
+
     await _workouts.completeSet(
       widget.set.id,
       weight: _parsedWeight,
@@ -121,7 +133,11 @@ class _SetRowState extends ConsumerState<SetRow> {
       _weight.text = formatLoadInput(widget.set.weight, unit);
     }
 
-    return Container(
+    // Animated, so checking a set off reads as the row changing state rather
+    // than as a frame where it was suddenly a different colour.
+    return AnimatedContainer(
+      duration: PwrDuration.fast,
+      curve: Curves.easeOut,
       margin: const EdgeInsets.only(bottom: PwrSpacing.listGap),
       padding: const EdgeInsets.symmetric(horizontal: PwrSpacing.md),
       height: 54,
@@ -283,12 +299,17 @@ class _CheckButton extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onPressed,
+        // The ink has to read on both grounds this button has: white over the
+        // filled accent once the set is done, accent over the empty row before.
+        splashColor: done
+            ? PwrColors.onAccent.withValues(alpha: 0.24)
+            : PwrColors.accent.withValues(alpha: 0.22),
         child: SizedBox(
-          width: 32,
-          height: 32,
+          width: 44,
+          height: 44,
           child: Icon(
             Icons.check,
-            size: 16,
+            size: 18,
             color: done ? PwrColors.onAccent : PwrColors.textFaint,
           ),
         ),

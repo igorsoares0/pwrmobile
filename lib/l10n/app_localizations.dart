@@ -764,6 +764,18 @@ abstract class AppLocalizations {
   /// **'rest'**
   String get workoutRest;
 
+  /// No description provided for @workoutRestPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'paused'**
+  String get workoutRestPaused;
+
+  /// No description provided for @workoutRestDone.
+  ///
+  /// In en, this message translates to:
+  /// **'done'**
+  String get workoutRestDone;
+
   /// No description provided for @workoutRestStart.
   ///
   /// In en, this message translates to:

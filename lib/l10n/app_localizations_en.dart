@@ -403,6 +403,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workoutRest => 'rest';
 
   @override
+  String get workoutRestPaused => 'paused';
+
+  @override
+  String get workoutRestDone => 'done';
+
+  @override
   String get workoutRestStart => 'Start';
 
   @override
