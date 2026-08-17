@@ -354,6 +354,16 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
+  String workoutProgressSets(int done, int total) {
+    return 'em andamento · $done de $total séries';
+  }
+
+  @override
+  String workoutSupersetOf(String letter) {
+    return 'supersérie $letter';
+  }
+
+  @override
   String get workoutTotal => 'total';
 
   @override

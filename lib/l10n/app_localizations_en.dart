@@ -354,6 +354,16 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String workoutProgressSets(int done, int total) {
+    return 'in progress · $done of $total sets';
+  }
+
+  @override
+  String workoutSupersetOf(String letter) {
+    return 'superset $letter';
+  }
+
+  @override
   String get workoutTotal => 'total';
 
   @override

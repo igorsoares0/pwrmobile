@@ -96,6 +96,14 @@
   "commonCancel": "Cancelar",
   "commonDelete": "Excluir",
   "workoutInProgress": "em andamento · ex. {current} de {total}",
+  "workoutProgressSets": "em andamento · {done} de {total} séries",
+  "workoutSupersetOf": "supersérie {letter}",
+  "@workoutProgressSets": {
+    "placeholders": { "done": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "@workoutSupersetOf": {
+    "placeholders": { "letter": { "type": "String" } }
+  },
   "workoutTotal": "total",
   "workoutColSet": "série",
   "workoutColWeight": "kg",

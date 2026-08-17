@@ -213,6 +213,14 @@
     }
   },
   "workoutInProgress": "in progress · ex. {current} of {total}",
+  "workoutProgressSets": "in progress · {done} of {total} sets",
+  "workoutSupersetOf": "superset {letter}",
+  "@workoutProgressSets": {
+    "placeholders": { "done": { "type": "int" }, "total": { "type": "int" } }
+  },
+  "@workoutSupersetOf": {
+    "placeholders": { "letter": { "type": "String" } }
+  },
   "workoutTotal": "total",
   "workoutColSet": "set",
   "workoutColWeight": "kg",

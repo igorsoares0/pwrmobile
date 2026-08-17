@@ -674,6 +674,18 @@ abstract class AppLocalizations {
   /// **'in progress · ex. {current} of {total}'**
   String workoutInProgress(int current, int total);
 
+  /// No description provided for @workoutProgressSets.
+  ///
+  /// In en, this message translates to:
+  /// **'in progress · {done} of {total} sets'**
+  String workoutProgressSets(int done, int total);
+
+  /// No description provided for @workoutSupersetOf.
+  ///
+  /// In en, this message translates to:
+  /// **'superset {letter}'**
+  String workoutSupersetOf(String letter);
+
   /// No description provided for @workoutTotal.
   ///
   /// In en, this message translates to:

@@ -257,6 +257,32 @@ The first four sit inside a `StatefulShellRoute` with the bottom navigation, so
 each tab keeps its own stack. The rest are pushed over the shell: a workout
 should not compete with a tab bar for the user's thumb.
 
+### The workout screen
+
+`features/workout/`. One vertical scroll holding every exercise, with a rail of
+shortcuts across the top — one pill per exercise, a dot per set, tap to jump.
+
+It was a horizontal `PageView`, one exercise per page. That hid the shape of
+the session behind a swipe, and it made a **superset** — two movements
+alternated set by set — a matter of paging back and forth for the whole pair.
+Adjacent exercises sharing a `supersetGroup` are now drawn as one block, with
+an accent rail down the left and `A1` / `A2` markers, and **the rest countdown
+only starts on the last member of the chain**: going straight into the next
+movement is the point of chaining them, so a timer between the halves would be
+telling the user to stand still. `blocksOf` in `workout_blocks.dart` does the
+grouping, and it is a pure function so the rule is testable on its own.
+
+Two things are built eagerly rather than lazily, both for the same reason: an
+off-screen widget has no `BuildContext`, so `Scrollable.ensureVisible` cannot
+reach it, and the exercises worth jumping to are exactly the ones off screen.
+A lazy list also disposes a set row's controllers when it scrolls away, which
+is not something the screen you type into should do. A workout is a handful of
+exercises, not a feed.
+
+The rail follows the active exercise — the first one still holding an unchecked
+set — rather than the scroll position. Scrolling ahead to see what is coming
+should not move the marker for where you actually are.
+
 ### The session bar
 
 `features/workout/active_session_bar.dart`, mounted by `PwrShell` directly

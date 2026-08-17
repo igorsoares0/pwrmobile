@@ -27,6 +27,27 @@ Future<void> settle(WidgetTester tester) async {
   }
 }
 
+
+/// The two scroll views the workout screen owns, in layout order: the shortcut
+/// rail across the top, then the list of exercise blocks.
+///
+/// Found by `SingleChildScrollView` rather than by `Scrollable`, because every
+/// `TextField` on the screen builds a `Scrollable` of its own — a set row is
+/// two of them — and there are twenty-odd of those between the two that
+/// matter.
+Finder railView() => find.byType(SingleChildScrollView).first;
+Finder blockView() => find.byType(SingleChildScrollView).last;
+
+ScrollPosition blockScroll(WidgetTester tester) {
+  return tester
+      .state<ScrollableState>(
+        find
+            .descendant(of: blockView(), matching: find.byType(Scrollable))
+            .first,
+      )
+      .position;
+}
+
 void main() {
   group('formatClock', () {
     test('pads minutes and seconds', () {
@@ -208,17 +229,21 @@ void main() {
 
     Finder checkButtons() => find.byIcon(Icons.check);
 
-    testWorkout('shows the first exercise and its planned sets', (
-      tester,
-    ) async {
+    testWorkout('puts the whole session on one screen', (tester) async {
       await pumpWorkout(tester);
 
-      expect(find.text('Supino'), findsOneWidget);
-      expect(find.textContaining('EM ANDAMENTO · EX. 1 DE 2'), findsOneWidget);
-      // Two planned sets, so two checkmarks.
-      expect(checkButtons(), findsNWidgets(2));
-      // And a hint at what comes after.
-      expect(find.textContaining('Crucifixo'), findsOneWidget);
+      // Twice each: once in the shortcut rail across the top, once as the
+      // heading of its own block. The rail replaced the swipe, and the blocks
+      // replaced the pages.
+      expect(find.text('Supino'), findsNWidgets(2));
+      expect(find.text('Crucifixo'), findsNWidgets(2));
+
+      // Sets, not "exercise 1 of 2": the rail says where you are in the list,
+      // and the bar under this line measures sets.
+      expect(find.textContaining('EM ANDAMENTO · 0 DE 4 SÉRIES'), findsOneWidget);
+
+      // Two exercises of two planned sets, all reachable without a swipe.
+      expect(checkButtons(), findsNWidgets(4));
     });
 
     testWorkout('a first-time exercise says so instead of faking a number', (
@@ -226,7 +251,8 @@ void main() {
     ) async {
       await pumpWorkout(tester);
 
-      expect(find.text('PRIMEIRA VEZ'), findsOneWidget);
+      // Both exercises are new, and both say so now that both are on screen.
+      expect(find.text('PRIMEIRA VEZ'), findsNWidgets(2));
     });
 
     testWorkout('checking a set off records the typed load', (tester) async {
@@ -341,7 +367,7 @@ void main() {
       // the checkmark — and once the list is scrolled near the end, which is
       // where you are when checking off the last set, a shorter viewport drags
       // the content back down with it.
-      final before = tester.getRect(find.byType(PageView));
+      final before = tester.getRect(blockView());
 
       await tester.tap(checkButtons().first);
       await settle(tester);
@@ -351,13 +377,13 @@ void main() {
       // being empty: it is a real block of height, it just is not taken out of
       // the page's.
       expect(tester.getSize(find.byType(RestPill)).height, greaterThan(40));
-      expect(tester.getRect(find.byType(PageView)), before);
+      expect(tester.getRect(blockView()), before);
 
       await tester.tap(find.text('Pular'));
       await settle(tester);
 
       expect(find.text('DESCANSO'), findsNothing);
-      expect(tester.getRect(find.byType(PageView)), before);
+      expect(tester.getRect(blockView()), before);
     });
 
     testWorkout('un-checking a set is possible after a mis-tap', (
@@ -379,12 +405,18 @@ void main() {
 
     testWorkout('adding a set appends a row', (tester) async {
       await pumpWorkout(tester);
-      expect(checkButtons(), findsNWidgets(2));
+      expect(find.textContaining('0 DE 4 SÉRIES'), findsOneWidget);
 
-      await tester.tap(find.text('Adicionar série'));
+      // One button per exercise now, so the row lands on the exercise it
+      // belongs to rather than on whichever page happened to be showing.
+      await tester.tap(find.text('Adicionar série').first);
       await settle(tester);
 
-      expect(checkButtons(), findsNWidgets(3));
+      // Asserted on the header rather than by counting checkmarks: the session
+      // is one scroll now, so how many rows are *rendered* is a question about
+      // the fold, and adding a row is exactly what pushes one past it. The
+      // header counts the session, not the viewport.
+      expect(find.textContaining('0 DE 5 SÉRIES'), findsOneWidget);
     });
 
     testWorkout('finishing asks first and reports how much was done', (
@@ -450,6 +482,129 @@ void main() {
 
       // Tapping a routine mid-workout means "take me back", not "error".
       expect(second.id, first.id);
+    });
+  });
+
+  group('supersets and the rail', () {
+    late AppDatabase db;
+    late ExerciseCatalog catalog;
+    late WorkoutSession session;
+
+    /// A routine of five exercises whose first two are chained, so the screen
+    /// has both a superset to draw and enough length to actually scroll.
+    setUp(() async {
+      db = AppDatabase.forTesting(NativeDatabase.memory());
+      catalog = ExerciseCatalog.parse(
+        File('assets/catalog/exercises.json').readAsStringSync(),
+      );
+      final routines = RoutineRepository(db);
+      final exercises = ExerciseRepository(db, catalog);
+      final workouts = WorkoutRepository(db);
+
+      final routine = await routines.create(name: 'Push A');
+      for (final name in ['Supino', 'Crucifixo', 'Tríceps', 'Elevação', 'Remada']) {
+        final exercise = await exercises.create(
+          name: name,
+          muscleGroup: MuscleGroup.chest,
+          equipment: Equipment.barbell,
+        );
+        await routines.addExercise(
+          routineId: routine.id,
+          exerciseId: exercise.id,
+          targetSets: 2,
+          restSeconds: 90,
+        );
+      }
+      await routines.setSupersetChains(routine.id, [
+        true,
+        false,
+        false,
+        false,
+        false,
+      ]);
+
+      session = await workouts.startFromRoutine(routine.id);
+    });
+
+    tearDown(() async {
+      await db.close();
+    });
+
+    void testWorkout(
+      String description,
+      Future<void> Function(WidgetTester) body,
+    ) {
+      testWidgets(description, (tester) async {
+        await body(tester);
+        await tester.pumpWidget(const SizedBox.shrink());
+        for (var i = 0; i < 4; i++) {
+          await tester.pump(const Duration(milliseconds: 10));
+        }
+      });
+    }
+
+    Future<void> pumpWorkout(WidgetTester tester) async {
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            appDatabaseProvider.overrideWithValue(db),
+            exerciseCatalogProvider.overrideWithValue(catalog),
+          ],
+          child: MaterialApp(
+            theme: PwrTheme.dark,
+            locale: const Locale('pt'),
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            home: WorkoutScreen(sessionId: session.id),
+          ),
+        ),
+      );
+      await settle(tester);
+    }
+
+    testWorkout('a chained pair is drawn as one labelled unit', (tester) async {
+      await pumpWorkout(tester);
+
+      expect(find.text('SUPERSÉRIE A'), findsOneWidget);
+      // The markers appear twice each: on the rail item and on the heading.
+      expect(find.text('A1'), findsNWidgets(2));
+      expect(find.text('A2'), findsNWidgets(2));
+    });
+
+    testWorkout('rest waits for the end of the pair', (tester) async {
+      await pumpWorkout(tester);
+
+      // Checking off the first half of a superset must not start a countdown:
+      // going straight into the second movement is the whole point of chaining
+      // them, and a timer here would be telling the user to stand still.
+      await tester.tap(find.byIcon(Icons.check).first);
+      await settle(tester);
+      expect(find.text('DESCANSO'), findsNothing);
+
+      // The set was still recorded — silence is about the timer, not the log.
+      expect(find.textContaining('1 DE 10 SÉRIES'), findsOneWidget);
+    });
+
+    testWorkout('the rail scrolls the list instead of the user doing it', (
+      tester,
+    ) async {
+      await pumpWorkout(tester);
+      expect(blockScroll(tester).pixels, 0);
+
+      // Two matches per name — the rail item and the block heading — and the
+      // rail comes first in layout order. Its far end needs a nudge to reach,
+      // which is what the rail auto-scrolling to the active exercise spares
+      // the user once they are actually down there.
+      final shortcut = find.text('Remada').first;
+      await tester.dragUntilVisible(shortcut, railView(), const Offset(-120, 0));
+      await settle(tester);
+
+      // The last exercise is far below the fold. On the old PageView this was
+      // four swipes; here it is one tap on its shortcut.
+      await tester.tap(shortcut);
+      await settle(tester);
+
+      expect(blockScroll(tester).pixels, greaterThan(0));
     });
   });
 }
