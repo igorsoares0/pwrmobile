@@ -286,9 +286,15 @@ workout.
 - **Resume banner** — an unfinished session means the user walked away
   mid-workout. Surfacing it on home is what makes the offline crash-recovery
   visible instead of buried behind navigation.
-- **Routine list** — the first routine gets the accent card and the play
-  button; it is the one most likely to be run, and it should be reachable
-  without reading the list.
+- **Routine list** — every routine renders as the same row: tap to start, the
+  pencil to edit. One of them used to be promoted to an accent card as "the one
+  most likely to be run", but the list is ordered by `position` — the order the
+  routines were created in — so the promotion was a recommendation nothing
+  backed. It also cost the promoted routine its edit affordance, and since
+  `/routines/:id` is reachable only from that pencil, the first routine could
+  never be edited or deleted. Starting a workout is the centre button's job;
+  the rows do not compete with it. Ordering by what the user actually trains
+  next needs the last session per routine, which is a change to the query.
 - **Empty state** — a fresh install has no routines, so it explains what a
   routine *is* rather than showing a blank list.
 - **Loading state** — placeholder blocks, not a spinner, so nothing resizes

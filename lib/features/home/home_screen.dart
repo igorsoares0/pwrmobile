@@ -224,9 +224,6 @@ class _RoutineList extends ConsumerWidget {
     final limit = entitlement.routineLimit;
     final canCreate = entitlement.canCreateRoutine(routines.length);
 
-    final first = routines.first;
-    final rest = routines.skip(1).toList();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -241,17 +238,14 @@ class _RoutineList extends ConsumerWidget {
         ),
         const SizedBox(height: PwrSpacing.sm),
 
-        // The first routine gets the accent card and the play button: it is
-        // the one the user is most likely to run, and it should be reachable
-        // without reading the list.
-        _PrimaryRoutineCard(
-          summary: first,
-          onTap: () => onStartRoutine?.call(first.routine.id),
-        ),
-
-        for (final summary in rest) ...[
-          const SizedBox(height: PwrSpacing.listGap),
-          _SecondaryRoutineRow(
+        // Every routine renders the same. Promoting one of them to an accent
+        // card would be a recommendation the app cannot make: routines are
+        // ordered by `position`, which is the order they were created in, not
+        // a reading of what the user trains next. Starting a workout is the
+        // centre button's job, and each row starts its own.
+        for (final (index, summary) in routines.indexed) ...[
+          if (index > 0) const SizedBox(height: PwrSpacing.listGap),
+          _RoutineRow(
             summary: summary,
             onTap: () => onStartRoutine?.call(summary.routine.id),
             onEdit: () => onEditRoutine?.call(summary.routine.id),
@@ -276,76 +270,8 @@ class _RoutineList extends ConsumerWidget {
   }
 }
 
-class _PrimaryRoutineCard extends StatelessWidget {
-  const _PrimaryRoutineCard({required this.summary, this.onTap});
-
-  final RoutineSummary summary;
-  final VoidCallback? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context);
-    final routine = summary.routine;
-
-    return PwrCard.accent(
-      onTap: onTap,
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  routine.name,
-                  style: PwrTypography.titleLarge.copyWith(
-                    color: PwrColors.onAccent,
-                  ),
-                ),
-                if (routine.focus case final focus?) ...[
-                  const SizedBox(height: 2),
-                  Text(
-                    focus,
-                    style: PwrTypography.titleLarge.copyWith(
-                      color: PwrColors.onAccent,
-                    ),
-                  ),
-                ],
-                const SizedBox(height: PwrSpacing.sm),
-                Text(
-                  l10n
-                      .homeRoutineSubtitle(
-                        summary.exerciseCount,
-                        roundedMinutes(summary.estimatedDuration),
-                      )
-                      .toUpperCase(),
-                  style: PwrTypography.tag.copyWith(
-                    color: PwrColors.onAccent.withValues(alpha: 0.75),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: PwrSpacing.sm),
-          Container(
-            width: 48,
-            height: 48,
-            decoration: const BoxDecoration(
-              color: PwrColors.textPrimary,
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.play_arrow_rounded,
-              color: PwrColors.accentStrong,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _SecondaryRoutineRow extends StatelessWidget {
-  const _SecondaryRoutineRow({required this.summary, this.onTap, this.onEdit});
+class _RoutineRow extends StatelessWidget {
+  const _RoutineRow({required this.summary, this.onTap, this.onEdit});
 
   final RoutineSummary summary;
   final VoidCallback? onTap;
@@ -364,6 +290,14 @@ class _SecondaryRoutineRow extends StatelessWidget {
           roundedMinutes(summary.estimatedDuration),
         ),
       ].join(' · ').toUpperCase(),
+      // A glyph, not a circled button: the whole row is the tap target, and a
+      // second thing that looks pressable inside it would be a lie about where
+      // to press.
+      leading: const Icon(
+        Icons.play_arrow_rounded,
+        size: 20,
+        color: PwrColors.accent,
+      ),
       // Tapping the row starts the workout; editing lives behind the pencil,
       // because starting is what the user came to do.
       trailing: IconButton(

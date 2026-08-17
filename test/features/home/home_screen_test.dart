@@ -82,6 +82,7 @@ void main() {
     Locale locale = const Locale('pt'),
     Entitlement entitlement = Entitlement.free,
     void Function(String routineId)? onStartRoutine,
+    void Function(String routineId)? onEditRoutine,
   }) async {
     await tester.pumpWidget(
       ProviderScope(
@@ -95,7 +96,10 @@ void main() {
           locale: locale,
           localizationsDelegates: AppLocalizations.localizationsDelegates,
           supportedLocales: AppLocalizations.supportedLocales,
-          home: HomeScreen(onStartRoutine: onStartRoutine),
+          home: HomeScreen(
+            onStartRoutine: onStartRoutine,
+            onEditRoutine: onEditRoutine,
+          ),
         ),
       ),
     );
@@ -122,7 +126,7 @@ void main() {
   });
 
   group('routines', () {
-    testHome('the first routine gets the primary card', (tester) async {
+    testHome('every routine renders as the same row', (tester) async {
       final push = await routines.create(name: 'Push A', focus: 'Peito');
       await routines.create(name: 'Pull B');
 
@@ -141,11 +145,31 @@ void main() {
       await pumpHome(tester);
 
       expect(find.text('Push A'), findsOneWidget);
-      expect(find.text('Peito'), findsOneWidget);
       expect(find.text('Pull B'), findsOneWidget);
 
+      // Focus reads inside the row subtitle rather than as a line of its own.
       // 4 sets x (90s rest + 30s work) = 480s = 8 min.
-      expect(find.textContaining('1 EXERCÍCIO · ~8 MIN'), findsOneWidget);
+      expect(find.text('PEITO · 1 EXERCÍCIO · ~8 MIN'), findsOneWidget);
+    });
+
+    testHome('every routine can be edited, the first one included', (
+      tester,
+    ) async {
+      // The regression this guards: while the first routine rendered as an
+      // accent card it had no edit affordance, and the builder was reachable
+      // from nowhere else — so routine one could never be edited or deleted.
+      final push = await routines.create(name: 'Push A');
+      await routines.create(name: 'Pull B');
+      String? edited;
+
+      await pumpHome(tester, onEditRoutine: (id) => edited = id);
+
+      expect(find.byIcon(Icons.edit_outlined), findsNWidgets(2));
+
+      await tester.tap(find.byIcon(Icons.edit_outlined).first);
+      await tester.pump();
+
+      expect(edited, push.id);
     });
 
     testHome('tapping a routine reports which one', (tester) async {
