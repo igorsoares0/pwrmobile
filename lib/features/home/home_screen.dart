@@ -22,7 +22,6 @@ class HomeScreen extends ConsumerWidget {
     this.onOpenLibrary,
     this.onCreateRoutine,
     this.onEditRoutine,
-    this.onResumeWorkout,
     this.onOpenHistory,
   });
 
@@ -30,7 +29,6 @@ class HomeScreen extends ConsumerWidget {
   final VoidCallback? onOpenLibrary;
   final VoidCallback? onCreateRoutine;
   final void Function(String routineId)? onEditRoutine;
-  final void Function(String sessionId)? onResumeWorkout;
   final VoidCallback? onOpenHistory;
 
   @override
@@ -53,7 +51,6 @@ class HomeScreen extends ConsumerWidget {
             const _Greeting(),
             const SizedBox(height: PwrSpacing.lg),
             _WeeklyStatsCard(onTap: onOpenHistory),
-            _ResumeBanner(onResume: onResumeWorkout),
             const SizedBox(height: PwrSpacing.xl),
 
             // The routine list drives the whole screen, so its three states —
@@ -165,44 +162,12 @@ class _WeeklyStatsCard extends ConsumerWidget {
   }
 }
 
-class _ResumeBanner extends ConsumerWidget {
-  const _ResumeBanner({this.onResume});
-
-  final void Function(String sessionId)? onResume;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final session = ref.watch(activeSessionProvider).value;
-    if (session == null) return const SizedBox.shrink();
-
-    final l10n = AppLocalizations.of(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(top: PwrSpacing.cardGap),
-      child: PwrCard(
-        onTap: onResume == null ? null : () => onResume!(session.id),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(l10n.homeResumeWorkout, style: PwrTypography.bodyMedium),
-                  const SizedBox(height: 7),
-                  Text(
-                    l10n.homeResumeAction.toUpperCase(),
-                    style: PwrTypography.tag.copyWith(color: PwrColors.accent),
-                  ),
-                ],
-              ),
-            ),
-            const Icon(Icons.play_arrow_rounded, color: PwrColors.accent),
-          ],
-        ),
-      ),
-    );
-  }
-}
+// The resume banner used to sit here, between the weekly card and the
+// routines. The shell's ActiveSessionBar replaced it: same tap, same
+// destination, but present on all four tabs instead of this one, carrying the
+// elapsed clock and the rest countdown the banner never had. Two affordances
+// for one action, a pixel apart, taught nothing and cost the home screen the
+// vertical space it can least spare.
 
 class _RoutineList extends ConsumerWidget {
   const _RoutineList({

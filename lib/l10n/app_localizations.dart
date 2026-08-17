@@ -1004,6 +1004,30 @@ abstract class AppLocalizations {
   /// **'profile'**
   String get navProfile;
 
+  /// No description provided for @shellSessionResting.
+  ///
+  /// In en, this message translates to:
+  /// **'resting'**
+  String get shellSessionResting;
+
+  /// No description provided for @shellSessionActive.
+  ///
+  /// In en, this message translates to:
+  /// **'in progress'**
+  String get shellSessionActive;
+
+  /// No description provided for @shellSessionStale.
+  ///
+  /// In en, this message translates to:
+  /// **'open since {when}'**
+  String shellSessionStale(String when);
+
+  /// No description provided for @shellSessionResume.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the workout'**
+  String get shellSessionResume;
+
   /// No description provided for @navStartWorkout.
   ///
   /// In en, this message translates to:

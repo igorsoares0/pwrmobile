@@ -553,6 +553,20 @@ class AppLocalizationsPt extends AppLocalizations {
   String get navProfile => 'perfil';
 
   @override
+  String get shellSessionResting => 'descansando';
+
+  @override
+  String get shellSessionActive => 'em andamento';
+
+  @override
+  String shellSessionStale(String when) {
+    return 'aberto desde $when';
+  }
+
+  @override
+  String get shellSessionResume => 'Voltar ao treino';
+
+  @override
   String get navStartWorkout => 'Iniciar treino';
 
   @override

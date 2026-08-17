@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../core/database/app_database.dart';
 import '../../core/database/repositories/repositories.dart';
 
 /// The user's routines, with the counts the home cards render.
@@ -13,14 +12,10 @@ final weeklyStatsProvider = StreamProvider<WeeklyStats>(
   (ref) => ref.watch(workoutRepositoryProvider).watchWeeklyStats(),
 );
 
-/// The workout in progress, if any.
-///
-/// Home surfaces it as a resume banner: a session left open means the user
-/// walked away mid-workout, and burying that behind navigation would make the
-/// offline crash-recovery invisible.
-final activeSessionProvider = StreamProvider<WorkoutSession?>(
-  (ref) => ref.watch(workoutRepositoryProvider).watchActiveSession(),
-);
+// The workout in progress used to be declared here too, for a resume banner on
+// this screen. The shell's session bar took that job over — it says the same
+// thing from every tab instead of one — so the single declaration now lives
+// with the rest of the workout providers.
 
 /// How many exercises the library holds, for the library row subtitle.
 final libraryCountProvider = FutureProvider<int>((ref) async {

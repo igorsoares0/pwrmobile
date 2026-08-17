@@ -65,8 +65,12 @@ GoRouter createPwrRouter({bool showOnboarding = false}) {
     initialLocation: showOnboarding ? PwrRoutes.onboarding : PwrRoutes.home,
     routes: [
       StatefulShellRoute.indexedStack(
-        builder: (context, state, shell) =>
-            PwrShell(shell: shell, onStartWorkout: () => _startFree(context)),
+        builder: (context, state, shell) => PwrShell(
+          shell: shell,
+          onStartWorkout: () => _startFree(context),
+          onResumeWorkout: (sessionId) =>
+              context.push(PwrRoutes.workoutFor(sessionId)),
+        ),
         branches: [
           StatefulShellBranch(
             routes: [
@@ -78,8 +82,6 @@ GoRouter createPwrRouter({bool showOnboarding = false}) {
                       _startWorkout(context, routineId),
                   onEditRoutine: (routineId) =>
                       context.push(PwrRoutes.routineBuilderFor(routineId)),
-                  onResumeWorkout: (sessionId) =>
-                      context.push(PwrRoutes.workoutFor(sessionId)),
                   // Switches tab rather than pushing: history is a destination
                   // now, and pushing it would leave a back arrow over a tab bar.
                   onOpenHistory: () => PwrShell.goToBranch(context, 1),

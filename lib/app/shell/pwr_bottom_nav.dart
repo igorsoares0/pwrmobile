@@ -169,7 +169,14 @@ class _StartButton extends StatelessWidget {
             color: Colors.transparent,
             child: InkWell(
               onTap: onPressed,
-              child: const Icon(Icons.add, size: 24, color: PwrColors.onAccent),
+              // Play, not plus. `WorkoutLauncher.startOrResume` hands back the
+              // open session when there is one, so a `+` promised "create" and
+              // delivered "go back to what you were doing".
+              child: const Icon(
+                Icons.play_arrow_rounded,
+                size: 26,
+                color: PwrColors.onAccent,
+              ),
             ),
           ),
         ),

@@ -553,6 +553,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navProfile => 'profile';
 
   @override
+  String get shellSessionResting => 'resting';
+
+  @override
+  String get shellSessionActive => 'in progress';
+
+  @override
+  String shellSessionStale(String when) {
+    return 'open since $when';
+  }
+
+  @override
+  String get shellSessionResume => 'Back to the workout';
+
+  @override
   String get navStartWorkout => 'Start a workout';
 
   @override

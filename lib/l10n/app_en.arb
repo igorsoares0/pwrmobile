@@ -375,6 +375,13 @@
   "navHistory": "history",
   "navBody": "body",
   "navProfile": "profile",
+  "shellSessionResting": "resting",
+  "shellSessionActive": "in progress",
+  "shellSessionStale": "open since {when}",
+  "shellSessionResume": "Back to the workout",
+  "@shellSessionStale": {
+    "placeholders": { "when": { "type": "String" } }
+  },
   "navStartWorkout": "Start a workout",
   "workoutAddExercise": "Add exercise",
   "bodyTitle": "Body",

@@ -72,7 +72,7 @@ class _Pill extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          _Ring(
+          RestRing(
             // Draining, not filling. Mid-rest the number that matters is how
             // much is left, and the ring should say the same thing the digits
             // inside it say.
@@ -121,14 +121,21 @@ class _Pill extends ConsumerWidget {
 }
 
 /// The countdown ring, with the clock inside it.
-class _Ring extends StatelessWidget {
-  const _Ring({
+///
+/// Public because the shell's session bar shows the same ring: a rest running
+/// on the workout screen and a rest running behind three other tabs are the
+/// same fact, and they should not be drawn by two different widgets that can
+/// drift apart.
+class RestRing extends StatelessWidget {
+  const RestRing({
+    super.key,
     required this.value,
     required this.time,
     required this.running,
     required this.finished,
     required this.tooltip,
     this.onTap,
+    this.diameter = 56,
   });
 
   /// Fraction of the rest still to go, 0..1.
@@ -140,6 +147,10 @@ class _Ring extends StatelessWidget {
   final String tooltip;
   final VoidCallback? onTap;
 
+  /// Smaller in the session bar than on the workout screen, where it is the
+  /// only thing on the row worth looking at.
+  final double diameter;
+
   @override
   Widget build(BuildContext context) {
     final color = finished
@@ -149,8 +160,8 @@ class _Ring extends StatelessWidget {
         : PwrColors.textMuted;
 
     final ring = SizedBox(
-      width: 56,
-      height: 56,
+      width: diameter,
+      height: diameter,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -173,7 +184,7 @@ class _Ring extends StatelessWidget {
           Text(
             time,
             style: PwrTypography.metricXs.copyWith(
-              fontSize: 13,
+              fontSize: diameter < 50 ? 11 : 13,
               color: finished ? PwrColors.textPrimary : color,
             ),
           ),

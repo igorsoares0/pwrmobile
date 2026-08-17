@@ -244,7 +244,7 @@ the workout screen exists to render. There is a regression test for it.
 | Route | Screen | Notes |
 | --- | --- | --- |
 | `/welcome` | Onboarding | First launch only; the flag lives in `app_settings` |
-| `/` | Home | Weekly stats, routines, resume banner |
+| `/` | Home | Weekly stats and routines |
 | `/history` | History | Finished sessions grouped by month |
 | `/body` | Body | Body weight; perimeters are shown locked |
 | `/profile` | Profile | Preferences and CSV export; the account header is a stub |
@@ -256,6 +256,26 @@ the workout screen exists to render. There is a regression test for it.
 The first four sit inside a `StatefulShellRoute` with the bottom navigation, so
 each tab keeps its own stack. The rest are pushed over the shell: a workout
 should not compete with a tab bar for the user's thumb.
+
+### The session bar
+
+`features/workout/active_session_bar.dart`, mounted by `PwrShell` directly
+above the navigation. While a session is open it shows the routine, the
+elapsed clock, and — when a rest is running — the same `RestRing` the workout
+screen draws, tappable to return to the workout.
+
+It exists because a session used to be visible only on home: stepping into the
+library to add an exercise took both the workout and its running countdown off
+screen while both kept going. The centre button shows a play glyph rather than
+a plus for the same honesty — `WorkoutLauncher.startOrResume` returns the open
+session when there is one, so a `+` promised "create" and delivered "resume".
+
+**A session open longer than three hours is reported differently**: the bar
+prints when it was opened instead of a running clock. `elapsedProvider`
+recomputes from `startedAt` so it survives a process restart, which means an
+overnight session would otherwise be announced as `14:32:07` in progress. The
+bar is the one place that has to admit a workout was abandoned rather than
+paused.
 
 ## Localisation
 
@@ -283,9 +303,8 @@ workout.
 - **Weekly stats** — workouts, volume and completed sets for the current week.
   Weeks start Monday (ISO-8601), and sessions count by when they *started*, so
   a workout begun at 23:40 Sunday belongs to that Sunday.
-- **Resume banner** — an unfinished session means the user walked away
-  mid-workout. Surfacing it on home is what makes the offline crash-recovery
-  visible instead of buried behind navigation.
+- **No resume banner** — an unfinished session is surfaced by the shell's
+  session bar, on every tab, rather than by a banner on this one. See below.
 - **Routine list** — every routine renders as the same row: tap to start, the
   pencil to edit. One of them used to be promoted to an accent card as "the one
   most likely to be run", but the list is ordered by `position` — the order the

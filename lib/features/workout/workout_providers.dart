@@ -4,9 +4,28 @@ import '../../core/database/app_database.dart';
 import '../../core/database/repositories/repositories.dart';
 
 /// The session currently in progress.
+///
+/// One declaration, watched from three places that each need it for a
+/// different reason: the workout screen renders it, the shell's session bar
+/// announces it from any tab, and the home screen used to bannerise it. Two
+/// providers over the same stream would open two subscriptions to say the same
+/// thing.
 final activeWorkoutProvider = StreamProvider<WorkoutSession?>(
   (ref) => ref.watch(workoutRepositoryProvider).watchActiveSession(),
 );
+
+/// The name of the routine behind the session in progress.
+///
+/// Null both when there is no session and when the session was started from
+/// the centre button, which has no routine behind it — the caller decides what
+/// an unnamed workout is called.
+final activeRoutineNameProvider = FutureProvider<String?>((ref) async {
+  final routineId = ref.watch(activeWorkoutProvider).value?.routineId;
+  if (routineId == null) return null;
+
+  final routine = await ref.watch(routineRepositoryProvider).findById(routineId);
+  return routine?.name;
+});
 
 /// Its exercises, each with its sets.
 final workoutExercisesProvider =

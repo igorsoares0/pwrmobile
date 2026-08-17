@@ -227,25 +227,15 @@ void main() {
   });
 
   group('resume banner', () {
-    testHome('is absent with no workout in progress', (tester) async {
-      await pumpHome(tester);
-
-      expect(find.text('Treino em andamento'), findsNothing);
-    });
-
-    testHome('surfaces a session left open', (tester) async {
+    testHome('is gone: the shell announces the session instead', (
+      tester,
+    ) async {
+      // Home used to carry a "Treino em andamento" banner. The shell's session
+      // bar says the same thing from every tab, with the clock and the rest
+      // countdown the banner never had, so keeping both would be two
+      // affordances for one action a pixel apart. Coverage for the behaviour
+      // itself moved to test/app/shell_test.dart.
       await workouts.startEmpty();
-
-      await pumpHome(tester);
-
-      // A session left unfinished means the user walked away mid-workout;
-      // burying that behind navigation would hide the crash recovery.
-      expect(find.text('Treino em andamento'), findsOneWidget);
-    });
-
-    testHome('disappears once the session is finished', (tester) async {
-      final session = await workouts.startEmpty();
-      await workouts.finish(session.id);
 
       await pumpHome(tester);
 

@@ -151,6 +151,13 @@
   "navHistory": "histórico",
   "navBody": "corpo",
   "navProfile": "perfil",
+  "shellSessionResting": "descansando",
+  "shellSessionActive": "em andamento",
+  "shellSessionStale": "aberto desde {when}",
+  "shellSessionResume": "Voltar ao treino",
+  "@shellSessionStale": {
+    "placeholders": { "when": { "type": "String" } }
+  },
   "navStartWorkout": "Iniciar treino",
   "workoutAddExercise": "Adicionar exercício",
   "bodyTitle": "Corpo",
